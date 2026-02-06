@@ -3,149 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABX | Industrial Intelligence</title>
+    <title>ABX | Industrial Intelligence System</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Fuentes e Iconos -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-
-    <style>
-      :root {
-        --bg: #020617; /* Fondo ultra oscuro */
-        --card-bg: rgba(15, 23, 42, 0.8); /* Azul pizarra profundo */
-        --accent: #6366f1; /* Indigo eléctrico */
-        --accent-glow: rgba(99, 102, 241, 0.4);
-        --text-main: #f8fafc;
-        --text-dim: #94a3b8;
-        --danger: #f43f5e;
-        --success: #10b981;
-        --border: rgba(255, 255, 255, 0.08);
-      }
-
-      * { box-sizing: border-box; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-
-      body {
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        background-color: var(--bg);
-        background-image: 
-            radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
-            radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.05) 0px, transparent 50%);
-        color: var(--text-main);
-        margin: 0; padding: 40px; min-height: 100vh;
-      }
-
-      /* Animaciones de entrada */
-      @keyframes reveal {
-        from { opacity: 0; transform: translateY(15px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-
-      .container { max-width: 1400px; margin: 0 auto; }
-
-      header {
-        display: flex; justify-content: space-between; align-items: flex-end;
-        margin-bottom: 40px; animation: reveal 0.6s ease-out;
-      }
-
-      #toolSearch {
-        background: var(--card-bg); border: 1px solid var(--border);
-        padding: 14px 24px; border-radius: 14px; color: white;
-        width: 320px; outline: none; backdrop-filter: blur(12px);
-      }
-
-      #toolSearch:focus { border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow); }
-
-      /* Tarjetas Estilo Glassmorphism */
-      .glass-card {
-        background: var(--card-bg); backdrop-filter: blur(25px);
-        border: 1px solid var(--border); border-radius: 24px;
-        padding: 30px; margin-bottom: 30px;
-        animation: reveal 0.8s ease-out forwards; opacity: 0;
-      }
-
-      .glass-card:hover { border-color: rgba(99, 102, 241, 0.4); transform: translateY(-4px); }
-
-      /* Tabla Industrial */
-      .scroll-area { 
-        max-height: 420px; overflow: auto; margin-top: 20px;
-        scrollbar-color: var(--accent) transparent; scrollbar-width: thin;
-      }
-
-      table { width: 100%; border-collapse: collapse; }
-      thead th {
-        text-align: left; padding: 16px; color: var(--text-dim);
-        font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px;
-        border-bottom: 1px solid var(--border); position: sticky; top: 0; background: #0f172a;
-      }
-
-      tbody td { padding: 16px; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 0.9rem; }
-
-      /* Badges de Estado */
-      .status-pill {
-        padding: 6px 12px; border-radius: 8px; font-weight: 700; font-size: 0.7rem;
-        display: inline-block; text-transform: uppercase;
-      }
-
-      .danger-glow {
-        background: rgba(244, 63, 94, 0.1); color: var(--danger);
-        border: 1px solid var(--danger); box-shadow: 0 0 12px rgba(244, 63, 94, 0.2);
-      }
-
-      .dashboard-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
-
-      /* Ajuste de Gráficas para Modo Oscuro */
-      .chart-box { height: 400px; border-radius: 16px; overflow: hidden; background: rgba(0,0,0,0.3); }
-      iframe { width: 100%; height: 100%; border: none; filter: invert(0.9) hue-rotate(180deg) brightness(1.1); }
-
-      .delay-1 { animation-delay: 0.1s; }
-      .delay-2 { animation-delay: 0.2s; }
-
-      @media (max-width: 900px) { .dashboard-grid { grid-template-columns: 1fr; } }
-    </style>
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <div class="title-group">
-                <h1>ABX CORE <span style="color:var(--accent); font-weight:300;">PRO</span></h1>
-                <p style="color:var(--text-dim); margin-top:5px;">Sistema de Inteligencia de Activos</p>
+    <!-- Sidebar Estética -->
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon"></div>
+            <span>ABX CORE</span>
+        </div>
+        <nav>
+            <div class="nav-item active"><i data-lucide="layout-dashboard"></i> Dashboard</div>
+            <div class="nav-item"><i data-lucide="box"></i> Activos</div>
+            <div class="nav-item"><i data-lucide="alert-triangle"></i> Incidencias</div>
+            <div class="nav-item"><i data-lucide="bar-chart-3"></i> Reportes</div>
+            <div class="nav-item"><i data-lucide="settings"></i> Ajustes</div>
+        </nav>
+        <div class="user-profile">
+            <div class="avatar">JD</div>
+            <div class="user-info">
+                <span class="name">Admin User</span>
+                <span class="role">Supervisor</span>
             </div>
-            <input type="text" id="toolSearch" placeholder="Escriba para filtrar herramientas..." onkeyup="filterTable()">
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="top-header">
+            <div class="header-left">
+                <h1>Panel de Inteligencia de Activos</h1>
+                <p id="current-date">Cargando fecha...</p>
+            </div>
+            <div class="search-container">
+                <i data-lucide="search"></i>
+                <input type="text" id="toolSearch" placeholder="Buscar por herramienta, código o estado..." onkeyup="filterTable()">
+            </div>
         </header>
 
-        <section class="glass-card delay-1">
-            <h2 style="margin:0 0 20px 0; font-size:1.1rem; display:flex; align-items:center; gap:10px;">
-                <span style="color:var(--danger)">●</span> ALERTAS CRÍTICAS (PERDIDOS / FALTANTES)
-            </h2>
-            
-            <div class="scroll-area">
-                <table id="mainTable">
-                    <thead id="table-header"></thead>
-                    <tbody id="table-body">
-                        <tr><td colspan="10" style="text-align:center; padding:60px; color:var(--text-dim)">Estableciendo conexión con el servidor...</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <div class="dashboard-grid">
-            <div class="glass-card delay-2">
-                <h3 style="margin-top:0; font-size:0.9rem; color:var(--text-dim); letter-spacing:1px;">KPI: CUMPLIMIENTO TOTAL</h3>
-                <div class="chart-box">
-                    <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1026977364&format=interactive"></iframe>
+        <!-- Tarjetas de Resumen Rápido (KPIs) -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon alert"><i data-lucide="alert-circle"></i></div>
+                <div class="stat-data">
+                    <span class="stat-value" id="count-missing">0</span>
+                    <span class="stat-label">Alertas Críticas</span>
                 </div>
             </div>
-            <div class="glass-card delay-2" style="animation-delay: 0.3s;">
-                <h3 style="margin-top:0; font-size:0.9rem; color:var(--text-dim); letter-spacing:1px;">KPI: DISTRIBUCIÓN DE RIESGO</h3>
-                <div class="chart-box">
-                    <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1573440752&format=interactive"></iframe>
+            <div class="stat-card">
+                <div class="stat-icon success"><i data-lucide="check-circle"></i></div>
+                <div class="stat-data">
+                    <span class="stat-value" id="count-total">0</span>
+                    <span class="stat-label">Total Activos</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon info"><i data-lucide="refresh-cw"></i></div>
+                <div class="stat-data">
+                    <span class="stat-value">100%</span>
+                    <span class="stat-label">Sincronización Cloud</span>
                 </div>
             </div>
         </div>
-    </div>
+
+        <div class="content-grid">
+            <!-- Tabla Principal -->
+            <section class="glass-card table-section">
+                <div class="card-header">
+                    <h2><i data-lucide="list"></i> Monitor de Disponibilidad</h2>
+                    <span class="live-indicator">LIVE</span>
+                </div>
+                <div class="scroll-area">
+                    <table id="mainTable">
+                        <thead id="table-header"></thead>
+                        <tbody id="table-body">
+                            <tr><td colspan="10" class="loading-state">Iniciando protocolo de datos...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Gráficas Inferiores -->
+            <div class="charts-container">
+                <div class="glass-card chart-card">
+                    <h3>Cumplimiento Operativo</h3>
+                    <div class="chart-box">
+                        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1026977364&format=interactive"></iframe>
+                    </div>
+                </div>
+                <div class="glass-card chart-card">
+                    <h3>Análisis de Riesgo</h3>
+                    <div class="chart-box">
+                        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1573440752&format=interactive"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <script>
-      // Función principal de carga
+      // Fecha Actual
+      document.getElementById('current-date').textContent = new Intl.DateTimeFormat('es-ES', { dateStyle: 'full' }).format(new Date());
+
       function fetchData() {
         const url = "https://docs.google.com/spreadsheets/d/1zMLnKjFwvzWSLRDX1N2dIETrY_RFLZhfTv0Z8LGznQ0/export?format=csv&gid=1298177878";
         
@@ -155,13 +121,12 @@
             const data = results.data;
             const thead = document.getElementById('table-header');
             const tbody = document.getElementById('table-body');
+            let missingCount = 0;
             
-            // Limpiar tabla
             thead.innerHTML = "";
             tbody.innerHTML = "";
 
             if (data.length > 0) {
-                // Renderizado de Cabecera
                 const headerRow = document.createElement('tr');
                 data[0].forEach(h => {
                     const th = document.createElement('th');
@@ -170,28 +135,30 @@
                 });
                 thead.appendChild(headerRow);
 
-                // Renderizado de Cuerpo (Lógica de filtrado visual)
                 data.slice(1).forEach(row => {
                     if (row.join('').trim() === "") return;
                     const tr = document.createElement('tr');
+                    let rowHtml = '';
+                    
                     row.forEach(cell => {
-                        const td = document.createElement('td');
                         const text = cell || "-";
                         const isCritical = text.toLowerCase().includes("perdido") || text.toLowerCase().includes("faltante");
                         
                         if (isCritical) {
-                            td.innerHTML = `<span class="status-pill danger-glow">${text}</span>`;
+                            missingCount++;
+                            rowHtml += `<td><span class="status-pill danger-glow">${text}</span></td>`;
                         } else {
-                            td.textContent = text;
+                            rowHtml += `<td>${text}</td>`;
                         }
-                        tr.appendChild(td);
                     });
+                    tr.innerHTML = rowHtml;
                     tbody.appendChild(tr);
                 });
+
+                document.getElementById('count-missing').textContent = missingCount;
+                document.getElementById('count-total').textContent = data.length - 1;
+                lucide.createIcons(); // Re-inicializar iconos
             }
-          },
-          error: function() {
-            document.getElementById('table-body').innerHTML = '<tr><td colspan="10" style="color:var(--danger); text-align:center;">ERROR: No se pudo conectar con Google Sheets. Revise la privacidad del documento.</td></tr>';
           }
         });
       }
@@ -204,9 +171,11 @@
         }
       }
 
-      window.onload = fetchData;
-      // Refresco automático cada 10 minutos
-      setInterval(fetchData, 600000);
+      window.onload = () => {
+          fetchData();
+          lucide.createIcons();
+      };
+      setInterval(fetchData, 300000); // Refresco cada 5 min
     </script>
 </body>
 </html>
