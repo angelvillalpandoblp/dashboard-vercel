@@ -11,7 +11,7 @@ DOC_ID = '1zMLnKjFwvzWSLRDX1N2dIETrY_RFLZhfTv0Z8LGznQ0'
 
 # 2. Pega aquí el GID de la hoja que tiene la TABLA de datos (el número que copiaste)
 # Si es la primera hoja, suele ser '0'.
-SHEET_GID = '16' 
+SHEET_GID = '1298177878' 
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
