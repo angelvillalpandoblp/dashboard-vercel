@@ -1,287 +1,160 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard ABX</title>
+    <title>ABX Dashboard | Pro</title>
     
-    <!-- Fuentes de Google -->
-    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600&display=swap" rel="stylesheet">
-    
-    <!-- LIBRERÍA PAPAPARSE (Para leer Excel/CSV sin Python) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
     <style>
       :root {
-        --bg-color: #f3f4f6;
-        --card-bg: #ffffff;
-        --primary-color: #1a237e;
-        --secondary-color: #3949ab;
-        --text-main: #1f2937;
+        --primary: #0f172a;
+        --accent: #3b82f6;
         --success: #10b981;
-        --error: #ef4444;
+        --danger: #ef4444;
+        --bg: #f1f5f9;
+        --glass: rgba(255, 255, 255, 0.8);
       }
 
       body {
-        font-family: 'Segoe UI', system-ui, sans-serif;
-        background-color: var(--bg-color);
-        /* Si quieres la imagen de fondo original, descomenta la siguiente línea: */
-        /* background-image: url('https://marte.com.mx/wp-content/uploads/220621-ABX-caso-01.png'); background-size: cover; background-attachment: fixed; */
-        color: var(--text-main);
-        margin: 0;
-        padding: 20px;
+        font-family: 'Inter', sans-serif;
+        background: var(--bg);
+        background-image: radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent),
+                          radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.05), transparent);
+        margin: 0; padding: 20px; color: var(--primary);
       }
 
-      /* HEADER */
+      /* Animations */
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
       header {
-        background: white;
-        padding: 20px 30px;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        margin-bottom: 40px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 20px;
-      }
-      
-      header h1 { margin: 0; font-size: 1.8rem; color: var(--primary-color); }
-      header p { margin: 5px 0 0; color: #6b7280; }
-
-      /* ESTILOS DE LA TABLA */
-      .table-container {
-        max-width: 1400px; margin: 0 auto 50px auto;
-        background: var(--card-bg); padding: 25px; border-radius: 12px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-      }
-      .table-container h2 { 
-        color: var(--primary-color); margin-top: 0; 
-        border-bottom: 2px solid #e5e7eb; padding-bottom: 15px; 
+        max-width: 1200px; margin: 0 auto 30px auto;
+        display: flex; justify-content: space-between; align-items: center;
       }
 
-      .scroll-area { max-height: 400px; overflow: auto; border-radius: 8px; }
-      table { width: 100%; border-collapse: collapse; min-width: 600px; }
-      
+      .search-box {
+        background: white; border-radius: 12px; padding: 8px 15px;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); display: flex; align-items: center;
+      }
+
+      input#toolSearch {
+        border: none; outline: none; padding: 5px; width: 250px; font-size: 0.9rem;
+      }
+
+      .glass-card {
+        background: var(--glass); backdrop-filter: blur(12px);
+        border: 1px solid rgba(255,255,255,0.4); border-radius: 20px;
+        padding: 24px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+        margin-bottom: 25px; opacity: 0;
+        animation: fadeInUp 0.6s ease-out forwards;
+      }
+
+      /* Table Styles */
+      .scroll-area { max-height: 350px; overflow: auto; border-radius: 12px; }
+      table { width: 100%; border-collapse: collapse; }
       thead th { 
-        position: sticky; top: 0; 
-        background: var(--primary-color); color: white; 
-        padding: 15px; text-align: center; z-index: 10; 
+        position: sticky; top: 0; background: #f8fafc; color: #64748b; 
+        text-transform: uppercase; font-size: 0.75rem; padding: 12px; text-align: left;
       }
+      tbody td { padding: 12px; border-bottom: 1px solid #e2e8f0; font-size: 0.9rem; }
       
-      tbody td { 
-        padding: 12px; border-bottom: 1px solid #f0f0f0; 
-        text-align: center; font-size: 0.95em; 
+      .status-pill {
+        padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;
       }
-      tbody tr:hover { background-color: #f9fafb; }
+      .critical { background: #fee2e2; color: #991b1b; border: 1px solid #f87171; }
 
-      /* GRID DE GRÁFICAS */
+      /* Grid */
       .dashboard-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-        gap: 25px;
-        max-width: 1400px; margin: 0 auto;
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 20px; max-width: 1200px; margin: 0 auto;
       }
 
-      /* TARJETA DE GRÁFICA */
-      .chart-card {
-        background: var(--card-bg);
-        border-radius: 12px;
-        padding: 20px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        display: flex; flex-direction: column;
-        min-height: 450px; /* Altura mínima para consistencia */
-      }
+      .iframe-container { height: 350px; border-radius: 12px; overflow: hidden; margin-top: 15px; }
+      iframe { width: 100%; height: 100%; border: none; }
 
-      .chart-card h3 {
-        margin-top: 0; color: var(--text-main);
-        font-size: 1.1rem; margin-bottom: 15px;
-        border-left: 4px solid var(--secondary-color);
-        padding-left: 10px;
-      }
-
-      .meta-badge {
-        display: inline-block; background: #d1fae5; color: #065f46;
-        padding: 4px 12px; border-radius: 20px; font-size: 0.8em;
-        margin-bottom: 10px; align-self: flex-start; font-weight: 600;
-      }
-
-      /* CONTENEDOR IFRAME (SOLUCIÓN SCROLLBAR) */
-      .iframe-container {
-        position: relative; width: 100%; flex-grow: 1;
-        padding-top: 75%; /* Relación de aspecto 4:3 */
-        background: #fafafa; border-radius: 8px; overflow: hidden;
-      }
-      
-      .iframe-container iframe {
-        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        border: 0;
-      }
-
-      /* SPINNER CARGA */
-      .spinner {
-        border: 4px solid #f3f3f3; border-top: 4px solid var(--secondary-color);
-        border-radius: 50%; width: 30px; height: 30px;
-        animation: spin 1s linear infinite; margin: 20px auto;
-      }
-      @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-      /* FOOTER */
-      footer { text-align: center; padding: 40px; color: #6b7280; font-size: 0.9rem; }
-
-      @media (max-width: 600px) {
-        .dashboard-grid { grid-template-columns: 1fr; }
-        .iframe-container { padding-top: 90%; } /* Más alto en móviles */
-      }
+      /* Delay Classes */
+      .delay-1 { animation-delay: 0.1s; }
+      .delay-2 { animation-delay: 0.2s; }
+      .delay-3 { animation-delay: 0.3s; }
     </style>
-  </head>
-  <body>
-    
+</head>
+<body>
+
     <header>
-      <div class ="headeer- content">
-        <h1>Sistema de Seguimiento de Inventarios</h1>
-        <p>Mantenimiento - Grupo ABX ABTEFLU</p>
+      <div>
+        <h1 style="margin:0; font-size: 1.5rem;">ABX Intelligence</h1>
+        <p style="margin:0; color:#64748b;">Mantenimiento Grupo ABX ABTEFLU</p>
+      </div>
+      <div class="search-box">
+        <input type="text" id="toolSearch" placeholder="🔍 Buscar herramienta..." onkeyup="filterTable()">
       </div>
     </header>
 
-    <!-- TABLA (Carga Directa con JS) -->
-    <div class="table-container">
-      <h2>⚠️ Herramienta perdida (> 3 semanas)</h2>
-      <div class="scroll-area">
-        <table>
-          <thead id="table-header"></thead>
-          <tbody id="table-body">
-            <tr>
-              <td colspan="5">
-                <div class="spinner"></div>
-                <p>Cargando datos desde Google Sheets...</p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="glass-card delay-1" style="max-width:1200px; margin: 0 auto 30px auto;">
+        <h2 style="font-size: 1.1rem; color: var(--danger); margin-top:0">⚠️ Reporte de Herramientas Perdidas</h2>
+        <div class="scroll-area">
+            <table id="mainTable">
+                <thead id="table-header"></thead>
+                <tbody id="table-body">
+                    <tr><td colspan="5" style="text-align:center">Cargando base de datos...</td></tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    
-    <!-- GRID DE GRÁFICAS -->
-    <div class="dashboard-grid" id="main-grid"></div>
 
-    <footer>
-      Sistema desarrollado para <strong>Grupo ABX</strong> &copy; 2024
-    </footer>
+    <div class="dashboard-grid">
+        <div class="glass-card delay-2">
+            <h3 style="margin:0; font-size: 1rem;">Cumplimiento de Inventario</h3>
+            <div class="iframe-container">
+                <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1026977364&format=interactive"></iframe>
+            </div>
+        </div>
+        <div class="glass-card delay-3">
+            <h3 style="margin:0; font-size: 1rem;">Distribución de Faltantes</h3>
+            <div class="iframe-container">
+                <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1573440752&format=interactive"></iframe>
+            </div>
+        </div>
+    </div>
 
     <script>
-      // ==========================================
-      // CONFIGURACIÓN DE GRÁFICAS
-      // ==========================================
-      const configGraficas = [
-        { 
-          titulo: "Promedio de herramienta encontrada", 
-          meta: "🏆 Meta: ≥ 95%",
-          url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1026977364&amp;format=interactive"
-        },
-        { 
-          titulo: "Distribución del Faltante Total", 
-          url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1573440752&amp;format=interactive" 
-        },
-        { 
-          titulo: "Gaveta 1. Gabinete de herramientas", 
-          url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=794614800&amp;format=interactive" 
-        },
-        { 
-          titulo: "Gaveta 2. Tablero de herramientas", 
-          url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=884831473&amp;format=interactive" 
+      // Load Table Data
+      function loadTable() {
+        const url = "https://docs.google.com/spreadsheets/d/1zMLnKjFwvzWSLRDX1N2dIETrY_RFLZhfTv0Z8LGznQ0/export?format=csv&gid=1298177878";
+        Papa.parse(url, {
+          download: true,
+          complete: function(results) {
+            const data = results.data;
+            const thead = document.getElementById('table-header');
+            const tbody = document.getElementById('table-body');
+            
+            thead.innerHTML = `<tr>${data[0].map(h => `<th>${h}</th>`).join('')}</tr>`;
+            
+            tbody.innerHTML = data.slice(1).map(row => {
+              if(row.join('').trim() === "") return '';
+              return `<tr>${row.map(cell => {
+                const isLost = cell.toLowerCase().includes("perdido") || cell.toLowerCase().includes("faltante");
+                return `<td><span class="${isLost ? 'status-pill critical' : ''}">${cell || '-'}</span></td>`;
+              }).join('')}</tr>`;
+            }).join('');
+          }
+        });
+      }
+
+      function filterTable() {
+        let input = document.getElementById("toolSearch").value.toUpperCase();
+        let rows = document.getElementById("table-body").getElementsByTagName("tr");
+        for (let row of rows) {
+          row.style.display = row.textContent.toUpperCase().includes(input) ? "" : "none";
         }
-      ];
-
-      // 1. RENDERIZAR GRÁFICAS (CON AJUSTE DE TAMAÑO Y SIN SCROLL)
-      function renderizarGraficas() {
-        const grid = document.getElementById('main-grid');
-        
-        configGraficas.forEach((item, index) => {
-          const card = document.createElement('div');
-          card.className = 'chart-card';
-          
-          let badge = item.meta ? `<div class="meta-badge">${item.meta}</div>` : "";
-
-          card.innerHTML = `
-            <h3>${item.titulo}</h3>
-            ${badge}
-            <div class="iframe-container">
-               <!-- scrolling="no" es vital aquí -->
-               <iframe src="${item.url}" scrolling="no"></iframe>
-            </div>
-          `;
-          grid.appendChild(card);
-        });
       }
 
-      // 2. CARGAR TABLA (SIN PYTHON - OPCIÓN B)
-      function cargarTablaDirecta() {
-        // TUS DATOS DE GOOGLE
-        const DOC_ID = '1zMLnKjFwvzWSLRDX1N2dIETrY_RFLZhfTv0Z8LGznQ0';
-        const GID = '1298177878'; // ID de la pestaña específica
-        const csvUrl = `https://docs.google.com/spreadsheets/d/${DOC_ID}/export?format=csv&gid=${GID}`;
-
-        Papa.parse(csvUrl, {
-            download: true,
-            header: false, // false para obtener arrays numéricos como en Python
-            skipEmptyLines: true, // Salta líneas vacías automáticamente
-            complete: function(results) {
-                const data = results.data;
-                const thead = document.getElementById('table-header');
-                const tbody = document.getElementById('table-body');
-                
-                // Limpiar spinner
-                thead.innerHTML = '';
-                tbody.innerHTML = '';
-
-                if (data && data.length > 0) {
-                    // --- ENCABEZADOS (Fila 0) ---
-                    const rowHeader = document.createElement('tr');
-                    data[0].forEach(text => {
-                        const th = document.createElement('th');
-                        th.textContent = text;
-                        rowHeader.appendChild(th);
-                    });
-                    thead.appendChild(rowHeader);
-
-                    // --- DATOS (Fila 1 en adelante) ---
-                    for (let i = 1; i < data.length; i++) {
-                        // Verificación extra para filas vacías
-                        if (data[i].length > 1 || (data[i][0] && data[i][0].trim() !== "")) {
-                            const tr = document.createElement('tr');
-                            data[i].forEach(text => {
-                                const td = document.createElement('td');
-                                // Si la celda está vacía o es null, poner un guión
-                                td.textContent = (text !== null && text !== "") ? text : "-";
-                                tr.appendChild(td);
-                            });
-                            tbody.appendChild(tr);
-                        }
-                    }
-                } else {
-                    tbody.innerHTML = '<tr><td colspan="5" style="padding:20px">La hoja está vacía.</td></tr>';
-                }
-            },
-            error: function(err) {
-                console.error("Error PapaParse:", err);
-                document.getElementById('table-body').innerHTML = `
-                  <tr>
-                    <td colspan="5" style="color:#ef4444; padding:20px; font-weight:bold;">
-                       ❌ Error de conexión con Google Sheets.<br>
-                       <small style="font-weight:normal; color:#555;">Verifica que la hoja sea "Pública para cualquier persona con el enlace".</small>
-                    </td>
-                  </tr>`;
-            }
-        });
-      }
-
-      // INICIO
-      window.onload = function() {
-        renderizarGraficas();
-        cargarTablaDirecta();
-      };
+      window.onload = loadTable;
     </script>
-  </body>
+</body>
 </html>
