@@ -1,73 +1,288 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard de Herramientas</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Ya no necesitamos Chart.js si usas las de Google -->
-</head>
-<body>
-    <div class="container">
-        <header><!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard de Herramientas</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>📊 Dashboard de Indicadores</h1>
-            <!-- Este indicador se pondrá verde si Python responde bien -->
-            <div id="api-status" class="status-indicator">
-                <span class="dot"></span> Conectando con servidor...
-            </div>
-        </header>
+    <title>Dashboard ABX</title>
+    <!-- Fuentes de Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+      :root {
+        --primary-color: #1a237e;
+        --secondary-color: #3949ab;
+        --accent-color: #ff6f00;
+        --glass-bg: rgba(255, 255, 255, 0.92);  
+        --glass-border: rgba(255, 255, 255, 0.6);
+        --shadow-soft: 0 10px 30px rgba(0,0,0,0.15);
+        --shadow-hover: 0 20px 40px rgba(0,0,0,0.25);
+      }
 
-        <!-- GRILLA DE GRÁFICAS -->
-        <div class="dashboard-grid">
-            
-            <!-- GRÁFICA 1 -->
-            <div class="chart-card">
-                <h3>Resumen General</h3>
-                <div class="iframe-container">
-                    <!-- PEGA AQUÍ EL IFRAME DE TU PRIMERA GRÁFICA -->
-                    <iframe 
-                        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=794614800&amp;format=interactive">
-                    </iframe>
+      body {
+        /* Fondo base + Imagen */
+        background-color: #e8eaf6; 
+        background-image: url('https://marte.com.mx/wp-content/uploads/220621-ABX-caso-01.png');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        font-family: 'Open Sans', sans-serif;
+        margin: 0; padding: 0; color: #333;
+      }
+
+      /* Scrollbar personalizado */
+      ::-webkit-scrollbar { width: 8px; height: 8px; }
+      ::-webkit-scrollbar-track { background: rgba(255,255,255,0.3); }
+      ::-webkit-scrollbar-thumb { background: var(--secondary-color); border-radius: 4px; }
+
+      /* HEADER */
+      header { 
+        background: linear-gradient(135deg, rgba(26, 35, 126, 0.95) 0%, rgba(63, 81, 181, 0.9) 100%); 
+        color: white; padding: 40px 0; margin-bottom: 40px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        display: flex; justify-content: center; align-items: center;
+        backdrop-filter: blur(8px);
+        position: relative; overflow: hidden;
+      }
+      
+      .header-content { text-align: center; padding: 0 20px; z-index: 2; animation: fadeInDown 0.8s ease-out; }
+      header h1 { font-family: 'Poppins', sans-serif; margin: 0; font-size: 2em; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+      header p { margin: 8px 0 0 0; font-size: 1.1em; opacity: 0.9; font-weight: 300; }
+
+      /* TABLA PRINCIPAL */
+      .table-container {
+        max-width: 1200px; margin: 0 auto 50px auto;
+        background: var(--glass-bg); padding: 25px; border-radius: 20px;
+        box-shadow: var(--shadow-soft); backdrop-filter: blur(12px);
+        border: 1px solid var(--glass-border);
+        animation: fadeInUp 0.8s ease-out;
+      }
+      .table-container h2 { color: var(--primary-color); margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 15px; font-family: 'Poppins', sans-serif;}
+
+      .scroll-area { max-height: 400px; overflow: auto; border-radius: 12px; background: white; box-shadow: inset 0 0 10px rgba(0,0,0,0.05); }
+      table { width: 100%; border-collapse: collapse; }
+      thead th { position: sticky; top: 0; background: var(--primary-color); color: white; padding: 15px; z-index: 10; font-family: 'Poppins', sans-serif; }
+      td { padding: 12px; border-bottom: 1px solid #f0f0f0; text-align: center; font-size: 0.9em; }
+      
+      /* EFECTOS NUEVOS DE TABLA */
+      tbody tr { transition: transform 0.2s, background-color 0.2s; }
+      tbody tr:hover {
+        background-color: rgba(26, 35, 126, 0.08) !important;
+        transform: scale(1.005);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        z-index: 2;
+        position: relative;
+        font-weight: 600;
+        color: var(--primary-color);
+      }
+
+      /* GRID DE GRÁFICAS */
+      .dashboard-grid {
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); 
+        gap: 30px; max-width: 1240px; margin: 0 auto; padding: 0 20px 60px 20px;
+      }
+
+      .card { 
+        background: var(--glass-bg); padding: 20px; border-radius: 20px; 
+        box-shadow: var(--shadow-soft); text-align: center;
+        border: 1px solid var(--glass-border);
+        transition: all 0.4s; animation: fadeInUpCard 0.6s forwards;
+        display: flex; flex-direction: column; backdrop-filter: blur(12px);
+      }
+      .card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); background: #fff; }
+      .card h3 { color: var(--primary-color); font-family: 'Poppins', sans-serif; margin-bottom: 15px; font-weight: 600; font-size: 1.1em; }
+
+      .chart-container {
+        position: relative; width: 100%; overflow: hidden;
+        padding-top: 60%; border-radius: 12px; background: #fafafa;
+      }
+      .chart-container iframe {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
+      }
+
+      .meta-badge {
+        display: inline-block; background: linear-gradient(45deg, #43a047, #66bb6a);
+        color: white; padding: 5px 15px; border-radius: 50px; font-size: 0.85em;
+        margin-bottom: 12px; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      }
+
+      /* === ESTILOS NUEVOS (Footer, Spinner, FAB) === */
+      
+      /* 1. ANIMACIÓN DE CARGA (SPINNER) */
+      .loader-container {
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        padding: 40px; color: var(--secondary-color);
+      }
+      .spinner {
+        border: 4px solid rgba(0, 0, 0, 0.1); width: 40px; height: 40px; border-radius: 50%;
+        border-left-color: var(--accent-color); animation: spin 1s linear infinite; margin-bottom: 15px;
+      }
+      @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+      /* 2. PIE DE PÁGINA (FOOTER) */
+      footer {
+        text-align: center; padding: 25px; margin-top: 40px;
+        background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(5px);
+        border-top: 1px solid rgba(255, 255, 255, 0.5);
+        color: #555; font-size: 0.9em; font-family: 'Poppins', sans-serif;
+      }
+      footer span { color: var(--primary-color); font-weight: 600; }
+
+      /* 3. BOTÓN FLOTANTE */
+      .fab-status {
+        position: fixed; bottom: 20px; right: 20px;
+        background: var(--primary-color); width: 50px; height: 50px; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 4px 15px rgba(26, 35, 126, 0.4); color: white;
+        z-index: 100; cursor: default; animation: pulse-green 3s infinite;
+      }
+      .fab-status::after { content: "✔"; font-size: 1.2em; }
+      @keyframes pulse-green {
+        0% { box-shadow: 0 0 0 0 rgba(26, 35, 126, 0.7); }
+        70% { box-shadow: 0 0 0 10px rgba(26, 35, 126, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(26, 35, 126, 0); }
+      }
+
+      /* Animaciones Entrada */
+      @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+      @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+      @keyframes fadeInUpCard { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+      @media (max-width: 768px) {
+        .dashboard-grid { grid-template-columns: 1fr; }
+        .table-container { width: 90%; padding: 15px; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <h1>Sistema de Seguimiento de Inventarios</h1>
+        <p>Mantenimiento. Grupo ABX ABTEFLU</p>
+      </div>
+    </header>
+
+    <!-- TABLA DE PYTHON -->
+    <div class="table-container">
+      <h2>⚠️ Herramienta perdida (> 3 semanas)</h2>
+      <div class="scroll-area">
+        <table>
+          <thead><tr id="table-header"></tr></thead>
+          <tbody id="table-body">
+            <!-- Spinner de Carga Inicial -->
+            <tr>
+              <td colspan="5">
+                <div class="loader-container">
+                  <div class="spinner"></div>
+                  <span>Consultando base de datos en tiempo real...</span>
                 </div>
-            </div>
-
-            <!-- GRÁFICA 2 -->
-            <div class="chart-card">
-                <h3>Análisis por Categoría</h3>
-                <div class="iframe-container">
-                    <!-- PEGA AQUÍ EL IFRAME DE TU SEGUNDA GRÁFICA -->
-                    <iframe 
-                        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=884831473&amp;format=interactive">
-                    </iframe>
-                </div>
-            </div>
-
-            <!-- GRÁFICA 3 -->
-            <div class="chart-card">
-                <h3>Estado de Inventario</h3>
-                <div class="iframe-container">
-                    <!-- PEGA AQUÍ EL IFRAME DE TU TERCERA GRÁFICA -->
-                    <iframe 
-                        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1301161531&amp;format=interactive">
-                    </iframe>
-                </div>
-            </div>
-            
-            <!-- Puedes agregar más divs "chart-card" aquí abajo -->
-
-        </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+    
+    <!-- GRID DE GRÁFICAS -->
+    <div class="dashboard-grid" id="main-grid"></div>
 
-    <script src="script.js"></script>
-</body>
+    <!-- FOOTER Y BOTÓN FLOTANTE -->
+    <footer>
+      Sistema desarrollado para <span>Grupo ABX</span> &copy; 2024
+    </footer>
+    <div class="fab-status" title="Sistema Operativo"></div>
+
+    <script>
+      // ==========================================
+      // CONFIGURACIÓN DE GRÁFICAS (PEGAR LINKS AQUÍ)
+      // ==========================================
+      const configGraficas = [
+        { 
+          titulo: "Promedio de herramienta encontrada", 
+          meta: "🏆 Meta: ≥ 95%",
+          // Pega el link que está DENTRO de src="..."
+          url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1026977364&amp;format=interactive"
+        },
+        { 
+          titulo: "Distribución del Faltante Total", 
+          url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1573440752&amp;format=interactive" 
+        },
+        { 
+          titulo: "Gaveta 1. Gabinete de herramientas", 
+          url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=794614800&amp;format=interactive" 
+        },
+        { 
+          titulo: "Gaveta 2. Tablero de herramientas", 
+          url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=884831473&amp;format=interactive" 
+        }
+        // Agrega más objetos aquí si tienes más hojas...
+      ];
+
+      // 1. RENDERIZAR GRÁFICAS
+      function renderizarGraficas() {
+        const grid = document.getElementById('main-grid');
+        
+        configGraficas.forEach((item, index) => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.style.animationDelay = `${index * 0.1}s`;
+
+          let badge = item.meta ? `<div class="meta-badge">${item.meta}</div>` : "";
+
+          card.innerHTML = `
+            <h3>${item.titulo}</h3>
+            ${badge}
+            <div class="chart-container">
+               <iframe src="${item.url}"></iframe>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      }
+
+      // 2. CARGAR TABLA DESDE PYTHON
+      async function cargarTablaPython() {
+        try {
+          const response = await fetch('/api/index');
+          const result = await response.json();
+          
+          const thead = document.getElementById('table-header');
+          const tbody = document.getElementById('table-body');
+
+          if (result.status === 'success' && result.data.length > 0) {
+            // Limpiar spinner
+            thead.innerHTML = ''; 
+            tbody.innerHTML = '';
+
+            // Encabezados (Fila 0)
+            result.data[0].forEach(text => {
+              const th = document.createElement('th');
+              th.textContent = text;
+              thead.appendChild(th);
+            });
+
+            // Datos (Fila 1 en adelante)
+            for(let i=1; i<result.data.length; i++) {
+              const tr = document.createElement('tr');
+              result.data[i].forEach(text => {
+                const td = document.createElement('td');
+                td.textContent = text;
+                tr.appendChild(td);
+              });
+              tbody.appendChild(tr);
+            }
+          } else {
+             tbody.innerHTML = '<tr><td colspan="5" style="padding:20px;">No hay datos para mostrar</td></tr>';
+          }
+        } catch (e) {
+          console.error(e);
+          document.getElementById('table-body').innerHTML = '<tr><td colspan="5" style="color:#d32f2f; padding:30px;">Error al cargar datos. Verifica el backend de Python.</td></tr>';
+        }
+      }
+
+      window.onload = function() {
+        renderizarGraficas();
+        cargarTablaPython();
+      };
+    </script>
+  </body>
 </html>
