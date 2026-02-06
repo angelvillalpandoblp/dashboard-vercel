@@ -4,24 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ABX | Industrial Intelligence</title>
-    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="sidebar-open"> <!-- Clase controladora del estado inicial -->
 
-    <!-- BARRA LATERAL COLAPSABLE -->
+    <!-- BOTÓN DE DESPLIEGUE (FLOTANTE) -->
+    <button class="floating-toggle" onclick="toggleSidebar()">
+        <i data-lucide="menu"></i>
+    </button>
+
+    <!-- BARRA LATERAL -->
     <aside id="sidebar" class="sidebar">
-        <div class="sidebar-header">
+        <div class="sidebar-top">
             <div class="logo">
                 <div class="logo-box"></div>
                 <span class="nav-text">ABX CORE</span>
             </div>
-            <button class="toggle-btn" onclick="toggleSidebar()">
-                <i data-lucide="chevron-left" id="toggle-icon"></i>
-            </button>
         </div>
         
         <nav class="menu">
@@ -41,58 +42,55 @@
 
         <div class="sidebar-footer">
             <div class="status-dot"></div>
-            <span class="nav-text">Sistema Operativo</span>
+            <span class="nav-text">Sistema Activo</span>
         </div>
     </aside>
 
     <!-- CONTENIDO PRINCIPAL -->
-    <main id="main-content" class="content">
-        
+    <main class="main-content">
         <header class="main-header">
-            <div>
+            <div class="header-info">
                 <h1 id="page-title">Dashboard Principal</h1>
                 <p id="current-date"></p>
             </div>
         </header>
 
         <!-- VISTA: DASHBOARD -->
-        <section id="view-dashboard" class="view">
-            <div class="dashboard-grid">
-                <div class="chart-card large">
+        <section id="view-dashboard" class="view-section active">
+            <div class="grid-container dashboard-layout">
+                <div class="card chart-card">
                     <div class="card-header"><h3>Cumplimiento de Inventario</h3></div>
-                    <div class="chart-container">
+                    <div class="card-body">
                         <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1026977364&format=interactive"></iframe>
                     </div>
                 </div>
-                <div class="chart-card large">
+                <div class="card chart-card">
                     <div class="card-header"><h3>Análisis de Riesgo Crítico</h3></div>
-                    <div class="chart-container">
+                    <div class="card-body">
                         <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1573440752&format=interactive"></iframe>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- VISTA: INCIDENCIAS (Con buscador interno) -->
-        <section id="view-incidencias" class="view" style="display:none;">
-            <div class="table-card">
-                <div class="table-header-row">
-                    <div class="card-title-group">
+        <!-- VISTA: INCIDENCIAS -->
+        <section id="view-incidencias" class="view-section">
+            <div class="card table-card">
+                <div class="table-controls">
+                    <div class="title-group">
                         <h3>Monitoreo de Herramientas</h3>
-                        <p>Faltantes y Alertas de Seguridad</p>
+                        <p>Faltantes y Alertas de Seguridad detectadas</p>
                     </div>
-                    <!-- BUSCADOR PROFESIONAL SOLO AQUÍ -->
                     <div class="search-box">
                         <i data-lucide="search"></i>
-                        <input type="text" id="toolSearch" placeholder="Filtrar por nombre, código o estado..." onkeyup="filterTable()">
+                        <input type="text" id="toolSearch" placeholder="Buscar herramienta o estado..." onkeyup="filterTable()">
                     </div>
                 </div>
-                
-                <div class="table-wrapper">
+                <div class="table-container">
                     <table id="mainTable">
                         <thead id="table-header"></thead>
                         <tbody id="table-body">
-                            <tr><td colspan="10" class="loading-cell">Cargando base de datos industrial...</td></tr>
+                            <tr><td colspan="10" style="text-align:center; padding:100px;">Conectando con base de datos...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -100,48 +98,32 @@
         </section>
 
         <!-- VISTA: GAVETAS -->
-        <section id="view-gavetas" class="view" style="display:none;">
-            <div class="gavetas-grid">
-                <div class="chart-card mini"><div class="card-header"><h4>Gaveta 01</h4></div><div class="chart-container"><iframe src="URL_AQUI"></iframe></div></div>
-                <div class="chart-card mini"><div class="card-header"><h4>Gaveta 02</h4></div><div class="chart-container"><iframe src="URL_AQUI"></iframe></div></div>
-                <div class="chart-card mini"><div class="card-header"><h4>Gaveta 03</h4></div><div class="chart-container"><iframe src="URL_AQUI"></iframe></div></div>
-                <div class="chart-card mini"><div class="card-header"><h4>Gaveta 04</h4></div><div class="chart-container"><iframe src="URL_AQUI"></iframe></div></div>
-                <div class="chart-card mini"><div class="card-header"><h4>Gaveta 05</h4></div><div class="chart-container"><iframe src="URL_AQUI"></iframe></div></div>
-                <div class="chart-card mini"><div class="card-header"><h4>Gaveta 06</h4></div><div class="chart-container"><iframe src="URL_AQUI"></iframe></div></div>
+        <section id="view-gavetas" class="view-section">
+            <div class="grid-container gavetas-layout">
+                <!-- 6 Cuadros de gráficas -->
+                <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 01</h4></div><div class="card-body"><iframe src="URL_GAVETA_1"></iframe></div></div>
+                <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 02</h4></div><div class="card-body"><iframe src="URL_GAVETA_2"></iframe></div></div>
+                <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 03</h4></div><div class="card-body"><iframe src="URL_GAVETA_3"></iframe></div></div>
+                <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 04</h4></div><div class="card-body"><iframe src="URL_GAVETA_4"></iframe></div></div>
+                <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 05</h4></div><div class="card-body"><iframe src="URL_GAVETA_5"></iframe></div></div>
+                <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 06</h4></div><div class="card-body"><iframe src="URL_GAVETA_6"></iframe></div></div>
             </div>
         </section>
-
     </main>
 
     <script>
-        // Lógica de Barra Lateral
         function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const mainContent = document.getElementById('main-content');
-            const icon = document.getElementById('toggle-icon');
-            
-            sidebar.classList.toggle('collapsed');
-            mainContent.classList.toggle('expanded');
-            
-            // Cambiar icono según estado
-            if (sidebar.classList.contains('collapsed')) {
-                icon.setAttribute('data-lucide', 'chevron-right');
-            } else {
-                icon.setAttribute('data-lucide', 'chevron-left');
-            }
-            lucide.createIcons();
+            document.body.classList.toggle('sidebar-open');
+            // Forzar el redibujado de los iframes para que se ajusten al nuevo ancho
+            window.dispatchEvent(new Event('resize'));
         }
 
-        // Navegación
         function navigate(viewId, btn) {
-            document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
-            document.getElementById('view-' + viewId).style.display = 'block';
-            
+            document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
+            document.getElementById('view-' + viewId).classList.add('active');
             document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
             btn.classList.add('active');
-
-            const titles = { 'dashboard': 'Dashboard Principal', 'incidencias': 'Control de Incidencias', 'gavetas': 'Estado de Gavetas' };
-            document.getElementById('page-title').textContent = titles[viewId];
+            document.getElementById('page-title').textContent = btn.innerText;
         }
 
         function loadData() {
