@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ABX | Industrial Intelligence System</title>
     
-    <!-- Fuentes e Iconos -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
@@ -14,168 +13,215 @@
 </head>
 <body>
 
-    <!-- Sidebar Estética -->
+    <!-- SIDEBAR -->
     <aside class="sidebar">
         <div class="logo">
             <div class="logo-icon"></div>
-            <span>ABX CORE</span>
+            <span>ABX CORE <span class="pro-badge">PRO</span></span>
         </div>
         <nav>
-            <div class="nav-item active"><i data-lucide="layout-dashboard"></i> Dashboard</div>
-            <div class="nav-item"><i data-lucide="box"></i> Activos</div>
-            <div class="nav-item"><i data-lucide="alert-triangle"></i> Incidencias</div>
-            <div class="nav-item"><i data-lucide="bar-chart-3"></i> Reportes</div>
-            <div class="nav-item"><i data-lucide="settings"></i> Ajustes</div>
+            <div class="nav-item active" onclick="showView('dashboard', this)">
+                <i data-lucide="layout-dashboard"></i> Dashboard
+            </div>
+            <div class="nav-item" onclick="showView('gavetas', this)">
+                <i data-lucide="layers"></i> Gavetas
+            </div>
+            <div class="nav-item" onclick="showView('incidencias', this)">
+                <i data-lucide="alert-octagon"></i> Incidencias
+            </div>
         </nav>
         <div class="user-profile">
-            <div class="avatar">JD</div>
+            <div class="avatar">Admin</div>
             <div class="user-info">
-                <span class="name">Admin User</span>
-                <span class="role">Supervisor</span>
+                <span class="name">Panel de Control</span>
+                <span class="role" id="sync-status">Sincronizado</span>
             </div>
         </div>
     </aside>
 
     <main class="main-content">
+        <!-- HEADER -->
         <header class="top-header">
             <div class="header-left">
-                <h1>Panel de Inteligencia de Activos</h1>
-                <p id="current-date">Cargando fecha...</p>
+                <h1 id="view-title">Dashboard Operativo</h1>
+                <p id="current-date"></p>
             </div>
             <div class="search-container">
                 <i data-lucide="search"></i>
-                <input type="text" id="toolSearch" placeholder="Buscar por herramienta, código o estado..." onkeyup="filterTable()">
+                <input type="text" id="toolSearch" placeholder="Buscar en el sistema..." onkeyup="filterTable()">
             </div>
         </header>
 
-        <!-- Tarjetas de Resumen Rápido (KPIs) -->
+        <!-- KPI BAR (Global) -->
         <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon alert"><i data-lucide="alert-circle"></i></div>
+            <div class="stat-card border-red">
+                <div class="stat-icon red"><i data-lucide="alert-triangle"></i></div>
                 <div class="stat-data">
                     <span class="stat-value" id="count-missing">0</span>
                     <span class="stat-label">Alertas Críticas</span>
                 </div>
             </div>
-            <div class="stat-card">
-                <div class="stat-icon success"><i data-lucide="check-circle"></i></div>
+            <div class="stat-card border-blue">
+                <div class="stat-icon blue"><i data-lucide="box"></i></div>
                 <div class="stat-data">
                     <span class="stat-value" id="count-total">0</span>
                     <span class="stat-label">Total Activos</span>
                 </div>
             </div>
-            <div class="stat-card">
-                <div class="stat-icon info"><i data-lucide="refresh-cw"></i></div>
-                <div class="stat-data">
-                    <span class="stat-value">100%</span>
-                    <span class="stat-label">Sincronización Cloud</span>
-                </div>
-            </div>
         </div>
 
-        <div class="content-grid">
-            <!-- Tabla Principal -->
-            <section class="glass-card table-section">
-                <div class="card-header">
-                    <h2><i data-lucide="list"></i> Monitor de Disponibilidad</h2>
-                    <span class="live-indicator">LIVE</span>
-                </div>
-                <div class="scroll-area">
-                    <table id="mainTable">
-                        <thead id="table-header"></thead>
-                        <tbody id="table-body">
-                            <tr><td colspan="10" class="loading-state">Iniciando protocolo de datos...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- Gráficas Inferiores -->
-            <div class="charts-container">
+        <!-- SECCIÓN: DASHBOARD -->
+        <div id="view-dashboard" class="view-section">
+            <div class="charts-grid-2">
                 <div class="glass-card chart-card">
-                    <h3>Cumplimiento Operativo</h3>
+                    <h3><i data-lucide="bar-chart"></i> Cumplimiento Operativo General</h3>
                     <div class="chart-box">
                         <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1026977364&format=interactive"></iframe>
                     </div>
                 </div>
                 <div class="glass-card chart-card">
-                    <h3>Análisis de Riesgo</h3>
+                    <h3><i data-lucide="pie-chart"></i> Distribución de Riesgo</h3>
                     <div class="chart-box">
                         <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1573440752&format=interactive"></iframe>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- SECCIÓN: GAVETAS (6 Gráficas) -->
+        <div id="view-gavetas" class="view-section" style="display: none;">
+            <div class="charts-grid-3">
+                <!-- He puesto la misma URL de ejemplo para las 6, cámbialas por tus oids correspondientes -->
+                <div class="glass-card chart-card mini">
+                    <h3>Gaveta 01</h3>
+                    <div class="chart-box"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1026977364&format=interactive"></iframe></div>
+                </div>
+                <div class="glass-card chart-card mini">
+                    <h3>Gaveta 02</h3>
+                    <div class="chart-box"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1026977364&format=interactive"></iframe></div>
+                </div>
+                <div class="glass-card chart-card mini">
+                    <h3>Gaveta 03</h3>
+                    <div class="chart-box"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1026977364&format=interactive"></iframe></div>
+                </div>
+                <div class="glass-card chart-card mini">
+                    <h3>Gaveta 04</h3>
+                    <div class="chart-box"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1026977364&format=interactive"></iframe></div>
+                </div>
+                <div class="glass-card chart-card mini">
+                    <h3>Gaveta 05</h3>
+                    <div class="chart-box"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1026977364&format=interactive"></iframe></div>
+                </div>
+                <div class="glass-card chart-card mini">
+                    <h3>Gaveta 06</h3>
+                    <div class="chart-box"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1026977364&format=interactive"></iframe></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN: INCIDENCIAS (Tabla) -->
+        <div id="view-incidencias" class="view-section" style="display: none;">
+            <div class="glass-card">
+                <div class="card-header">
+                    <h2>Reporte Detallado de Faltantes</h2>
+                    <span class="live-indicator">ACTUALIZADO</span>
+                </div>
+                <div class="scroll-area">
+                    <table id="mainTable">
+                        <thead id="table-header"></thead>
+                        <tbody id="table-body">
+                            <tr><td colspan="10" class="loading">Cargando base de datos...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </main>
 
     <script>
-      // Fecha Actual
-      document.getElementById('current-date').textContent = new Intl.DateTimeFormat('es-ES', { dateStyle: 'full' }).format(new Date());
-
-      function fetchData() {
-        const url = "https://docs.google.com/spreadsheets/d/1zMLnKjFwvzWSLRDX1N2dIETrY_RFLZhfTv0Z8LGznQ0/export?format=csv&gid=1298177878";
-        
-        Papa.parse(url, {
-          download: true,
-          complete: function(results) {
-            const data = results.data;
-            const thead = document.getElementById('table-header');
-            const tbody = document.getElementById('table-body');
-            let missingCount = 0;
+        // Navegación entre vistas
+        function showView(viewId, element) {
+            // Ocultar todas las secciones
+            document.querySelectorAll('.view-section').forEach(v => v.style.display = 'none');
+            // Mostrar la seleccionada
+            document.getElementById('view-' + viewId).style.display = 'block';
             
-            thead.innerHTML = "";
-            tbody.innerHTML = "";
+            // Actualizar Sidebar
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            element.classList.add('active');
 
-            if (data.length > 0) {
-                const headerRow = document.createElement('tr');
-                data[0].forEach(h => {
-                    const th = document.createElement('th');
-                    th.textContent = h;
-                    headerRow.appendChild(th);
-                });
-                thead.appendChild(headerRow);
-
-                data.slice(1).forEach(row => {
-                    if (row.join('').trim() === "") return;
-                    const tr = document.createElement('tr');
-                    let rowHtml = '';
-                    
-                    row.forEach(cell => {
-                        const text = cell || "-";
-                        const isCritical = text.toLowerCase().includes("perdido") || text.toLowerCase().includes("faltante");
-                        
-                        if (isCritical) {
-                            missingCount++;
-                            rowHtml += `<td><span class="status-pill danger-glow">${text}</span></td>`;
-                        } else {
-                            rowHtml += `<td>${text}</td>`;
-                        }
-                    });
-                    tr.innerHTML = rowHtml;
-                    tbody.appendChild(tr);
-                });
-
-                document.getElementById('count-missing').textContent = missingCount;
-                document.getElementById('count-total').textContent = data.length - 1;
-                lucide.createIcons(); // Re-inicializar iconos
-            }
-          }
-        });
-      }
-
-      function filterTable() {
-        const input = document.getElementById("toolSearch").value.toUpperCase();
-        const rows = document.getElementById("table-body").getElementsByTagName("tr");
-        for (let row of rows) {
-          row.style.display = row.textContent.toUpperCase().includes(input) ? "" : "none";
+            // Actualizar Título
+            const titles = { 'dashboard': 'Dashboard Operativo', 'gavetas': 'Estado de Gavetas', 'incidencias': 'Control de Incidencias' };
+            document.getElementById('view-title').innerText = titles[viewId];
         }
-      }
 
-      window.onload = () => {
-          fetchData();
-          lucide.createIcons();
-      };
-      setInterval(fetchData, 300000); // Refresco cada 5 min
+        function fetchData() {
+            const url = "https://docs.google.com/spreadsheets/d/1zMLnKjFwvzWSLRDX1N2dIETrY_RFLZhfTv0Z8LGznQ0/export?format=csv&gid=1298177878";
+            
+            Papa.parse(url, {
+                download: true,
+                complete: function(results) {
+                    const data = results.data;
+                    const thead = document.getElementById('table-header');
+                    const tbody = document.getElementById('table-body');
+                    let missingCount = 0;
+                    
+                    thead.innerHTML = "";
+                    tbody.innerHTML = "";
+
+                    if (data.length > 0) {
+                        const headerRow = document.createElement('tr');
+                        data[0].forEach(h => {
+                            const th = document.createElement('th');
+                            th.textContent = h;
+                            headerRow.appendChild(th);
+                        });
+                        thead.appendChild(headerRow);
+
+                        data.slice(1).forEach(row => {
+                            if (row.join('').trim() === "") return;
+                            const tr = document.createElement('tr');
+                            let rowHtml = '';
+                            
+                            row.forEach(cell => {
+                                const text = cell || "-";
+                                const isCritical = text.toLowerCase().includes("perdido") || text.toLowerCase().includes("faltante");
+                                
+                                if (isCritical) {
+                                    rowHtml += `<td><span class="status-pill danger">${text}</span></td>`;
+                                } else {
+                                    rowHtml += `<td>${text}</td>`;
+                                }
+                            });
+                            
+                            // Contar faltantes para el KPI global
+                            if (row.some(c => c.toLowerCase().includes("perdido") || c.toLowerCase().includes("faltante"))) {
+                                missingCount++;
+                            }
+
+                            tr.innerHTML = rowHtml;
+                            tbody.appendChild(tr);
+                        });
+
+                        document.getElementById('count-missing').textContent = missingCount;
+                        document.getElementById('count-total').textContent = data.length - 1;
+                    }
+                }
+            });
+        }
+
+        function filterTable() {
+            const input = document.getElementById("toolSearch").value.toUpperCase();
+            const rows = document.getElementById("table-body").getElementsByTagName("tr");
+            for (let row of rows) {
+                row.style.display = row.textContent.toUpperCase().includes(input) ? "" : "none";
+            }
+        }
+
+        // Inicialización
+        document.getElementById('current-date').textContent = new Intl.DateTimeFormat('es-ES', { dateStyle: 'full' }).format(new Date());
+        window.onload = () => { fetchData(); lucide.createIcons(); };
+        setInterval(fetchData, 600000); 
     </script>
 </body>
 </html>
