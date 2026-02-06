@@ -51,3 +51,20 @@
   animation: criticalPulse 2s infinite;
   display: inline-block;
 }
+
+.industrial-title {
+    /* 1. Definimos el degradado */
+    background: linear-gradient(135deg, #ffffff 30%, #6366f1 100%);
+    
+    /* 2. Aplicamos el recorte (Clip) */
+    -webkit-background-clip: text; /* Para Chrome, Safari, Edge */
+    background-clip: text;         /* Estándar moderno */
+    
+    /* 3. Vaciamos el color del texto */
+    -webkit-text-fill-color: transparent;
+    color: transparent; /* Fallback por si acaso */
+    
+    /* 4. Ajustes de legibilidad profesional */
+    font-weight: 800;
+    letter-spacing: -0.05em; /* Reduce el espacio entre letras para un look más "diseño" */
+}
