@@ -3,159 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABX | Industrial Intelligence System</title>
+    <title>ABX | Industrial Intelligence</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- SIDEBAR -->
+    <!-- BARRA LATERAL -->
     <aside class="sidebar">
         <div class="logo">
-            <div class="logo-icon"></div>
-            <span>ABX CORE <span class="pro-badge">PRO</span></span>
+            <div class="logo-box"></div>
+            <span>ABX CORE</span>
         </div>
-        <nav>
-            <div class="nav-item active" onclick="showView('dashboard', this)">
+        
+        <nav class="menu">
+            <button class="menu-item active" onclick="navigate('dashboard')">
                 <i data-lucide="layout-dashboard"></i> Dashboard
-            </div>
-            <div class="nav-item" onclick="showView('gavetas', this)">
-                <i data-lucide="layers"></i> Gavetas
-            </div>
-            <div class="nav-item" onclick="showView('incidencias', this)">
-                <i data-lucide="alert-octagon"></i> Incidencias
-            </div>
+            </button>
+            <button class="menu-item" onclick="navigate('incidencias')">
+                <i data-lucide="alert-circle"></i> Incidencias
+            </button>
+            <button class="menu-item" onclick="navigate('gavetas')">
+                <i data-lucide="layout-grid"></i> Gavetas
+            </button>
         </nav>
-        <div class="user-profile">
-            <div class="avatar">Admin</div>
-            <div class="user-info">
-                <span class="name">Panel de Control</span>
-                <span class="role" id="sync-status">Sincronizado</span>
-            </div>
+
+        <div class="sidebar-footer">
+            <div class="status-dot"></div>
+            <span>Sistema Operativo</span>
         </div>
     </aside>
 
-    <main class="main-content">
-        <!-- HEADER -->
-        <header class="top-header">
-            <div class="header-left">
-                <h1 id="view-title">Dashboard Operativo</h1>
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="content">
+        
+        <!-- HEADER GLOBAL -->
+        <header class="main-header">
+            <div>
+                <h1 id="page-title">Dashboard Principal</h1>
                 <p id="current-date"></p>
             </div>
-            <div class="search-container">
-                <i data-lucide="search"></i>
-                <input type="text" id="toolSearch" placeholder="Buscar en el sistema..." onkeyup="filterTable()">
+            <div class="header-tools">
+                <div class="search-bar">
+                    <i data-lucide="search"></i>
+                    <input type="text" id="toolSearch" placeholder="Buscar herramienta..." onkeyup="filterTable()">
+                </div>
             </div>
         </header>
 
-        <!-- KPI BAR (Global) -->
-        <div class="stats-grid">
-            <div class="stat-card border-red">
-                <div class="stat-icon red"><i data-lucide="alert-triangle"></i></div>
-                <div class="stat-data">
-                    <span class="stat-value" id="count-missing">0</span>
-                    <span class="stat-label">Alertas Críticas</span>
-                </div>
-            </div>
-            <div class="stat-card border-blue">
-                <div class="stat-icon blue"><i data-lucide="box"></i></div>
-                <div class="stat-data">
-                    <span class="stat-value" id="count-total">0</span>
-                    <span class="stat-label">Total Activos</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- SECCIÓN: DASHBOARD -->
-        <div id="view-dashboard" class="view-section">
-            <div class="charts-grid-2">
-                <div class="glass-card chart-card">
-                    <h3><i data-lucide="bar-chart"></i> Cumplimiento Operativo General</h3>
-                    <div class="chart-box">
+        <!-- VISTA: DASHBOARD -->
+        <section id="view-dashboard" class="view">
+            <div class="dashboard-grid">
+                <div class="chart-card large">
+                    <div class="card-header"><h3>Cumplimiento de Inventario</h3></div>
+                    <div class="chart-container">
                         <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1026977364&format=interactive"></iframe>
                     </div>
                 </div>
-                <div class="glass-card chart-card">
-                    <h3><i data-lucide="pie-chart"></i> Distribución de Riesgo</h3>
-                    <div class="chart-box">
+                <div class="chart-card large">
+                    <div class="card-header"><h3>Análisis de Riesgo Crítico</h3></div>
+                    <div class="chart-container">
                         <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1573440752&format=interactive"></iframe>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- SECCIÓN: GAVETAS (6 Gráficas) -->
-        <div id="view-gavetas" class="view-section" style="display: none;">
-            <div class="charts-grid-3">
-                <!-- He puesto la misma URL de ejemplo para las 6, cámbialas por tus oids correspondientes -->
-                <div class="glass-card chart-card mini">
-                    <h3>Gaveta 01</h3>
-                    <div class="chart-box"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1026977364&format=interactive"></iframe></div>
+        <!-- VISTA: INCIDENCIAS -->
+        <section id="view-incidencias" class="view" style="display:none;">
+            <div class="table-card">
+                <div class="card-header border-red">
+                    <h3>Monitoreo de Herramientas (Faltantes / Perdidos)</h3>
                 </div>
-                <div class="glass-card chart-card mini">
-                    <h3>Gaveta 02</h3>
-                    <div class="chart-box"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1026977364&format=interactive"></iframe></div>
-                </div>
-                <div class="glass-card chart-card mini">
-                    <h3>Gaveta 03</h3>
-                    <div class="chart-box"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1026977364&format=interactive"></iframe></div>
-                </div>
-                <div class="glass-card chart-card mini">
-                    <h3>Gaveta 04</h3>
-                    <div class="chart-box"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1026977364&format=interactive"></iframe></div>
-                </div>
-                <div class="glass-card chart-card mini">
-                    <h3>Gaveta 05</h3>
-                    <div class="chart-box"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1026977364&format=interactive"></iframe></div>
-                </div>
-                <div class="glass-card chart-card mini">
-                    <h3>Gaveta 06</h3>
-                    <div class="chart-box"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1026977364&format=interactive"></iframe></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SECCIÓN: INCIDENCIAS (Tabla) -->
-        <div id="view-incidencias" class="view-section" style="display: none;">
-            <div class="glass-card">
-                <div class="card-header">
-                    <h2>Reporte Detallado de Faltantes</h2>
-                    <span class="live-indicator">ACTUALIZADO</span>
-                </div>
-                <div class="scroll-area">
+                <div class="table-wrapper">
                     <table id="mainTable">
                         <thead id="table-header"></thead>
                         <tbody id="table-body">
-                            <tr><td colspan="10" class="loading">Cargando base de datos...</td></tr>
+                            <tr><td colspan="10" style="text-align:center; padding:50px;">Cargando registros...</td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <!-- VISTA: GAVETAS -->
+        <section id="view-gavetas" class="view" style="display:none;">
+            <div class="gavetas-grid">
+                <!-- Espacios para 6 gráficas -->
+                <div class="chart-card mini">
+                    <div class="card-header"><h4>Gaveta 01</h4></div>
+                    <div class="chart-container"><iframe src="TU_URL_AQUI"></iframe></div>
+                </div>
+                <div class="chart-card mini">
+                    <div class="card-header"><h4>Gaveta 02</h4></div>
+                    <div class="chart-container"><iframe src="TU_URL_AQUI"></iframe></div>
+                </div>
+                <div class="chart-card mini">
+                    <div class="card-header"><h4>Gaveta 03</h4></div>
+                    <div class="chart-container"><iframe src="TU_URL_AQUI"></iframe></div>
+                </div>
+                <div class="chart-card mini">
+                    <div class="card-header"><h4>Gaveta 04</h4></div>
+                    <div class="chart-container"><iframe src="TU_URL_AQUI"></iframe></div>
+                </div>
+                <div class="chart-card mini">
+                    <div class="card-header"><h4>Gaveta 05</h4></div>
+                    <div class="chart-container"><iframe src="TU_URL_AQUI"></iframe></div>
+                </div>
+                <div class="chart-card mini">
+                    <div class="card-header"><h4>Gaveta 06</h4></div>
+                    <div class="chart-container"><iframe src="TU_URL_AQUI"></iframe></div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <script>
-        // Navegación entre vistas
-        function showView(viewId, element) {
-            // Ocultar todas las secciones
-            document.querySelectorAll('.view-section').forEach(v => v.style.display = 'none');
-            // Mostrar la seleccionada
-            document.getElementById('view-' + viewId).style.display = 'block';
+        // Navegación entre ventanas
+        function navigate(view) {
+            // Ocultar todas las vistas
+            document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
+            // Quitar clase activa de botones
+            document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
             
-            // Actualizar Sidebar
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            element.classList.add('active');
+            // Mostrar vista seleccionada
+            document.getElementById('view-' + view).style.display = 'block';
+            
+            // Activar botón clicado
+            const btn = document.querySelector(`[onclick="navigate('${view}')"]`);
+            if(btn) btn.classList.add('active');
 
-            // Actualizar Título
-            const titles = { 'dashboard': 'Dashboard Operativo', 'gavetas': 'Estado de Gavetas', 'incidencias': 'Control de Incidencias' };
-            document.getElementById('view-title').innerText = titles[viewId];
+            // Cambiar título
+            const titles = {
+                'dashboard': 'Dashboard Principal',
+                'incidencias': 'Control de Incidencias',
+                'gavetas': 'Estado de Gavetas'
+            };
+            document.getElementById('page-title').textContent = titles[view];
         }
 
-        function fetchData() {
+        // Carga de datos de la tabla (Incidencias)
+        function loadData() {
             const url = "https://docs.google.com/spreadsheets/d/1zMLnKjFwvzWSLRDX1N2dIETrY_RFLZhfTv0Z8LGznQ0/export?format=csv&gid=1298177878";
             
             Papa.parse(url, {
@@ -164,64 +156,52 @@
                     const data = results.data;
                     const thead = document.getElementById('table-header');
                     const tbody = document.getElementById('table-body');
-                    let missingCount = 0;
                     
                     thead.innerHTML = "";
                     tbody.innerHTML = "";
 
                     if (data.length > 0) {
-                        const headerRow = document.createElement('tr');
-                        data[0].forEach(h => {
+                        const hRow = document.createElement('tr');
+                        data[0].forEach(text => {
                             const th = document.createElement('th');
-                            th.textContent = h;
-                            headerRow.appendChild(th);
+                            th.textContent = text;
+                            hRow.appendChild(th);
                         });
-                        thead.appendChild(headerRow);
+                        thead.appendChild(hRow);
 
                         data.slice(1).forEach(row => {
-                            if (row.join('').trim() === "") return;
+                            if(row.join('').trim() === "") return;
                             const tr = document.createElement('tr');
-                            let rowHtml = '';
-                            
                             row.forEach(cell => {
-                                const text = cell || "-";
-                                const isCritical = text.toLowerCase().includes("perdido") || text.toLowerCase().includes("faltante");
+                                const td = document.createElement('td');
+                                const content = cell || "-";
+                                const isAlert = content.toLowerCase().includes("perdido") || content.toLowerCase().includes("faltante");
                                 
-                                if (isCritical) {
-                                    rowHtml += `<td><span class="status-pill danger">${text}</span></td>`;
+                                if(isAlert) {
+                                    td.innerHTML = `<span class="badge-alert">${content}</span>`;
                                 } else {
-                                    rowHtml += `<td>${text}</td>`;
+                                    td.textContent = content;
                                 }
+                                tr.appendChild(td);
                             });
-                            
-                            // Contar faltantes para el KPI global
-                            if (row.some(c => c.toLowerCase().includes("perdido") || c.toLowerCase().includes("faltante"))) {
-                                missingCount++;
-                            }
-
-                            tr.innerHTML = rowHtml;
                             tbody.appendChild(tr);
                         });
-
-                        document.getElementById('count-missing').textContent = missingCount;
-                        document.getElementById('count-total').textContent = data.length - 1;
                     }
                 }
             });
         }
 
         function filterTable() {
-            const input = document.getElementById("toolSearch").value.toUpperCase();
+            const val = document.getElementById("toolSearch").value.toUpperCase();
             const rows = document.getElementById("table-body").getElementsByTagName("tr");
-            for (let row of rows) {
-                row.style.display = row.textContent.toUpperCase().includes(input) ? "" : "none";
+            for (let r of rows) {
+                r.style.display = r.textContent.toUpperCase().includes(val) ? "" : "none";
             }
         }
 
-        // Inicialización
+        // Inicio
         document.getElementById('current-date').textContent = new Intl.DateTimeFormat('es-ES', { dateStyle: 'full' }).format(new Date());
-        window.onload = () => { fetchData(); lucide.createIcons(); };
-        setInterval(fetchData, 600000); 
+        window.onload = () => { loadData(); lucide.createIcons(); };
     </script>
 </body>
 </html>
