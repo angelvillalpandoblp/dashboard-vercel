@@ -4,7 +4,7 @@ import pandas as pd
 app = Flask(__name__)
 
 # PEGA AQUÍ EL ENLACE CSV QUE OBTUVISTE EN EL PASO 1 (Publicar > CSV)
-SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pub?gid=0&single=true&output=csv'
+SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pub?output=csv'
 
 @app.route('/api/data')
 def get_data():

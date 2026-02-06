@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Herramientas</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Ya no necesitamos Chart.js si usas las de Google -->
+</head>
+<body>
+    <div class="container">
+        <header><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Herramientas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Dashboard de Indicadores</h1>
+            <!-- Este indicador se pondrá verde si Python responde bien -->
+            <div id="api-status" class="status-indicator">
+                <span class="dot"></span> Conectando con servidor...
+            </div>
+        </header>
+
+        <!-- GRILLA DE GRÁFICAS -->
+        <div class="dashboard-grid">
+            
+            <!-- GRÁFICA 1 -->
+            <div class="chart-card">
+                <h3>Resumen General</h3>
+                <div class="iframe-container">
+                    <!-- PEGA AQUÍ EL IFRAME DE TU PRIMERA GRÁFICA -->
+                    <iframe 
+                        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=794614800&amp;format=interactive">
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- GRÁFICA 2 -->
+            <div class="chart-card">
+                <h3>Análisis por Categoría</h3>
+                <div class="iframe-container">
+                    <!-- PEGA AQUÍ EL IFRAME DE TU SEGUNDA GRÁFICA -->
+                    <iframe 
+                        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=884831473&amp;format=interactive">
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- GRÁFICA 3 -->
+            <div class="chart-card">
+                <h3>Estado de Inventario</h3>
+                <div class="iframe-container">
+                    <!-- PEGA AQUÍ EL IFRAME DE TU TERCERA GRÁFICA -->
+                    <iframe 
+                        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1301161531&amp;format=interactive">
+                    </iframe>
+                </div>
+            </div>
+            
+            <!-- Puedes agregar más divs "chart-card" aquí abajo -->
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
