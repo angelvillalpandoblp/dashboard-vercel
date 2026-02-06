@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Herramientas</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Ya no necesitamos Chart.js si usas las de Google -->
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛠️ Control de Herramientas</h1>
+        </header>
+
+        <!-- Tarjetas de Resumen (Calculadas por Python) -->
+        <div class="cards-container">
+            <div class="card">
+                <h3>Total Inventario</h3>
+                <p id="total-items">...</p>
+            </div>
+            <div class="card warning">
+                <h3>Herramientas Faltantes</h3>
+                <p id="total-missing">...</p>
+            </div>
+        </div>
+
+        <!-- AQUÍ PEGAS TUS GRÁFICAS DE GOOGLE SHEETS -->
+        <div class="charts-section">
+            <h2>Análisis Gráfico</h2>
+            <div class="google-chart-wrapper">
+                <!-- Ejemplo: Pega aquí tu iframe copiado de Google -->
+                <iframe 
+                    width="600" 
+                    height="371" 
+                    seamless 
+                    frameborder="0" 
+                    scrolling="no" 
+                    src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=794614800&amp;format=interactive">
+                </iframe>
+            </div>
+        </div>
+
+        <!-- Tabla de Datos -->
+        <div class="table-section">
+            <h2>Detalle</h2>
+            <div class="table-wrapper">
+                <table id="tools-table">
+                    <thead>
+                        <tr>
+                            <th>Herramienta</th>
+                            <th>Categoría</th>
+                            <th>Estado</th>
+                            <th>Responsable</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
