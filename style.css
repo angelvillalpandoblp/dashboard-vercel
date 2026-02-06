@@ -46,7 +46,7 @@ h1 { margin: 0; font-size: 1.8rem; }
 .dot {
     height: 10px;
     width: 10px;
-    background-color: #fbbf24; /* Amarillo cargando */
+    background-color: #fbbf24;
     border-radius: 50%;
     display: inline-block;
 }
@@ -57,16 +57,20 @@ h1 { margin: 0; font-size: 1.8rem; }
 /* GRID DE GRÁFICAS */
 .dashboard-grid {
     display: grid;
-    /* Responsive: Se ajusta automáticamente al ancho de pantalla */
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     gap: 25px;
 }
 
+/* === TARJETA DE GRÁFICA === */
 .chart-card {
     background: var(--card-bg);
     border-radius: 12px;
     padding: 20px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+    /* 🔥 CLAVE: permitir que la gráfica crezca */
+    display: flex;
+    flex-direction: column;
 }
 
 .chart-card h3 {
@@ -76,12 +80,15 @@ h1 { margin: 0; font-size: 1.8rem; }
     margin-bottom: 15px;
 }
 
-/* Contenedor responsivo para iframes */
+/* === CONTENEDOR RESPONSIVO DE IFRAME === */
 .iframe-container {
     position: relative;
     width: 100%;
+    flex-grow: 1;                 /* 🔥 llena la tarjeta */
+    padding-top: 62.5%;           /* 🔥 relación ideal para gráficas */
+    background: #fafafa;
+    border-radius: 8px;
     overflow: hidden;
-    padding-top: 60%; /* Relación de aspecto */
 }
 
 .iframe-container iframe {
@@ -96,4 +103,9 @@ h1 { margin: 0; font-size: 1.8rem; }
 @media (max-width: 600px) {
     .dashboard-grid { grid-template-columns: 1fr; }
     header { flex-direction: column; gap: 15px; text-align: center; }
+
+    /* 📱 En móvil, un poco más altas */
+    .iframe-container {
+        padding-top: 75%;
+    }
 }
