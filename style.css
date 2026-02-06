@@ -82,29 +82,19 @@ h1 { margin: 0; font-size: 1.8rem; }
     margin-bottom: 15px;
 }
 
-/* === CONTENEDOR RESPONSIVO DE IFRAME (CORREGIDO) === */
 .iframe-container {
-    position: relative;
     width: 100%;
-    flex-grow: 1;
-    /* 75% es buena altura, si se corta el pie de la gráfica, auméntalo a 85% */
-    padding-top: 75%; 
-    background: #fafafa;
-    border-radius: 8px;
-    /* 🔥 CLAVE: Esto corta cualquier barra de desplazamiento rebelde */
-    overflow: hidden; 
+    display: flex;
+    justify-content: center;
+    min-height: 200px;
+    align-items: center;
 }
 
 .iframe-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    /* 🔥 CLAVE: Llenar el 100% exacto del contenedor padre */
-    width: 100%;
-    height: 100%;
-    border: 0;
-    /* Opcional: filtro para suavizar si la gráfica tiene fondo blanco puro */
-    mix-blend-mode: multiply; 
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 10px; 
+    transition: transform 0.3s;
 }
 
 @media (max-width: 600px) {
