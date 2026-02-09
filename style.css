@@ -102,6 +102,8 @@ body.sidebar-open .main-content {
 
 /* CUADROS (CARDS) */
 .card {
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); /* Curva de movimiento suave */
+    will-change: transform, box-shadow; /* Optimiza el rendimiento del navegador */
     background: white;
     border-radius: 12px;
     border: 1px solid var(--border);
@@ -109,6 +111,19 @@ body.sidebar-open .main-content {
     display: flex;
     flex-direction: column;
     height: 100%; /* Importante para que llenen la rejilla */
+}
+
+.card:hover {
+    transform: scale(1.03); /* Crece un 3% */
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1); /* Sombra más profunda para dar altura */
+    border-color: var(--accent-blue); /* Resalta el borde en azul */
+    z-index: 10; /* Asegura que la tarjeta que crece esté por encima de las demás */
+}
+
+.card:hover iframe {
+    opacity: 1;
+    filter: brightness(1.05);
+    transition: all 0.4s ease;
 }
 
 .card-header {
@@ -363,4 +378,44 @@ td {
 .modal-header {
     position: relative; /* Para que el botón absolute se guíe por esto */
     padding-right: 70px; /* Evita que el título choque con el botón */
+}
+
+/* --- ANIMACIÓN DE ENTRADA (Aparecer creciendo) --- */
+@keyframes cardEntrance {
+    from {
+        opacity: 0;
+        transform: scale(0.9); /* Empieza un 10% más pequeña */
+    }
+    to {
+        opacity: 1;
+        transform: scale(1); /* Termina en su tamaño normal */
+    }
+}
+
+.view-section.active .card {
+    animation: cardEntrance 0.6s ease-out forwards;
+}
+
+/* Retraso escalonado para que no salgan todas al mismo tiempo (opcional pero muy pro) */
+.view-section.active .card:nth-child(1) { animation-delay: 0.1s; }
+.view-section.active .card:nth-child(2) { animation-delay: 0.2s; }
+.view-section.active .card:nth-child(3) { animation-delay: 0.3s; }
+.view-section.active .card:nth-child(4) { animation-delay: 0.4s; }
+.view-section.active .card:nth-child(5) { animation-delay: 0.5s; }
+.view-section.active .card:nth-child(6) { animation-delay: 0.6s; }
+
+/* Mejorar la animación del modal que ya tenías */
+@keyframes modalGrow {
+    from {
+        opacity: 0;
+        transform: scale(0.8); /* Empieza pequeña */
+    }
+    to {
+        opacity: 1;
+        transform: scale(1); /* Crece a su tamaño total */
+    }
+}
+
+.modal-content {
+    animation: modalGrow 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); /* Efecto "Bounce" suave */
 }
