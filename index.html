@@ -3,15 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABTEFLU | Mantenimiento</title>
+    <title>ABX | Industrial Intelligence</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-
-<!-- 3. CAMBIO AQUÍ: Se eliminó la clase "sidebar-open" para iniciar cerrado -->
-<body> 
+<body class="sidebar-open"> <!-- Clase controladora del estado inicial -->
 
     <!-- BOTÓN DE DESPLIEGUE (FLOTANTE) -->
     <button class="floating-toggle" onclick="toggleSidebar()">
@@ -23,7 +21,7 @@
         <div class="sidebar-top">
             <div class="logo">
                 <div class="logo-box"></div>
-                <span class="nav-text">ABTEFLU MTTO</span>
+                <span class="nav-text">ABX CORE</span>
             </div>
         </div>
         
@@ -59,7 +57,7 @@
 
         <!-- VISTA: DASHBOARD -->
         <section id="view-dashboard" class="view-section active">
-            <div class="dashboard-layout">
+            <div class="grid-container dashboard-layout">
                 <div class="card chart-card">
                     <div class="card-header"><h3>Cumplimiento de Inventario</h3></div>
                     <div class="card-body">
@@ -67,7 +65,7 @@
                     </div>
                 </div>
                 <div class="card chart-card">
-                    <div class="card-header"><h3>Herramienta Faltante por Gaveta</h3></div>
+                    <div class="card-header"><h3>Análisis de Riesgo Crítico</h3></div>
                     <div class="card-body">
                         <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1573440752&format=interactive"></iframe>
                     </div>
@@ -81,7 +79,7 @@
                 <div class="table-controls">
                     <div class="title-group">
                         <h3>Monitoreo de Herramientas</h3>
-                        <p>Faltantes por mas de 3 semanas</p>
+                        <p>Faltantes y Alertas de Seguridad detectadas</p>
                     </div>
                     <div class="search-box">
                         <i data-lucide="search"></i>
@@ -101,7 +99,7 @@
 
         <!-- VISTA: GAVETAS -->
         <section id="view-gavetas" class="view-section">
-            <div class="gavetas-layout">
+            <div class="grid-container gavetas-layout">
                 <!-- 6 Cuadros de gráficas -->
                 <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 01</h4></div><div class="card-body"><iframe src="URL_GAVETA_1"></iframe></div></div>
                 <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 02</h4></div><div class="card-body"><iframe src="URL_GAVETA_2"></iframe></div></div>

@@ -35,7 +35,7 @@ body {
     justify-content: center;
 }
 
-/* BARRA LATERAL */
+/* BARRA LATERAL MEJORADA */
 .sidebar {
     width: var(--sidebar-w);
     height: 100vh;
@@ -51,7 +51,6 @@ body {
     flex-direction: column;
 }
 
-/* Esta clase se añade con JS al pulsar el botón */
 body.sidebar-open .sidebar { left: 0; }
 
 .logo { display: flex; align-items: center; gap: 12px; margin-bottom: 40px; }
@@ -73,7 +72,7 @@ body.sidebar-open .sidebar { left: 0; }
 .main-content {
     margin-left: 0;
     width: 100%;
-    padding: 40px 40px 40px 80px; /* Margen izquierdo extra para el botón flotante */
+    padding: 40px 40px 40px 80px; /* Margen para el botón flotante */
     transition: margin-left 0.3s ease, width 0.3s ease;
 }
 
@@ -94,7 +93,7 @@ body.sidebar-open .main-content {
     box-shadow: var(--card-shadow);
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 100%; /* Importante para que llenen la rejilla */
 }
 
 .card-header {
@@ -102,25 +101,18 @@ body.sidebar-open .main-content {
     border-bottom: 1px solid var(--border);
 }
 
-/* --- CAMBIO: CENTRADO DE GRÁFICAS --- */
 .card-body {
     flex: 1;
-    min-height: 350px;
-    /* Nuevas propiedades para centrar: */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px; /* Un poco de espacio interno */
-    overflow: hidden;
+    position: relative;
+    min-height: 350px; /* Tamaño base para gráficas */
 }
 
-/* --- CAMBIO: AJUSTE DE IFRAME --- */
 iframe {
     width: 100%;
     height: 100%;
     border: none;
-    /* Se elimina position: absolute para permitir el centrado flex */
-    display: block;
+    position: absolute;
+    top: 0; left: 0;
 }
 
 /* REJILLAS (GRIDS) */
@@ -131,17 +123,13 @@ iframe {
 }
 
 .dashboard-layout { grid-template-columns: repeat(2, 1fr); }
-
-/* --- CAMBIO: GAVETAS 2 POR FILA --- */
-.gavetas-layout { 
-    grid-template-columns: repeat(2, 1fr); 
-}
+.gavetas-layout { grid-template-columns: repeat(3, 1fr); }
 
 @media (max-width: 1100px) {
     .dashboard-layout, .gavetas-layout { grid-template-columns: 1fr; }
 }
 
-/* TABLA INCIDENCIAS */
+/* TABLA INCIDENCIAS (AJUSTE TOTAL) */
 .view-section { display: none; width: 100%; }
 .view-section.active { display: block; }
 
@@ -152,7 +140,6 @@ iframe {
     justify-content: space-between;
     align-items: center;
     gap: 20px;
-    flex-wrap: wrap; /* Para pantallas pequeñas */
 }
 
 .search-box {
