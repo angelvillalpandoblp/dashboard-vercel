@@ -120,10 +120,15 @@ iframe {
     display: grid;
     gap: 24px;
     width: 100%;
+    justify-content: center;
 }
 
 .dashboard-layout { grid-template-columns: repeat(2, 1fr); }
-.gavetas-layout { grid-template-columns: repeat(3, 1fr); }
+.gavetas-layout { 
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 1400px;
+    margin: 0 auto; 
+}
 
 @media (max-width: 1100px) {
     .dashboard-layout, .gavetas-layout { grid-template-columns: 1fr; }
