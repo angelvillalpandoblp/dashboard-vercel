@@ -321,3 +321,46 @@ td {
 /* Scrollbar personalizado para el modal */
 .modal-body::-webkit-scrollbar { width: 6px; }
 .modal-body::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+
+/* --- BOTÓN CERRAR ROJO PROFESIONAL --- */
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
+    background-color: #fef2f2; /* Rojo muy tenue de fondo */
+    color: #ef4444; /* Rojo vibrante para el icono */
+    border: 1px solid #fee2e2;
+    border-radius: 10px; /* Bordes redondeados modernos */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 100;
+}
+
+.close-modal i {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2.5px; /* Icono un poco más grueso */
+}
+
+.close-modal:hover {
+    background-color: #ef4444; /* Se vuelve rojo sólido */
+    color: #ffffff; /* Icono blanco */
+    border-color: #ef4444;
+    transform: rotate(90deg); /* Efecto de giro sutil */
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.close-modal:active {
+    transform: rotate(90deg) scale(0.9); /* Efecto de pulsación */
+}
+
+/* Asegurar que el header tenga espacio para el botón */
+.modal-header {
+    position: relative; /* Para que el botón absolute se guíe por esto */
+    padding-right: 70px; /* Evita que el título choque con el botón */
+}

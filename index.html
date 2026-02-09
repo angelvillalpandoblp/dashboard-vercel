@@ -209,7 +209,7 @@
         const modalTitle = document.getElementById('modalTitle');
 
         modal.style.display = 'flex';
-        modalTitle.textContent = title;
+        modalTitle.textContent = title + " . Semana 7";
         header.innerHTML = "";
         body.innerHTML = "<tr><td colspan='10' style='text-align:center; padding:40px;'>Cargando...</td></tr>";
 
@@ -268,7 +268,9 @@
                     <h2 id="modalTitle">Inventario</h2>
                     <p id="modalSubtitle" style="font-size: 0.8rem; color: #64748B; margin: 0;"></p>
                 </div>
-                <button class="close-modal" onclick="closeModal()">&times;</button>
+                <button class="close-modal" onclick="closeModal()">
+                    <i data-lucide="x"></i>
+                </button>
             </div>
             <div class="modal-body">
                 <div class="modal-table-container">
