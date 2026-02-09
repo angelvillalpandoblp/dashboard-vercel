@@ -199,28 +199,43 @@ td {
     padding: 4px 10px; border-radius: 6px; font-weight: 700;
 }
 
-/* --- ESTILOS DEL MODAL --- */
+/* --- FIX PARA CLIC EN GRÁFICAS --- */
+.card-body iframe {
+    pointer-events: none; /* Esto permite que el clic pase a la tarjeta */
+}
+
+.card {
+    cursor: pointer; /* Indica al usuario que se puede hacer clic */
+}
+
+/* --- ESTILOS DEL MODAL (Asegúrate de tenerlos) --- */
 .modal {
-    display: none; position: fixed; z-index: 3000;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background-color: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px);
-    align-items: center; justify-content: center;
+    display: none; 
+    position: fixed; 
+    z-index: 9999; /* Muy alto para que esté encima de todo */
+    top: 0; left: 0; 
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); 
+    backdrop-filter: blur(5px);
+    align-items: center; 
+    justify-content: center;
 }
 
 .modal-content {
-    background: white; width: 90%; max-width: 900px;
-    max-height: 80vh; border-radius: 20px; display: flex;
-    flex-direction: column; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2);
+    background: white; 
+    width: 90%; 
+    max-width: 800px;
+    border-radius: 15px; 
+    overflow: hidden;
+    display: flex; 
+    flex-direction: column;
 }
 
-.modal-header { padding: 20px 30px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-.modal-body { flex: 1; overflow-y: auto; padding: 25px; background: #F8FAFC; }
-
-.modal-table-container { background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-#gavetaTable { width: 100%; border-collapse: collapse; }
-#gavetaTable th { background: #F1F5F9; padding: 12px 20px; text-align: left; font-size: 0.75rem; color: #64748B; text-transform: uppercase; }
-#gavetaTable td { padding: 12px 20px; border-bottom: 1px solid #F1F5F9; font-size: 0.85rem; color: #334155; }
-
+.modal-header { padding: 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; }
+.modal-body { padding: 20px; max-height: 70vh; overflow-y: auto; }
+table { width: 100%; border-collapse: collapse; }
+th { background: #f8f9fa; padding: 10px; text-align: left; font-size: 12px; }
+td { padding: 10px; border-bottom: 1px solid #eee; font-size: 14px; }
 .close-modal { background: #F1F5F9; border: none; font-size: 24px; width: 35px; height: 35px; border-radius: 8px; cursor: pointer; color: #64748B; }
 
 /* Efecto en las tarjetas al pasar el mouse */
