@@ -112,6 +112,12 @@
     </main>
 
     <script>
+        function toggleSidebar() {
+            document.body.classList.toggle('sidebar-open');
+            // Forzar el redibujado de los iframes para que se ajusten al nuevo ancho
+            window.dispatchEvent(new Event('resize'));
+        }
+        
         function navigate(viewId, btn) {
             document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
             document.getElementById('view-' + viewId).classList.add('active');
