@@ -9,7 +9,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="sidebar-open"> <!-- Clase controladora del estado inicial -->
+
+<!-- 3. CAMBIO AQUÍ: Se eliminó la clase "sidebar-open" para iniciar cerrado -->
+<body> 
 
     <!-- BOTÓN DE DESPLIEGUE (FLOTANTE) -->
     <button class="floating-toggle" onclick="toggleSidebar()">
@@ -57,7 +59,7 @@
 
         <!-- VISTA: DASHBOARD -->
         <section id="view-dashboard" class="view-section active">
-            <div class="grid-container dashboard-layout">
+            <div class="dashboard-layout">
                 <div class="card chart-card">
                     <div class="card-header"><h3>Cumplimiento de Inventario</h3></div>
                     <div class="card-body">
@@ -99,7 +101,7 @@
 
         <!-- VISTA: GAVETAS -->
         <section id="view-gavetas" class="view-section">
-            <div class="grid-container gavetas-layout">
+            <div class="gavetas-layout">
                 <!-- 6 Cuadros de gráficas -->
                 <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 01</h4></div><div class="card-body"><iframe src="URL_GAVETA_1"></iframe></div></div>
                 <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 02</h4></div><div class="card-body"><iframe src="URL_GAVETA_2"></iframe></div></div>
