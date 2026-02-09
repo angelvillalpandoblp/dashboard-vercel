@@ -155,10 +155,24 @@
         }
 
         function navigate(viewId, btn) {
+            // 1. Quitar clases activas
             document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
-            document.getElementById('view-' + viewId).classList.add('active');
             document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+
+            // 2. Activar la vista seleccionada
+            const targetView = document.getElementById('view-' + viewId);
+            targetView.classList.add('active');
             btn.classList.add('active');
+
+            // 3. CAMBIO CLAVE: Refrescar los iframes para que Google Sheets repita su animación
+            const iframes = targetView.querySelectorAll('iframe');
+            iframes.forEach(iframe => {
+                const currentSrc = iframe.src;
+                iframe.src = ''; // Limpiamos
+                iframe.src = currentSrc; // Recargamos (esto dispara la animación de Google)
+            });
+
+            // 4. Actualizar título
             document.getElementById('page-title').textContent = btn.innerText;
         }
 
