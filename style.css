@@ -229,25 +229,95 @@ td {
     backdrop-filter: blur(5px);
 }
 
+/* --- VENTANA MODAL PRO --- */
 .modal-content {
-    background: white !important;
-    padding: 0;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 800px;
-    max-height: 80vh;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border: none;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
 }
 
-.modal-header { padding: 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; }
-.modal-body { padding: 20px; max-height: 70vh; overflow-y: auto; }
-table { width: 100%; border-collapse: collapse; }
-th { background: #f8f9fa; padding: 10px; text-align: left; font-size: 12px; }
-td { padding: 10px; border-bottom: 1px solid #eee; font-size: 14px; }
-.close-modal { background: #F1F5F9; border: none; font-size: 24px; width: 35px; height: 35px; border-radius: 8px; cursor: pointer; color: #64748B; }
+.modal-header {
+    background: #f8fafc; /* Fondo gris muy tenue */
+    padding: 24px 32px;
+    border-bottom: 1px solid #e2e8f0;
+}
 
-/* Efecto en las tarjetas al pasar el mouse */
-.gavetas-layout .card { cursor: pointer; transition: transform 0.2s; }
-.gavetas-layout .card:hover { transform: scale(1.02); border-color: var(--accent-blue); }
+.modal-header h2 {
+    color: #1e293b;
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.025em;
+}
+
+/* --- CUERPO Y TABLA --- */
+.modal-body {
+    padding: 0; /* Quitamos padding para que la tabla llegue a los bordes si es necesario */
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+#gavetaTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+/* Encabezado fijo (Sticky Header) */
+#gavetaTable th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #ffffff;
+    padding: 14px 24px;
+    text-align: left;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #64748b;
+    border-bottom: 2px solid #f1f5f9;
+}
+
+/* Celdas de la tabla */
+#gavetaTable td {
+    padding: 16px 24px;
+    font-size: 0.875rem;
+    color: #334155;
+    border-bottom: 1px solid #f1f5f9;
+    transition: background 0.2s;
+}
+
+/* Filas alternas y hover */
+#gavetaTable tbody tr:nth-child(even) {
+    background-color: #fcfcfd;
+}
+
+#gavetaTable tbody tr:hover {
+    background-color: #f1f5f9;
+}
+
+/* Estilo de los Badges automáticos dentro del modal */
+.status-pill {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.pill-danger {
+    background: #fff1f2;
+    color: #e11d48;
+    border: 1px solid #fecdd3;
+}
+
+.pill-success {
+    background: #f0fdf4;
+    color: #16a34a;
+    border: 1px solid #dcfce7;
+}
+
+/* Scrollbar personalizado para el modal */
+.modal-body::-webkit-scrollbar { width: 6px; }
+.modal-body::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
