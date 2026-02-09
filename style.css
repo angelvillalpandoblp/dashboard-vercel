@@ -198,3 +198,31 @@ td {
     background: #FFF1F2; color: var(--accent-red);
     padding: 4px 10px; border-radius: 6px; font-weight: 700;
 }
+
+/* --- ESTILOS DEL MODAL --- */
+.modal {
+    display: none; position: fixed; z-index: 3000;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px);
+    align-items: center; justify-content: center;
+}
+
+.modal-content {
+    background: white; width: 90%; max-width: 900px;
+    max-height: 80vh; border-radius: 20px; display: flex;
+    flex-direction: column; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2);
+}
+
+.modal-header { padding: 20px 30px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.modal-body { flex: 1; overflow-y: auto; padding: 25px; background: #F8FAFC; }
+
+.modal-table-container { background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+#gavetaTable { width: 100%; border-collapse: collapse; }
+#gavetaTable th { background: #F1F5F9; padding: 12px 20px; text-align: left; font-size: 0.75rem; color: #64748B; text-transform: uppercase; }
+#gavetaTable td { padding: 12px 20px; border-bottom: 1px solid #F1F5F9; font-size: 0.85rem; color: #334155; }
+
+.close-modal { background: #F1F5F9; border: none; font-size: 24px; width: 35px; height: 35px; border-radius: 8px; cursor: pointer; color: #64748B; }
+
+/* Efecto en las tarjetas al pasar el mouse */
+.gavetas-layout .card { cursor: pointer; transition: transform 0.2s; }
+.gavetas-layout .card:hover { transform: scale(1.02); border-color: var(--accent-blue); }

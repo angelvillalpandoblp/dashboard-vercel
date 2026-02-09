@@ -101,7 +101,7 @@
         <section id="view-gavetas" class="view-section">
             <div class="grid-container gavetas-layout">
                 <!-- 6 Cuadros de gráficas -->
-                <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 1. Gabinete de herramientas</h4></div><div class="card-body"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=794614800&amp;format=interactive"></iframe></div></div>
+                <div class="card chart-card mini" onclick="openGavetaTable('1zMLnKjFwvzWSLRDX1N2dIETrY_RFLZhfTv0Z8LGznQ0', 'Herramienta Faltante G1')"><div class="card-header"><h4>Gaveta 1. Gabinete de herramientas</h4></div><div class="card-body"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=794614800&amp;format=interactive"></iframe></div></div>
                 <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 2. Tablero de herramientas</h4></div><div class="card-body"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=884831473&amp;format=interactive"></iframe></div></div>
                 <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 3. Mesa de trabajo</h4></div><div class="card-body"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1301161531&amp;format=interactive"></iframe></div></div>
                 <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 4. Carro de Mtto. Preventivo 1</h4></div><div class="card-body"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=2135726923&amp;format=interactive"></iframe></div></div>
@@ -165,5 +165,25 @@
         document.getElementById('current-date').textContent = new Intl.DateTimeFormat('es-ES', { dateStyle: 'full' }).format(new Date());
         window.onload = () => { loadData(); lucide.createIcons(); };
     </script>
+    <!-- VENTANA PARA TABLAS DE INVENTARIO -->
+    <div id="tableModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 id="modalTitle">Inventario</h2>
+                    <p id="modalSubtitle" style="font-size: 0.8rem; color: #64748B; margin: 0;"></p>
+                </div>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-table-container">
+                    <table id="gavetaTable">
+                        <thead id="gaveta-header"></thead>
+                        <tbody id="gaveta-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
