@@ -19,14 +19,14 @@
     <!-- BARRA LATERAL -->
     <aside id="sidebar" class="sidebar">
         <div class="sidebar-top">
-            <div class="logo">
+            <div class="logo-container">
                 <a href="https://imgbb.com/">
-                <img src="https://i.ibb.co/Df6V80YB/logo-png.png" alt="logo-png" border="0" /></a>
+                <img src="https://i.ibb.co/Df6V80YB/logo-png.png" alt="logo-png" class ="logo-img">
             </div>
         </div>
         
         <nav class="menu">
-            <button class="menu-item active" onclick="navigate('dashboard', this)">
+            <button class="menu-item active" onclick="navigate('dashboard', this); toggleSidebar()">
                 <i data-lucide="layout-dashboard"></i>
                 <span class="nav-text">Dashboard</span>
             </button>
