@@ -9,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="sidebar-open">
+<body>
 
     <!-- BOTÓN DE DESPLIEGUE (FLOTANTE) -->
     <button class="floating-toggle" onclick="toggleSidebar()">
@@ -19,10 +19,9 @@
     <!-- BARRA LATERAL -->
     <aside id="sidebar" class="sidebar">
         <div class="sidebar-top">
-            <div class="logo-container">
-                <!-- PEGA TU URL DE LOGO AQUÍ -->
-                <img src="https://drive.google.com/file/d/1_YEvr6ZDV7CZ2Bw6OhUgMWxNtcspEeeI/view?usp=sharing" alt="Logo ABTEFLU" class="logo-img">
-                <span class="nav-text logo-text">ABTEFLU MTTO</span>
+            <div class="logo">
+                <div class="logo-box"></div>
+                <span class="nav-text">ABTEFLU MTTO</span>
             </div>
         </div>
         
@@ -66,7 +65,7 @@
                     </div>
                 </div>
                 <div class="card chart-card">
-                    <div class="card-header"><h3>Análisis de Riesgo Crítico</h3></div>
+                    <div class="card-header"><h3>Faltante por Gaveta</h3></div>
                     <div class="card-body">
                         <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1573440752&format=interactive"></iframe>
                     </div>
@@ -80,7 +79,7 @@
                 <div class="table-controls">
                     <div class="title-group">
                         <h3>Monitoreo de Herramientas</h3>
-                        <p>Faltantes y Alertas de Seguridad detectadas</p>
+                        <p>Faltantes por mas de 3 semanas</p>
                     </div>
                     <div class="search-box">
                         <i data-lucide="search"></i>
@@ -101,22 +100,18 @@
         <!-- VISTA: GAVETAS -->
         <section id="view-gavetas" class="view-section">
             <div class="grid-container gavetas-layout">
-                <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 01</h4></div><div class="card-body"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=794614800&format=interactive"></iframe></div></div>
-                <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 02</h4></div><div class="card-body"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=884831473&format=interactive"></iframe></div></div>
-                <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 03</h4></div><div class="card-body"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1301161531&format=interactive"></iframe></div></div>
-                <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 04</h4></div><div class="card-body"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=2135726923&format=interactive"></iframe></div></div>
-                <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 05</h4></div><div class="card-body"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1129848979&format=interactive"></iframe></div></div>
-                <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 06</h4></div><div class="card-body"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=715537081&format=interactive"></iframe></div></div>
+                <!-- 6 Cuadros de gráficas -->
+                <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 01</h4></div><div class="card-body"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=794614800&amp;format=interactive"></iframe></div></div>
+                <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 02</h4></div><div class="card-body"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=884831473&amp;format=interactive"></iframe></div></div>
+                <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 03</h4></div><div class="card-body"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1026977364&amp;format=interactive"></iframe></div></div>
+                <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 04</h4></div><div class="card-body"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1573440752&amp;format=interactive"></iframe></div></div>
+                <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 05</h4></div><div class="card-body"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1850580958&amp;format=interactive"></iframe></div></div>
+                <div class="card chart-card mini"><div class="card-header"><h4>Gaveta 06</h4></div><div class="card-body"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=590805956&amp;format=interactive"></iframe></div></div>
             </div>
         </section>
     </main>
 
     <script>
-        function toggleSidebar() {
-            document.body.classList.toggle('sidebar-open');
-            setTimeout(() => { window.dispatchEvent(new Event('resize')); }, 300);
-        }
-
         function navigate(viewId, btn) {
             document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
             document.getElementById('view-' + viewId).classList.add('active');
