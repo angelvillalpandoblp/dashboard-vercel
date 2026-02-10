@@ -420,17 +420,54 @@ td {
     animation: modalGrow 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); /* Efecto "Bounce" suave */
 }
 
-/* Animación de revelado de abajo hacia arriba */
-@keyframes growUp {
-    from {
-        clip-path: inset(100% 0 0 0); /* Oculto desde abajo */
+/* --- ANIMACIÓN DE ENTRADA CONSTANTE --- */
+@keyframes chartEntrance {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95); /* Viene de abajo y un poco pequeña */
+        filter: blur(5px); /* Un ligero desenfoque inicial */
     }
-    to {
-        clip-path: inset(0 0 0 0); /* Totalmente visible */
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
     }
 }
 
-/* Aplicar a los iframes cuando la sección está activa */
-.view-section.active iframe {
-    animation: growUp 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+/* Aplicar a las tarjetas cuando la pestaña se activa */
+.view-section.active .card {
+    animation: chartEntrance 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    opacity: 0; /* Empieza invisible para la animación */
+}
+
+/* Efecto de Cascada (una tras otra) */
+.view-section.active .card:nth-child(1) { animation-delay: 0.1s; }
+.view-section.active .card:nth-child(2) { animation-delay: 0.2s; }
+.view-section.active .card:nth-child(3) { animation-delay: 0.3s; }
+.view-section.active .card:nth-child(4) { animation-delay: 0.4s; }
+.view-section.active .card:nth-child(5) { animation-delay: 0.5s; }
+.view-section.active .card:nth-child(6) { animation-delay: 0.6s; }
+
+/* Evitar el parpadeo blanco del iframe */
+.card-body {
+    background: #ffffff; /* O el color de fondo de tu tarjeta */
+    overflow: hidden;
+    position: relative;
+}
+
+/* SKELETON LOADER (Efecto de carga opcional) */
+/* Esto hace que mientras Google Sheets carga, se vea un pulso de luz profesional */
+.card-body::before {
+    content: "";
+    position: absolute;
+    top: 0; left: -100%;
+    width: 200%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: skeletonPulse 2s infinite;
+    z-index: 1;
+    pointer-events: none;
+}
+
+@keyframes skeletonPulse {
+    100% { left: 100%; }
 }
