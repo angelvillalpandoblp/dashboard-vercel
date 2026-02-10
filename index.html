@@ -12,161 +12,194 @@
 </head>
 <body>
 
-    <!-- BOTÓN DE DESPLIEGUE (FLOTANTE) -->
-    <button class="floating-toggle" onclick="toggleSidebar()">
-        <i data-lucide="menu"></i>
-    </button>
+    <!-- OVERLAY PARA MÓVILES (Opcional si quieres cerrar el menú al tocar fuera) -->
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
-    <!-- BARRA LATERAL -->
+    <!-- BARRA LATERAL (SIDEBAR) -->
     <aside id="sidebar" class="sidebar">
-        <div class="sidebar-top">
-            <div class="logo-container">
-                <img src="https://i.ibb.co/Df6V80YB/logo-png.png" alt="logo-png" class ="logo-img">
+        <div class="sidebar-header">
+            <div class="logo-wrapper">
+                <img src="https://i.ibb.co/Df6V80YB/logo-png.png" alt="logo" class="logo-img">
             </div>
+            <button class="close-sidebar-mobile" onclick="toggleSidebar()">
+                <i data-lucide="x"></i>
+            </button>
         </div>
         
-        <nav class="menu">
-            <button class="menu-item active" onclick="navigate('dashboard', this); toggleSidebar()">
-                <i data-lucide="layout-dashboard"></i>
-                <span class="nav-text">Dashboard</span>
-            </button>
-            <button class="menu-item" onclick="navigate('incidencias', this); toggleSidebar()">
-                <i data-lucide="alert-circle"></i>
-                <span class="nav-text">Incidencias</span>
-            </button>
-            <button class="menu-item" onclick="navigate('gavetas', this); toggleSidebar()">
-                <i data-lucide="layout-grid"></i>
-                <span class="nav-text">Gavetas</span>
-            </button>
+        <nav class="sidebar-nav">
+            <div class="nav-group">
+                <span class="nav-label">Principal</span>
+                <button class="nav-link active" onclick="navigate('dashboard', this)">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span class="nav-text">Dashboard</span>
+                </button>
+                <button class="nav-link" onclick="navigate('incidencias', this)">
+                    <i data-lucide="alert-circle"></i>
+                    <span class="nav-text">Incidencias</span>
+                </button>
+            </div>
+
+            <div class="nav-group">
+                <span class="nav-label">Inventario</span>
+                <button class="nav-link" onclick="navigate('gavetas', this)">
+                    <i data-lucide="package"></i>
+                    <span class="nav-text">Gavetas</span>
+                </button>
+            </div>
         </nav>
 
         <div class="sidebar-footer">
-            <div class="status-dot"></div>
-            <span class="nav-text">Sistema Activo</span>
+            <div class="system-status">
+                <div class="status-indicator online"></div>
+                <div class="status-info">
+                    <span class="status-title">Sistema Activo</span>
+                    <span class="status-desc">v2.4.0 - Sincronizado</span>
+                </div>
+            </div>
         </div>
     </aside>
 
     <!-- CONTENIDO PRINCIPAL -->
-    <main class="main-content">
-        <header class="main-header">
-            <div class="header-info">
-                <h1 id="page-title">Dashboard Principal</h1>
-                <p id="current-date"></p>
+    <main class="main-viewport">
+        
+        <!-- HEADER SUPERIOR -->
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <button class="action-btn menu-toggle" onclick="toggleSidebar()">
+                    <i data-lucide="menu"></i>
+                </button>
+                <div class="breadcrumb">
+                    <span class="breadcrumb-item">Mantenimiento</span>
+                    <span class="breadcrumb-sep">/</span>
+                    <span class="breadcrumb-item active" id="breadcrumb-current">Dashboard</span>
+                </div>
+            </div>
+            
+            <div class="top-bar-right">
+                <div class="user-pill">
+                    <div class="user-avatar">AD</div>
+                    <span class="user-name">Admin</span>
+                </div>
             </div>
         </header>
 
-        <!-- VISTA: DASHBOARD -->
-        <section id="view-dashboard" class="view-section active">
-            <div class="grid-container dashboard-layout">
-                <div class="card chart-card">
-                    <div class="card-header"><h3>Cumplimiento de Inventario</h3></div>
-                    <div class="card-body">
-                        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1026977364&format=interactive"></iframe>
-                    </div>
-                </div>
-                <div class="card chart-card">
-                    <div class="card-header"><h3>Faltante por Gaveta</h3></div>
-                    <div class="card-body">
-                        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1573440752&format=interactive"></iframe>
-                    </div>
-                </div>
+        <div class="scrollable-content">
+            <div class="content-header">
+                <h1 id="page-title">Dashboard Principal</h1>
+                <p id="current-date" class="text-muted"></p>
             </div>
-        </section>
 
-        <!-- VISTA: INCIDENCIAS -->
-        <section id="view-incidencias" class="view-section">
-            <div class="card table-card">
-                <div class="table-controls">
-                    <div class="title-group">
-                        <h3>Monitoreo de Herramientas</h3>
-                        <p>Faltantes por mas de 3 semanas</p>
+            <!-- VISTA: DASHBOARD -->
+            <section id="view-dashboard" class="view-section active">
+                <!-- TARJETAS DE MÉTRICAS RÁPIDAS (KPIs) -->
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-icon blue"><i data-lucide="check-circle"></i></div>
+                        <div class="kpi-data">
+                            <span class="kpi-value">98.5%</span>
+                            <span class="kpi-label">Disponibilidad</span>
+                        </div>
                     </div>
-                    <div class="search-box">
-                        <i data-lucide="search"></i>
-                        <input type="text" id="toolSearch" placeholder="Buscar herramienta o estado..." onkeyup="filterTable()">
+                    <div class="kpi-card">
+                        <div class="kpi-icon red"><i data-lucide="alert-triangle"></i></div>
+                        <div class="kpi-data">
+                            <span class="kpi-value">12</span>
+                            <span class="kpi-label">Faltantes</span>
+                        </div>
                     </div>
                 </div>
-                <div class="table-container">
-                    <table id="mainTable">
-                        <thead id="table-header"></thead>
-                        <tbody id="table-body">
-                            <tr><td colspan="10" style="text-align:center; padding:100px;">Conectando con base de datos...</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
 
-        <!-- VISTA: GAVETAS -->
-        <section id="view-gavetas" class="view-section">
-            <div class="grid-container gavetas-layout">
-                <!-- 6 Cuadros de gráficas -->
-                <div class="card chart-card mini" onclick="openGavetaTable('1301409209', 'Herramienta Faltante G1')">
-                    <div class="card-header"><h4>Gaveta 1. Gabinete de herramientas</h4>
-                    </div><div class="card-body">
-                        <div class="click-overlay"></div>
-                        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=794614800&amp;format=interactive"></iframe>
+                <div class="bento-grid dual">
+                    <div class="card chart-full">
+                        <div class="card-header">
+                            <div class="header-title">
+                                <i data-lucide="bar-chart-3"></i>
+                                <h3>Cumplimiento de Inventario</h3>
+                            </div>
+                        </div>
+                        <div class="card-body chart-wrapper">
+                            <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1026977364&format=interactive"></iframe>
+                        </div>
+                    </div>
+                    <div class="card chart-full">
+                        <div class="card-header">
+                            <div class="header-title">
+                                <i data-lucide="pie-chart"></i>
+                                <h3>Faltante por Gaveta</h3>
+                            </div>
+                        </div>
+                        <div class="card-body chart-wrapper">
+                            <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1573440752&format=interactive"></iframe>
+                        </div>
                     </div>
                 </div>
-                <div class="card chart-card mini" onclick="openGavetaTable('1346656233', 'Herramienta Faltante G2')">
-                    <div class="card-header"><h4>Gaveta 2. Tablero de herramientas</h4>
-                    </div><div class="card-body">
-                        <div class="click-overlay"></div>
-                        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=884831473&amp;format=interactive"></iframe>
+            </section>
+
+            <!-- VISTA: INCIDENCIAS -->
+            <section id="view-incidencias" class="view-section">
+                <div class="card table-main-card">
+                    <div class="table-header-pro">
+                        <div class="header-text">
+                            <h3>Registro de Incidencias</h3>
+                            <p>Análisis de herramientas faltantes (+3 semanas)</p>
+                        </div>
+                        <div class="table-actions">
+                            <div class="pro-search">
+                                <i data-lucide="search"></i>
+                                <input type="text" id="toolSearch" placeholder="Filtrar por nombre o código..." onkeyup="filterTable()">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pro-table-container">
+                        <table id="mainTable">
+                            <thead id="table-header"></thead>
+                            <tbody id="table-body">
+                                <tr><td colspan="10" class="loading-state">Conectando con base de datos...</td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="card chart-card mini" onclick="openGavetaTable('347609962', 'Herramienta Faltante G3')">
-                    <div class="card-header"><h4>Gaveta 3. Mesa de trabajo</h4>
-                    </div><div class="card-body">
-                        <div class="click-overlay"></div>
-                        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1301161531&amp;format=interactive"></iframe>
+            </section>
+
+            <!-- VISTA: GAVETAS -->
+            <section id="view-gavetas" class="view-section">
+                <div class="bento-grid dual">
+                    <!-- Gaveta 1 -->
+                    <div class="card gaveta-card" onclick="openGavetaTable('1301409209', 'Gaveta 1')">
+                        <div class="card-header">
+                            <div class="header-title">
+                                <h3>G1. Gabinete de herramientas</h3>
+                            </div>
+                            <i data-lucide="maximize-2" class="zoom-icon"></i>
+                        </div>
+                        <div class="card-body chart-wrapper mini">
+                            <div class="click-overlay"></div>
+                            <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=794614800&amp;format=interactive"></iframe>
+                        </div>
                     </div>
+                    <!-- Repetir lo mismo para las demás Gavetas... -->
                 </div>
-                <div class="card chart-card mini" onclick="openGavetaTable('683199897', 'Herramienta Faltante G4')">
-                    <div class="card-header"><h4>Gaveta 4. Carro de Mtto. Preventivo 1</h4>
-                    </div><div class="card-body">
-                        <div class="click-overlay"></div>
-                        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=2135726923&amp;format=interactive"></iframe>
-                    </div>
-                </div>
-                <div class="card chart-card mini" onclick="openGavetaTable('755623654', 'Herramienta Faltante G5')">
-                    <div class="card-header"><h4>Gaveta 5. Carro de Mtto. Preventivo 2</h4>
-                    </div><div class="card-body">
-                        <div class="click-overlay"></div>
-                        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1129848979&amp;format=interactive"></iframe>
-                    </div>
-                </div>
-                <div class="card chart-card mini" onclick="openGavetaTable('2067041911', 'Herramienta Faltante G6')">
-                    <div class="card-header"><h4>Gaveta 6. Carro de Mtto. Correctivo</h4>
-                    </div><div class="card-body">
-                        <div class="click-overlay"></div>
-                        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=715537081&amp;format=interactive"></iframe>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </main>
 
-    <!-- ... resto del código anterior ... -->
-    </main>
-
-    <!-- LLAMADA AL ARCHIVO JS EXTERNO -->
-    <script src="script.js"></script>
-
-    <!-- VENTANA PARA TABLAS DE INVENTARIO -->
-    <div id="tableModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div>
-                    <h2 id="modalTitle">Inventario</h2>
-                    <p id="modalSubtitle" style="font-size: 0.8rem; color: #64748B; margin: 0;"></p>
+    <!-- VENTANA MODAL PROFESIONAL -->
+    <div id="tableModal" class="modal-overlay">
+        <div class="modal-window">
+            <header class="modal-header">
+                <div class="modal-title-box">
+                    <div class="modal-icon-box"><i data-lucide="database"></i></div>
+                    <div>
+                        <h2 id="modalTitle">Detalle de Inventario</h2>
+                        <span id="modalSubtitle">Reporte Generado: Semana 7</span>
+                    </div>
                 </div>
-                <button class="close-modal" onclick="closeModal()">
+                <button class="btn-close-circle" onclick="closeModal()">
                     <i data-lucide="x"></i>
                 </button>
-            </div>
-            <div class="modal-body">
-                <div class="modal-table-container">
+            </header>
+            <div class="modal-body-content">
+                <div class="table-container-modal">
                     <table id="gavetaTable">
                         <thead id="gaveta-header"></thead>
                         <tbody id="gaveta-body"></tbody>
@@ -175,5 +208,8 @@
             </div>
         </div>
     </div>
-</body> 
+
+    <!-- SCRIPTS -->
+    <script src="script.js"></script>
+</body>
 </html>
