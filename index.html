@@ -155,32 +155,33 @@
         }
 
         function navigate(viewId, btn) {
-            // 1. Quitar la clase active de todas las vistas (esto reinicia las animaciones CSS)
-            document.querySelectorAll('.view-section').forEach(v => {
-                v.classList.remove('active');
-                v.style.display = 'none'; // Ocultamos completamente
+            // 1. Ocultar todas las secciones y resetear su estado de animación
+            document.querySelectorAll('.view-section').forEach(section => {
+                section.classList.remove('active');
+                section.style.display = 'none';
             });
 
-            // 2. Activar la vista seleccionada
+            // 2. Mostrar la sección destino
             const targetView = document.getElementById('view-' + viewId);
             targetView.style.display = 'block';
-            
-            // Pequeño retraso para que el navegador registre que se volvió a mostrar y dispare la animación
-            setTimeout(() => {
-                targetView.classList.add('active');
-            }, 10);
 
-            // 3. Cambiar estados de los botones
+            // 3. Forzar un "reflow" (pequeño truco para que el navegador reinicie la animación)
+            void targetView.offsetWidth; 
+
+            // 4. Activar la clase active para disparar el CSS
+            targetView.classList.add('active');
+
+            // 5. Gestionar botones del menú
             document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
             btn.classList.add('active');
 
-            // 4. Actualizar título
+            // 6. Actualizar título de la página
             document.getElementById('page-title').textContent = btn.innerText;
 
-            // 5. Ajustar iframes (solo redimensionar, no recargar src para evitar fallos)
+            // 7. Notificar a las gráficas que se ajusten (Resize)
             window.dispatchEvent(new Event('resize'));
         }
-
+        
         function loadData() {
             const url = "https://docs.google.com/spreadsheets/d/1zMLnKjFwvzWSLRDX1N2dIETrY_RFLZhfTv0Z8LGznQ0/export?format=csv&gid=1298177878";
             Papa.parse(url, {

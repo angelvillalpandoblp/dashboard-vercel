@@ -420,54 +420,40 @@ td {
     animation: modalGrow 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); /* Efecto "Bounce" suave */
 }
 
-/* --- ANIMACIÓN DE ENTRADA CONSTANTE --- */
-@keyframes chartEntrance {
+/* --- ANIMACIÓN DE ENTRADA ENTERPRISE --- */
+@keyframes cardReveal {
     0% {
         opacity: 0;
-        transform: translateY(30px) scale(0.95); /* Viene de abajo y un poco pequeña */
-        filter: blur(5px); /* Un ligero desenfoque inicial */
+        transform: translateY(20px); /* Movimiento sutil de 20px */
     }
     100% {
         opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0);
+        transform: translateY(0);
     }
 }
 
-/* Aplicar a las tarjetas cuando la pestaña se activa */
+/* Estado inicial de las tarjetas antes de la animación */
+.view-section .card {
+    opacity: 0;
+}
+
+/* Clase que activa la animación cuando la pestaña es seleccionada */
 .view-section.active .card {
-    animation: chartEntrance 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-    opacity: 0; /* Empieza invisible para la animación */
+    animation: cardReveal 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Efecto de Cascada (una tras otra) */
-.view-section.active .card:nth-child(1) { animation-delay: 0.1s; }
-.view-section.active .card:nth-child(2) { animation-delay: 0.2s; }
-.view-section.active .card:nth-child(3) { animation-delay: 0.3s; }
-.view-section.active .card:nth-child(4) { animation-delay: 0.4s; }
-.view-section.active .card:nth-child(5) { animation-delay: 0.5s; }
-.view-section.active .card:nth-child(6) { animation-delay: 0.6s; }
+/* EFECTO CASCADA (STAGGER) */
+/* Las tarjetas entran una tras otra con 50ms de diferencia */
+.view-section.active .card:nth-child(1) { animation-delay: 0.05s; }
+.view-section.active .card:nth-child(2) { animation-delay: 0.10s; }
+.view-section.active .card:nth-child(3) { animation-delay: 0.15s; }
+.view-section.active .card:nth-child(4) { animation-delay: 0.20s; }
+.view-section.active .card:nth-child(5) { animation-delay: 0.25s; }
+.view-section.active .card:nth-child(6) { animation-delay: 0.30s; }
 
-/* Evitar el parpadeo blanco del iframe */
-.card-body {
-    background: #ffffff; /* O el color de fondo de tu tarjeta */
-    overflow: hidden;
-    position: relative;
-}
-
-/* SKELETON LOADER (Efecto de carga opcional) */
-/* Esto hace que mientras Google Sheets carga, se vea un pulso de luz profesional */
-.card-body::before {
-    content: "";
-    position: absolute;
-    top: 0; left: -100%;
-    width: 200%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-    animation: skeletonPulse 2s infinite;
-    z-index: 1;
-    pointer-events: none;
-}
-
-@keyframes skeletonPulse {
-    100% { left: 100%; }
+/* REFUERZO PROFESIONAL: Quitamos bordes redondeados excesivos y sombras ruidosas */
+.card {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    background: #ffffff;
 }
