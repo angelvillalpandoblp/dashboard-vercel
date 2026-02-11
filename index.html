@@ -38,6 +38,10 @@
                 <i data-lucide="layout-grid"></i>
                 <span class="nav-text">Gavetas</span>
             </button>
+            <button class="menu-item" onclick="navigate('refacciones', this); toggleSidebar()">
+                <i data-lucide="layout-grid"></i>
+                <span class="nav-text">Refacciones</span>
+            </button>
         </nav>
 
         <div class="sidebar-footer">
@@ -142,6 +146,31 @@
                         <div class="click-overlay"></div>
                         <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=715537081&amp;format=interactive"></iframe>
                     </div>
+                </div>
+            </div>
+        </section>
+                <!-- VISTA: REFACCIONES -->
+        <section id="view-refacciones" class="view-section">
+            <div class="card table-main-card">
+                <div class="table-header-pro">
+                    <div class="header-text">
+                        <h3>Inventario de Refacciones</h3>
+                        <p>Control de existencias y piezas de recambio</p>
+                    </div>
+                    <div class="table-actions">
+                        <div class="pro-search">
+                            <i data-lucide="search"></i>
+                            <input type="text" id="refaccionesSearch" placeholder="Buscar refacción..." onkeyup="filterRefaccionesTable()">
+                        </div>
+                    </div>
+                </div>
+                <div class="pro-table-container">
+                    <table id="refaccionesTable">
+                        <thead id="refacciones-header"></thead>
+                        <tbody id="refacciones-body">
+                            <tr><td colspan="10" class="loading-state">Cargando inventario de refacciones...</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>

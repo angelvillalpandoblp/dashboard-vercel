@@ -184,6 +184,7 @@ function closeModal() {
 window.addEventListener('DOMContentLoaded', () => {
     // Cargar datos iniciales
     loadData();
+    loadRefaccionesData();
     
     // Crear iconos de Lucide
     if (typeof lucide !== 'undefined') {
@@ -207,3 +208,68 @@ window.onclick = function(event) {
     }
 };
 
+/**
+ * Carga de datos para la pestaña de Refacciones
+ */
+function loadRefaccionesData() {
+    // REEMPLAZA "TU_GID_AQUI" por el ID de la pestaña de Refacciones
+    const gid = "586056465"; 
+    const spreadsheetID = "1zMLnKjFwvzWSLRDX1N2dIETrY_RFLZhfTv0Z8LGznQ0";
+    const url = `https://docs.google.com/spreadsheets/d/${spreadsheetID}/export?format=csv&gid=${gid}`;
+
+    Papa.parse(url, {
+        download: true,
+        complete: function(results) {
+            const data = results.data;
+            const thead = document.getElementById('refacciones-header');
+            const tbody = document.getElementById('refacciones-body');
+            
+            if (!thead || !tbody) return;
+            thead.innerHTML = ""; tbody.innerHTML = "";
+
+            if (data.length > 0) {
+                // Generar Cabecera
+                const hRow = document.createElement('tr');
+                data[0].forEach(t => {
+                    const th = document.createElement('th');
+                    th.textContent = t;
+                    hRow.appendChild(th);
+                });
+                thead.appendChild(hRow);
+
+                // Generar Filas
+                data.slice(1).forEach(row => {
+                    if(!row.join('').trim()) return;
+                    const tr = document.createElement('tr');
+                    row.forEach(cell => {
+                        const td = document.createElement('td');
+                        const text = cell || "-";
+                        
+                        // Lógica de colores para Stock
+                        const lowerText = text.toLowerCase();
+                        if(lowerText.includes("bajo") || lowerText.includes("agotado")) {
+                            td.innerHTML = `<span class="badge-alert">${text}</span>`;
+                        } else if(lowerText.includes("ok") || lowerText.includes("disponible")) {
+                            td.innerHTML = `<span style="background:#DCFCE7; color:#16A34A; padding:5px 10px; border-radius:6px; font-weight:700;">${text}</span>`;
+                        } else {
+                            td.textContent = text;
+                        }
+                        tr.appendChild(td);
+                    });
+                    tbody.appendChild(tr);
+                });
+            }
+        }
+    });
+}
+
+/**
+ * Filtro de búsqueda para Refacciones
+ */
+function filterRefaccionesTable() {
+    const val = document.getElementById("refaccionesSearch").value.toUpperCase();
+    const rows = document.getElementById("refacciones-body").getElementsByTagName("tr");
+    for (let r of rows) {
+        r.style.display = r.textContent.toUpperCase().includes(val) ? "" : "none";
+    }
+}
