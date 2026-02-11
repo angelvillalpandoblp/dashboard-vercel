@@ -213,8 +213,8 @@ window.onclick = function(event) {
  */
 function loadRefaccionesData() {
     // REEMPLAZA "TU_GID_AQUI" por el ID de la pestaña de Refacciones
-    const gid = "586056465"; 
-    const spreadsheetID = "1VkuB6LUBkSQUj3V2RE8UCMnIjV4m7_8Dd9Vw3_YOBGw";
+    const gid = "1724200568"; 
+    const spreadsheetID = "1zMLnKjFwvzWSLRDX1N2dIETrY_RFLZhfTv0Z8LGznQ0";
     const url = `https://docs.google.com/spreadsheets/d/${spreadsheetID}/export?format=csv&gid=${gid}`;
 
     Papa.parse(url, {
