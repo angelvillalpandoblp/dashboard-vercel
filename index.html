@@ -149,26 +149,35 @@
                 </div>
             </div>
         </section>
-                <!-- VISTA: REFACCIONES -->
+
         <section id="view-refacciones" class="view-section">
-            <div class="card table-main-card">
-                <div class="table-header-pro">
-                    <div class="header-text">
-                        <h3>Inventario de Refacciones</h3>
-                        <p>Control de existencias y piezas de recambio</p>
+            <div class="card table-card-pro">
+                <!-- CABECERA DE TARJETA PROFESIONAL -->
+                <div class="card-header-pro">
+                    <div class="header-title-group">
+                        <div class="header-icon-bg">
+                            <i data-lucide="wrench"></i>
+                        </div>
+                        <div>
+                            <h3>Inventario de Refacciones</h3>
+                            <p>Control de stock y suministros de almacén</p>
+                        </div>
                     </div>
-                    <div class="table-actions">
-                        <div class="pro-search">
+                    
+                    <div class="header-actions">
+                        <div class="search-wrapper-pro">
                             <i data-lucide="search"></i>
-                            <input type="text" id="refaccionesSearch" placeholder="Buscar refacción..." onkeyup="filterRefaccionesTable()">
+                            <input type="text" id="refaccionesSearch" placeholder="Buscar refacción o código..." onkeyup="filterRefaccionesTable()">
                         </div>
                     </div>
                 </div>
-                <div class="pro-table-container">
+
+                <!-- TABLA REFINADA -->
+                <div class="table-scroll-area">
                     <table id="refaccionesTable">
                         <thead id="refacciones-header"></thead>
                         <tbody id="refacciones-body">
-                            <tr><td colspan="10" class="loading-state">Cargando inventario de refacciones...</td></tr>
+                            <tr><td colspan="10" class="loading-state">Sincronizando con almacén...</td></tr>
                         </tbody>
                     </table>
                 </div>
