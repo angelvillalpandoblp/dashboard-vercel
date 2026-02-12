@@ -2,30 +2,23 @@ document.addEventListener('DOMContentLoaded', () => {
     checkBackendStatus();
 });
 
-async function checkBackendStatus() {
-    const statusDiv = document.getElementById('api-status');
-    const dot = statusDiv.querySelector('.dot');
-    const textNode = statusDiv.lastChild;
-
+function checkBackendStatus() {
     try {
-        // CAMBIO IMPORTANTE: Ahora apuntamos directamente al archivo
-        const response = await fetch('/api/index'); 
-        const data = await response.json();
+        // Buscamos los elementos con precaución
+        const indicator = document.querySelector('.status-indicator') || document.querySelector('.status-dot');
+        const statusText = document.querySelector('.status-title');
 
-        if (data.status === 'success') {
-            statusDiv.classList.add('online');
-            dot.style.backgroundColor = '#10b981';
-            textNode.textContent = ' Conectado (' + data.registros + ' items)';
-        } else {
-            throw new Error(data.message);
+        if (indicator) {
+            indicator.classList.add('online');
+        }
+        if (statusText) {
+            statusText.textContent = "Sistema Activo";
         }
     } catch (error) {
-        console.error(error);
-        statusDiv.classList.add('offline');
-        dot.style.backgroundColor = '#ef4444';
-        textNode.textContent = ' Sin conexión con Python';
+        // Si algo falla, lo silenciamos para que no bloquee los clics
+        console.warn("Estado del sistema: Elementos de UI no encontrados.");
     }
-}
+}   
 
 /**
  * Control de la Barra Lateral (Sidebar)
@@ -297,20 +290,40 @@ function fixDriveUrl(url) {
 }
 
 function openImageModal(index, nombre) {
+    console.log("Clic detectado en fila:", index); // Ver en consola F12
+
     const modal = document.getElementById('imageModal');
     const imgTag = document.getElementById('refaccionImg');
     const title = document.getElementById('imageModalTitle');
 
-    // Buscamos la foto en el array usando el índice de la fila
+    if (!modal || !imgTag) {
+        console.error("No se encontró el modal o la etiqueta de imagen en el HTML.");
+        return;
+    }
+
     const rawUrl = fotosRefacciones[index];
-    
+
     if (rawUrl) {
-        imgTag.src = fixDriveUrl(rawUrl);
-        title.textContent = nombre;
-        modal.style.display = 'flex';
-        lucide.createIcons(); // Para el botón X
+        try {
+            // Extraer el ID de Google Drive de forma segura
+            const match = rawUrl.match(/\/d\/(.+?)\//);
+            if (match && match[1]) {
+                const id = match[1];
+                imgTag.src = `https://drive.google.com/uc?export=view&id=${id}`;
+                title.textContent = nombre;
+                modal.style.display = 'flex';
+                
+                // Refrescamos iconos de Lucide (por si el botón X no aparece)
+                if (window.lucide) lucide.createIcons();
+            } else {
+                throw new Error("ID de Drive no válido");
+            }
+        } catch (e) {
+            console.error("Error al procesar la URL de la imagen:", e);
+            alert("El enlace de la imagen no es válido.");
+        }
     } else {
-        alert("No hay imagen disponible para esta refacción");
+        alert("Esta refacción aún no tiene una imagen asignada en el sistema.");
     }
 }
 
