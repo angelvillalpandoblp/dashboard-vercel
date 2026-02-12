@@ -106,6 +106,25 @@ function loadData() {
                     tbody.appendChild(tr);
                 });
             }
+                    // ... dentro de Papa.parse complete ...
+        data.slice(1).forEach((row, index) => { // Agregamos 'index' aquí
+            if(!row.join('').trim()) return;
+            
+            const tr = document.createElement('tr');
+            tr.style.cursor = "pointer"; // Cursor de mano
+            
+            // Al hacer clic, enviamos el índice y el nombre (que suele ser la col 0)
+            tr.onclick = () => openImageModal(index, row[0]); 
+
+            row.forEach(cell => {
+                const td = document.createElement('td');
+                const text = cell || "-";
+                // ... tu lógica de badges de stock aquí ...
+                td.textContent = text;
+                tr.appendChild(td);
+            });
+            tbody.appendChild(tr);
+        });
         }
     });
 }
@@ -274,37 +293,49 @@ function filterRefaccionesTable() {
     }
 }
 
-const refacciones = [
-    { id :1 , foto: "https://drive.google.com/open?id=1Ou-u-XKSjMxCW6xQmuZCUbHbZ0DL4ldI"   },
+// ARRAY DE FOTOS (Asegúrate de poner los links de compartir de Drive)
+const fotosRefacciones = [
+    "https://drive.google.com/open?id=1Ou-u-XKSjMxCW6xQmuZCUbHbZ0DL4ldI",
+];
 
-    ];
+/**
+ * Convierte link de Drive a link de visualización directa
+ */
+function fixDriveUrl(url) {
+    if (url.includes('drive.google.com')) {
+        const id = url.split('/d/')[1].split('/')[0];
+        return `https://drive.google.com/uc?export=view&id=${id}`;
+    }
+    return url;
+}
 
-// 1. Buscamos donde va la tabla en el HTML
-const cuerpoTabla = document.getElementById('view-refacciones');
+function openImageModal(index, nombre) {
+    const modal = document.getElementById('imageModal');
+    const imgTag = document.getElementById('refaccionImg');
+    const title = document.getElementById('imageModalTitle');
 
-// 2. Iniciamos el ciclo (El robot empieza a trabajar)
-misProductos.forEach(item => {
+    // Buscamos la foto en el array usando el índice de la fila
+    const rawUrl = fotosRefacciones[index];
     
-    // A. Crea una fila nueva (<tr>)
-    const fila = document.createElement('tr');
+    if (rawUrl) {
+        imgTag.src = fixDriveUrl(rawUrl);
+        title.textContent = nombre;
+        modal.style.display = 'flex';
+        lucide.createIcons(); // Para el botón X
+    } else {
+        alert("No hay imagen disponible para esta refacción");
+    }
+}
 
-    // B. Le inyecta el HTML visual (las celdas)
-    // Nota como usa 'item.producto' para poner el texto correcto
-    fila.innerHTML = `
-        <td>${item.producto}</td>
-        <td>Clic para ver foto</td>
-    `;
+function closeImageModal() {
+    document.getElementById('imageModal').style.display = 'none';
+    document.getElementById('refaccionImg').src = ""; // Limpiar para la próxima
+}
 
-    // C. Le agrega el "evento" (la tarjeta invisible)
-    // Aquí es donde el código sabe EXACTAMENTE qué link usar.
-    // Usa 'item.foto' que viene en el mismo paquete que el nombre.
-    fila.addEventListener('click', () => {
-        window.open(item.foto, '_blank');
-    });
-    
-    // D. Estilos para que parezca botón (manita al pasar mouse)
-    fila.style.cursor = "pointer"; 
-
-    // E. Pone la fila terminada en la tabla
-    cuerpoTabla.appendChild(fila);
-});
+// Actualiza tu window.onclick para que también cierre este modal
+window.onclick = function(e) {
+    const tableModal = document.getElementById('tableModal');
+    const imageModal = document.getElementById('imageModal');
+    if(e.target == tableModal) closeModal();
+    if(e.target == imageModal) closeImageModal();
+}
