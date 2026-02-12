@@ -273,3 +273,38 @@ function filterRefaccionesTable() {
         r.style.display = r.textContent.toUpperCase().includes(val) ? "" : "none";
     }
 }
+
+const refacciones = [
+    { id :1 , foto: "https://drive.google.com/open?id=1Ou-u-XKSjMxCW6xQmuZCUbHbZ0DL4ldI"   },
+
+    ];
+
+// 1. Buscamos donde va la tabla en el HTML
+const cuerpoTabla = document.getElementById('view-refacciones');
+
+// 2. Iniciamos el ciclo (El robot empieza a trabajar)
+misProductos.forEach(item => {
+    
+    // A. Crea una fila nueva (<tr>)
+    const fila = document.createElement('tr');
+
+    // B. Le inyecta el HTML visual (las celdas)
+    // Nota como usa 'item.producto' para poner el texto correcto
+    fila.innerHTML = `
+        <td>${item.producto}</td>
+        <td>Clic para ver foto</td>
+    `;
+
+    // C. Le agrega el "evento" (la tarjeta invisible)
+    // Aquí es donde el código sabe EXACTAMENTE qué link usar.
+    // Usa 'item.foto' que viene en el mismo paquete que el nombre.
+    fila.addEventListener('click', () => {
+        window.open(item.foto, '_blank');
+    });
+    
+    // D. Estilos para que parezca botón (manita al pasar mouse)
+    fila.style.cursor = "pointer"; 
+
+    // E. Pone la fila terminada en la tabla
+    cuerpoTabla.appendChild(fila);
+});
