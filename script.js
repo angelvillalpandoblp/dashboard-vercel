@@ -299,6 +299,8 @@ function openImageModal(index, nombre) {
     const rawUrl = fotosRefacciones[index];
 
     if (rawUrl) {
+        // 1. Extraer el ID del link que me pasaste
+        // Tu link: https://drive.google.com/file/d/1Ou-u-XKSjMxCW6xQmuZCUbHbZ0DL4ldI/view?usp=sharing
         const match = rawUrl.match(/\/d\/(.+?)\//);
         
         if (match && match[1]) {
@@ -322,6 +324,7 @@ function openImageModal(index, nombre) {
         alert("No hay imagen disponible para esta posición.");
     }
 }
+
 function closeImageModal() {
     document.getElementById('imageModal').style.display = 'none';
     document.getElementById('refaccionImg').src = ""; // Limpiar para la próxima
