@@ -281,7 +281,7 @@ function filterRefaccionesTable() {
 
 // ARRAY DE FOTOS (Asegúrate de poner los links de compartir de Drive)
 const fotosRefacciones = [
-    "https://drive.google.com/open?id=1Ou-u-XKSjMxCW6xQmuZCUbHbZ0DL4ldI",
+    "https://drive.google.com/file/d/1Ou-u-XKSjMxCW6xQmuZCUbHbZ0DL4ldI/view?usp=sharing",
 ];
 
 /**
