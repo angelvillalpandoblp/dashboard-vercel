@@ -213,20 +213,17 @@
             </div>
         </div>
     </div>
-        <!-- MODAL PARA VER FOTOS DE REFACCIONES -->
-    <div id="imageModal" class="modal-overlay">
-        <div class="modal-window image-modal">
+    <!-- MODAL PARA FOTOS -->
+    <div id="imageModal" class="modal-overlay" style="display:none;">
+        <div class="modal-window" style="max-width: 500px; height: auto;">
             <button class="btn-close-red" onclick="closeImageModal()">
                 <i data-lucide="x"></i>
             </button>
             <div class="modal-header">
-                <div>
-                    <h2 id="imageModalTitle">Visualización de Refacción</h2>
-                    <p id="imageModalDesc">Vista previa del catálogo</p>
-                </div>
+                <h2 id="imageModalTitle" style="margin:0">Vista Previa</h2>
             </div>
-            <div class="modal-body-img">
-                <img id="refaccionImg" src="" alt="Cargando...">
+            <div class="modal-body" style="padding: 20px; text-align: center;">
+                <img id="refaccionImg" src="" alt="Imagen" style="width:100%; border-radius:12px; border:1px solid #ddd; max-height: 450px; object-fit: contain;">
             </div>
         </div>
     </div>

@@ -106,25 +106,7 @@ function loadData() {
                     tbody.appendChild(tr);
                 });
             }
-                    // ... dentro de Papa.parse complete ...
-        data.slice(1).forEach((row, index) => { // Agregamos 'index' aquí
-            if(!row.join('').trim()) return;
-            
-            const tr = document.createElement('tr');
-            tr.style.cursor = "pointer"; // Cursor de mano
-            
-            // Al hacer clic, enviamos el índice y el nombre (que suele ser la col 0)
-            tr.onclick = () => openImageModal(index, row[0]); 
-
-            row.forEach(cell => {
-                const td = document.createElement('td');
-                const text = cell || "-";
-                // ... tu lógica de badges de stock aquí ...
-                td.textContent = text;
-                tr.appendChild(td);
-            });
-            tbody.appendChild(tr);
-        });
+       
         }
     });
 }
@@ -231,7 +213,6 @@ window.onclick = function(event) {
  * Carga de datos para la pestaña de Refacciones
  */
 function loadRefaccionesData() {
-    // REEMPLAZA "TU_GID_AQUI" por el ID de la pestaña de Refacciones
     const gid = "1724200568"; 
     const spreadsheetID = "1zMLnKjFwvzWSLRDX1N2dIETrY_RFLZhfTv0Z8LGznQ0";
     const url = `https://docs.google.com/spreadsheets/d/${spreadsheetID}/export?format=csv&gid=${gid}`;
@@ -247,7 +228,6 @@ function loadRefaccionesData() {
             thead.innerHTML = ""; tbody.innerHTML = "";
 
             if (data.length > 0) {
-                // Generar Cabecera
                 const hRow = document.createElement('tr');
                 data[0].forEach(t => {
                     const th = document.createElement('th');
@@ -256,15 +236,21 @@ function loadRefaccionesData() {
                 });
                 thead.appendChild(hRow);
 
-                // Generar Filas
-                data.slice(1).forEach(row => {
+                // MODIFICACIÓN AQUÍ: Añadimos (row, index) para saber qué fila se toca
+                data.slice(1).forEach((row, index) => {
                     if(!row.join('').trim()) return;
                     const tr = document.createElement('tr');
+                    
+                    // Hacer la fila clickeable
+                    tr.style.cursor = "pointer";
+                    tr.onclick = function() {
+                        openImageModal(index, row[0]); // Pasa el índice y el nombre de la refacción
+                    };
+
                     row.forEach(cell => {
                         const td = document.createElement('td');
                         const text = cell || "-";
                         
-                        // Lógica de colores para Stock
                         const lowerText = text.toLowerCase();
                         if(lowerText.includes("bajo") || lowerText.includes("agotado")) {
                             td.innerHTML = `<span class="badge-alert">${text}</span>`;
