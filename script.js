@@ -290,43 +290,38 @@ function fixDriveUrl(url) {
 }
 
 function openImageModal(index, nombre) {
-    console.log("Clic detectado en fila:", index); // Ver en consola F12
-
     const modal = document.getElementById('imageModal');
     const imgTag = document.getElementById('refaccionImg');
     const title = document.getElementById('imageModalTitle');
 
-    if (!modal || !imgTag) {
-        console.error("No se encontró el modal o la etiqueta de imagen en el HTML.");
-        return;
-    }
+    if (!modal || !imgTag) return;
 
     const rawUrl = fotosRefacciones[index];
 
     if (rawUrl) {
-        try {
-            // Extraer el ID de Google Drive de forma segura
-            const match = rawUrl.match(/\/d\/(.+?)\//);
-            if (match && match[1]) {
-                const id = match[1];
-                imgTag.src = `https://drive.google.com/uc?export=view&id=${id}`;
-                title.textContent = nombre;
-                modal.style.display = 'flex';
-                
-                // Refrescamos iconos de Lucide (por si el botón X no aparece)
-                if (window.lucide) lucide.createIcons();
-            } else {
-                throw new Error("ID de Drive no válido");
-            }
-        } catch (e) {
-            console.error("Error al procesar la URL de la imagen:", e);
-            alert("El enlace de la imagen no es válido.");
+        const match = rawUrl.match(/\/d\/(.+?)\//);
+        
+        if (match && match[1]) {
+            const id = match[1];
+            
+            // 2. USAR EL LINK DE THUMBNAIL (Más estable para mostrar en webs)
+            // El parámetro &sz=w1000 le pide a Google una calidad de 1000px
+            imgTag.src = `https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
+            
+            title.textContent = nombre;
+            modal.style.display = 'flex';
+            
+            // Log para que verifiques en la consola (F12) que el ID sea correcto
+            console.log("Mostrando imagen de Drive ID:", id);
+
+            if (window.lucide) lucide.createIcons();
+        } else {
+            alert("Error: El formato del link de Drive no es correcto.");
         }
     } else {
-        alert("Esta refacción aún no tiene una imagen asignada en el sistema.");
+        alert("No hay imagen disponible para esta posición.");
     }
 }
-
 function closeImageModal() {
     document.getElementById('imageModal').style.display = 'none';
     document.getElementById('refaccionImg').src = ""; // Limpiar para la próxima
