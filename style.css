@@ -560,7 +560,7 @@ td {
     z-index: 5;
     background: #f8fafc;
     padding: 14px 24px;
-    text-align: left;
+    text-align: left; /* Alineación base */
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -569,23 +569,30 @@ td {
     border-bottom: 2px solid #f1f5f9;
 }
 
+/* --- NUEVA REGLA: CENTRAR COLUMNAS ESPECÍFICAS --- */
+/* Cambia los números 2, 3 o 4 por las columnas que tú necesites centrar */
+#refaccionesTable th:nth-child(2), #refaccionesTable td:nth-child(2),
+#refaccionesTable th:nth-child(3), #refaccionesTable td:nth-child(3),
+#refaccionesTable th:nth-child(4), #refaccionesTable td:nth-child(4) {
+    text-align: center;
+}
+
 #refaccionesTable td {
     padding: 16px 24px;
     font-size: 0.875rem;
     color: #334155;
     border-bottom: 1px solid #f1f5f9;
-}
-
-#refaccionesTable tbody tr:hover {
-    background-color: #f8fafc;
+    vertical-align: middle; /* Asegura que el contenido centrado no flote arriba */
 }
 
 /* Badges automáticos para Stock */
-.stock-badge {
+.stock-badge, .badge-alert {
     padding: 4px 10px;
     border-radius: 6px;
     font-size: 0.75rem;
     font-weight: 700;
+    display: inline-block; /* Importante para que el centrado funcione */
+    min-width: 90px;       /* Opcional: para que todas las etiquetas midan lo mismo */
 }
 
 .stock-low { background: #fef2f2; color: #ef4444; border: 1px solid #fee2e2; }
@@ -594,6 +601,7 @@ td {
 /* Hacer que las filas de refacciones se vean interactivas */
 #refaccionesTable tbody tr {
     transition: background 0.2s ease;
+    cursor: pointer;
 }
 
 #refaccionesTable tbody tr:hover {
@@ -618,9 +626,9 @@ td {
 #refaccionImg {
     width: 100%;
     max-height: 500px;
-    object-fit: contain; /* Mantiene la proporción sin deformar */
+    object-fit: contain;
     display: block;
     margin: 0 auto;
-    background-color: #f0f0f0; /* Fondo gris mientras carga */
+    background-color: #f0f0f0;
     border-radius: 8px;
 }
