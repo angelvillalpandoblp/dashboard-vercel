@@ -772,6 +772,7 @@ const fotosRefacciones = [
     "dd",
     "dd",
     "dd",
+    "dd",
 
     /* 516-613 */
     "https://drive.google.com/file/d/11WoY8mxnum9Nswk8sSik6O3tVaq6GTVP/view?usp=sharing",
