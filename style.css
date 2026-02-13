@@ -182,27 +182,42 @@ iframe {
 
     /* 3. Rejillas (Grids) a 1 Sola Columna */
     .grid-container {
-        grid-template-columns: 1fr !important; /* Todo uno debajo de otro */
-        gap: 15px;
+        grid-template-columns: 1fr !important; /* Una debajo de otra */
+        gap: 12px; /* Espacio más pequeño entre tarjetas */
+        padding: 0;
     }
 
     /* 4. Ajuste de Tarjetas */
+    .card-header {
+        padding: 12px 16px !important;
+    }
+
     .card-header h3, .card-header h4 {
-        font-size: 0.9rem;
+        font-size: 0.85rem !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; /* Corta el texto largo con puntos suspensivos */
     }
 
     .card-body {
-        min-height: 300px; /* Gráficas un poco más bajas en móvil */
+        min-height: auto !important; 
+        height: auto !important;
+        /* Proporción profesional para móvil (4:3 o 1:1) */
+        aspect-ratio: 4 / 3; 
+        width: 100%;
+        padding: 8px !important; /* Menos espacio interno para ganar tamaño de gráfica */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
     }
 
-    /* 5. Tablas Responsivas (Scroll Horizontal) */
-    .table-controls {
-        flex-direction: column; /* Buscador debajo del título */
-        align-items: flex-start;
-        gap: 15px;
-        padding: 15px;
+    .card-body iframe {
+        width: 100% !important;
+        height: 100% !important;
+        border: none;
+        display: block;
     }
-
     .search-box {
         width: 100% !important;
         max-width: none;
