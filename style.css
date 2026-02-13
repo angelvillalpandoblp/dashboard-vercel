@@ -160,8 +160,93 @@ iframe {
     margin: 0 auto; 
 }
 
-@media (max-width: 1100px) {
-    .dashboard-layout, .gavetas-layout { grid-template-columns: 1fr; }
+/* --- OPTIMIZACIÓN PARA MÓVILES --- */
+@media (max-width: 768px) {
+    /* 1. Ajuste del Contenido Principal */
+    .main-content {
+        padding: 80px 15px 20px 15px !important; /* Más espacio arriba para el botón flotante */
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+
+    /* 2. Sidebar en Móvil (Se convierte en un cajón que cubre la pantalla) */
+    .sidebar {
+        width: 280px !important;
+        left: -280px !important; /* Escondido a la izquierda */
+        box-shadow: 10px 0 30px rgba(0,0,0,0.2);
+    }
+
+    body.sidebar-open .sidebar {
+        left: 0 !important;
+    }
+
+    /* 3. Rejillas (Grids) a 1 Sola Columna */
+    .grid-container {
+        grid-template-columns: 1fr !important; /* Todo uno debajo de otro */
+        gap: 15px;
+    }
+
+    /* 4. Ajuste de Tarjetas */
+    .card-header h3, .card-header h4 {
+        font-size: 0.9rem;
+    }
+
+    .card-body {
+        min-height: 300px; /* Gráficas un poco más bajas en móvil */
+    }
+
+    /* 5. Tablas Responsivas (Scroll Horizontal) */
+    .table-controls {
+        flex-direction: column; /* Buscador debajo del título */
+        align-items: flex-start;
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .search-box {
+        width: 100% !important;
+        max-width: none;
+    }
+
+    .table-container {
+        border-radius: 0;
+    }
+
+    td, th {
+        padding: 12px 15px !important;
+        font-size: 0.8rem !important;
+    }
+
+    /* 6. Modales (Ventanas emergentes) */
+    .modal-content {
+        width: 95% !important;
+        height: 90vh !important;
+        margin: 5vh auto;
+    }
+
+    /* Botón cerrar más grande para dedos */
+    .close-modal-red {
+        width: 45px;
+        height: 45px;
+        top: 10px;
+        right: 10px;
+    }
+
+    /* Imagen del modal adaptable */
+    #refaccionImg {
+        max-height: 350px;
+    }
+}
+
+/* Ajuste para pantallas muy pequeñas (iPhone SE, etc) */
+@media (max-width: 480px) {
+    .main-header h1 {
+        font-size: 1.4rem;
+    }
+    
+    .card-body {
+        min-height: 250px;
+    }
 }
 
 /* TABLA INCIDENCIAS (AJUSTE TOTAL) */
