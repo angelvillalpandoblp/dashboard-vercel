@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function checkBackendStatus() {
     try {
-        // Buscamos los elementos con precaución
         const indicator = document.querySelector('.status-indicator') || document.querySelector('.status-dot');
         const statusText = document.querySelector('.status-title');
 
@@ -15,53 +14,45 @@ function checkBackendStatus() {
             statusText.textContent = "Sistema Activo";
         }
     } catch (error) {
-        // Si algo falla, lo silenciamos para que no bloquee los clics
+        
         console.warn("Estado del sistema: Elementos de UI no encontrados.");
     }
 }   
 
-/**
- * Control de la Barra Lateral (Sidebar)
- */
+
 function toggleSidebar() {
     document.body.classList.toggle('sidebar-open');
-    // Forzar el redibujado de los iframes para que se ajusten al nuevo ancho
+    
     window.dispatchEvent(new Event('resize'));
 }
 
-/**
- * Navegación entre pestañas con animación de entrada
- */
 function navigate(viewId, btn) {
-    // 1. Ocultar todas las secciones y resetear su estado de animación
+    
     document.querySelectorAll('.view-section').forEach(section => {
         section.classList.remove('active');
         section.style.display = 'none';
     });
 
-    // 2. Mostrar la sección destino
+    
     const targetView = document.getElementById('view-' + viewId);
     if (targetView) {
         targetView.style.display = 'block';
-        // Forzar un "reflow" para que el navegador reinicie la animación
+        
         void targetView.offsetWidth; 
         targetView.classList.add('active');
     }
 
-    // 3. Gestionar botones del menú
+    
     document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
     btn.classList.add('active');
 
-    // 4. Actualizar título de la página
+    
     document.getElementById('page-title').textContent = btn.innerText;
 
-    // 5. Notificar a las gráficas que se ajusten
+    
     window.dispatchEvent(new Event('resize'));
 }
 
-/**
- * Carga de datos para la tabla de Incidencias desde Google Sheets
- */
 function loadData() {
     const url = "https://docs.google.com/spreadsheets/d/1zMLnKjFwvzWSLRDX1N2dIETrY_RFLZhfTv0Z8LGznQ0/export?format=csv&gid=1298177878";
     Papa.parse(url, {
@@ -104,9 +95,6 @@ function loadData() {
     });
 }
 
-/**
- * Filtro de búsqueda para la tabla de Incidencias
- */
 function filterTable() {
     const val = document.getElementById("toolSearch").value.toUpperCase();
     const rows = document.getElementById("table-body").getElementsByTagName("tr");
@@ -115,9 +103,6 @@ function filterTable() {
     }
 }
 
-/**
- * Abre la tabla modal para una Gaveta específica
- */
 function openGavetaTable(gid, title) {
     const modal = document.getElementById('tableModal');
     const header = document.getElementById('gaveta-header');
@@ -164,37 +149,28 @@ function openGavetaTable(gid, title) {
     });
 }
 
-/**
- * Cierra la ventana modal
- */
+
 function closeModal() {
     const modal = document.getElementById('tableModal');
     if (modal) modal.style.display = 'none';
 }
 
-/**
- * Inicialización Global al cargar la página
- */
+
 window.addEventListener('DOMContentLoaded', () => {
-    // Cargar datos iniciales
     loadData();
     loadRefaccionesData();
     
-    // Crear iconos de Lucide
     if (typeof lucide !== 'undefined') {
         lucide.createIcons();
     }
     
-    // Establecer fecha actual
     const dateElement = document.getElementById('current-date');
     if (dateElement) {
         dateElement.textContent = new Intl.DateTimeFormat('es-ES', { dateStyle: 'full' }).format(new Date());
     }
 });
 
-/**
- * Cerrar modal al hacer clic fuera del contenido
- */
+
 window.onclick = function(event) {
     const modal = document.getElementById('tableModal');
     if (event.target == modal) {
@@ -202,9 +178,7 @@ window.onclick = function(event) {
     }
 };
 
-/**
- * Carga de datos para la pestaña de Refacciones
- */
+
 function loadRefaccionesData() {
     const gid = "1724200568"; 
     const spreadsheetID = "1zMLnKjFwvzWSLRDX1N2dIETrY_RFLZhfTv0Z8LGznQ0";
@@ -229,15 +203,13 @@ function loadRefaccionesData() {
                 });
                 thead.appendChild(hRow);
 
-                // MODIFICACIÓN AQUÍ: Añadimos (row, index) para saber qué fila se toca
                 data.slice(1).forEach((row, index) => {
                     if(!row.join('').trim()) return;
                     const tr = document.createElement('tr');
                     
-                    // Hacer la fila clickeable
                     tr.style.cursor = "pointer";
                     tr.onclick = function() {
-                        openImageModal(index, row[0]); // Pasa el índice y el nombre de la refacción
+                        openImageModal(index, row[0]); 
                     };
 
                     row.forEach(cell => {
@@ -261,9 +233,7 @@ function loadRefaccionesData() {
     });
 }
 
-/**
- * Filtro de búsqueda para Refacciones
- */
+
 function filterRefaccionesTable() {
     const val = document.getElementById("refaccionesSearch").value.toUpperCase();
     const rows = document.getElementById("refacciones-body").getElementsByTagName("tr");
@@ -272,7 +242,6 @@ function filterRefaccionesTable() {
     }
 }
 
-// ARRAY DE FOTOS (Asegúrate de poner los links de compartir de Drive)
 const fotosRefacciones = [
     /* 1-119*/
     "https://drive.google.com/file/d/1Ou-u-XKSjMxCW6xQmuZCUbHbZ0DL4ldI/view?usp=sharing",
@@ -905,9 +874,7 @@ const fotosRefacciones = [
     "https://drive.google.com/file/d/1VwmusoUtZ_UsLgGhJ1laZkrpb5EG14U_/view?usp=sharing",
 ];
 
-/**
- * Convierte link de Drive a link de visualización directa
- */
+
 function fixDriveUrl(url) {
     if (url.includes('drive.google.com')) {
         const id = url.split('/d/')[1].split('/')[0];
@@ -926,21 +893,16 @@ function openImageModal(index, nombre) {
     const rawUrl = fotosRefacciones[index];
 
     if (rawUrl) {
-        // 1. Extraer el ID del link que me pasaste
-        // Tu link: https://drive.google.com/file/d/1Ou-u-XKSjMxCW6xQmuZCUbHbZ0DL4ldI/view?usp=sharing
         const match = rawUrl.match(/\/d\/(.+?)\//);
         
         if (match && match[1]) {
             const id = match[1];
             
-            // 2. USAR EL LINK DE THUMBNAIL (Más estable para mostrar en webs)
-            // El parámetro &sz=w1000 le pide a Google una calidad de 1000px
             imgTag.src = `https://drive.google.com/thumbnail?id=${id}&sz=w1000`;
             
             title.textContent = nombre;
             modal.style.display = 'flex';
             
-            // Log para que verifiques en la consola (F12) que el ID sea correcto
             console.log("Mostrando imagen de Drive ID:", id);
 
             if (window.lucide) lucide.createIcons();
@@ -954,10 +916,9 @@ function openImageModal(index, nombre) {
 
 function closeImageModal() {
     document.getElementById('imageModal').style.display = 'none';
-    document.getElementById('refaccionImg').src = ""; // Limpiar para la próxima
+    document.getElementById('refaccionImg').src = ""; 
 }
 
-// Actualiza tu window.onclick para que también cierre este modal
 window.onclick = function(e) {
     const tableModal = document.getElementById('tableModal');
     const imageModal = document.getElementById('imageModal');
