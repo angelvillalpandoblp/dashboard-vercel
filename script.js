@@ -926,3 +926,60 @@ window.onclick = function(e) {
     if(e.target == tableModal) closeModal();
     if(e.target == imageModal) closeImageModal();
 }
+
+// Función para cargar la gráfica
+function cargarGraficaCumplimiento() {
+    // Aquí pones la URL de tu API en Python (Ajusta la IP/Puerto y el nombre de la hoja)
+    fetch('http://localhost:5000/api/data?hoja=principal')
+        .then(response => response.json())
+        .then(json => {
+            if (json.status === "success") {
+                const datos = json.data;
+
+                // ⚠️ MUY IMPORTANTE: Los nombres aquí deben ser EXACTAMENTE iguales
+                // a como se llaman los encabezados en tu Google Sheets (mayúsculas/espacios).
+
+                // Trazo 1: Herramientas Encontradas (Color Verde)
+                const trace1 = {
+                    x: datos['Semanas'], 
+                    y: datos['Encontradas'],
+                    name: 'Encontradas',
+                    type: 'bar', // Cambia a 'scatter' si prefieres líneas en vez de barras
+                    marker: { color: '#10B981' } // Verde moderno
+                };
+
+                // Trazo 2: Herramientas No Encontradas (Color Rojo)
+                const trace2 = {
+                    x: datos['Semanas'],
+                    y: datos['no encontradas'],
+                    name: 'No Encontradas',
+                    type: 'bar',
+                    marker: { color: '#EF4444' } // Rojo moderno
+                };
+
+                // Configuración visual de la gráfica
+                const layout = {
+                    title: 'Inventario Semanal',
+                    barmode: 'group', // 'group' pone las barras una al lado de la otra. Puedes usar 'stack' para apilarlas.
+                    responsive: true,
+                    paper_bgcolor: 'rgba(0,0,0,0)', // Fondo transparente para que combine con tu CSS
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    font: {
+                        family: 'Inter, sans-serif' // Usa la misma fuente de tu página
+                    },
+                    margin: { t: 40, l: 40, r: 20, b: 40 } // Márgenes ajustados
+                };
+
+                // Dibujar la gráfica en el div "grafica_cumplimiento"
+                Plotly.newPlot('grafica_cumplimiento', [trace1, trace2], layout);
+            } else {
+                console.error("Error desde Flask:", json.message);
+            }
+        })
+        .catch(error => console.error("Error de conexión:", error));
+}
+
+// Llamamos a la función cuando la página termine de cargar
+document.addEventListener("DOMContentLoaded", () => {
+    cargarGraficaCumplimiento();
+});
