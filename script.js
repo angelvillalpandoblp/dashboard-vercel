@@ -1023,7 +1023,7 @@ function cargarGraficaCumplimiento() {
                     },
                     frame: {
                         duration: 1200,
-                        redraw: true
+                        redraw: false
                     }
                 });
             });
