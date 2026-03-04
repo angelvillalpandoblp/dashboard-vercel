@@ -41,7 +41,14 @@ function navigate(viewId, btn) {
         void targetView.offsetWidth; 
         targetView.classList.add('active');
     }
-
+    
+    if (viewId === 'dashboard') {
+        // Le damos un pequeñísimo respiro de 50 milisegundos para asegurar 
+        // que la tarjeta ya es visible antes de que Plotly calcule su tamaño
+        setTimeout(() => {
+            cargarGraficaCumplimiento();
+        }, 50);
+    }
     
     document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
     btn.classList.add('active');
@@ -953,6 +960,7 @@ function cargarGraficaCumplimiento() {
 
             // 2. Creamos un arreglo de puros "Ceros" para el punto de inicio de la animación
             const ceros = ejeX_semanas.map(() => 0); 
+            const textosVacios = ejeX_semanas.map(() => '');
 
             // 3. Calculamos el valor más alto para darle "aire" arriba a la gráfica y que los números no se corten
             const valorMaximo = Math.max(...ejeY_encontradas, ...ejeY_no_encontradas);
@@ -964,7 +972,7 @@ function cargarGraficaCumplimiento() {
                 name: 'Encontradas',
                 type: 'bar',
                 marker: { color: '#10B981' }, // Verde
-                text: ceros,          // Texto inicial en 0
+                text: textosVacios,          // Texto inicial en 0
                 textposition: 'outside', // Pone el número ARRIBA de la columna
                 textfont: { weight: 'bold' }
             };
@@ -975,7 +983,7 @@ function cargarGraficaCumplimiento() {
                 name: 'No Encontradas',
                 type: 'bar',
                 marker: { color: '#EF4444' }, // Rojo
-                text: ceros,          // Texto inicial en 0
+                text: textosVacios,          // Texto inicial en 0
                 textposition: 'outside',
                 textfont: { weight: 'bold' }
             };
@@ -987,11 +995,11 @@ function cargarGraficaCumplimiento() {
                 paper_bgcolor: 'rgba(0,0,0,0)',
                 plot_bgcolor: 'rgba(0,0,0,0)',
                 font: { family: 'Inter, sans-serif' },
-                margin: { t: 25, b: 30, l: 30, r: 10 }, // Aumenté un poquito el margen "t" (Top) para los números
+                margin: { t: 30, b: 30, l: 30, r: 10 }, // Aumenté un poquito el margen "t" (Top) para los números
                 legend: {
                     orientation: 'h',
                     yanchor: 'bottom',
-                    y: 1.05, // Lo subimos un poco más para que no choque con los números
+                    y: 1.02, 
                     xanchor: 'center',
                     x: 0.5
                 },
