@@ -929,57 +929,65 @@ window.onclick = function(e) {
 
 // Función para cargar la gráfica
 function cargarGraficaCumplimiento() {
-    // Aquí pones la URL de tu API en Python (Ajusta la IP/Puerto y el nombre de la hoja)
-    fetch('http://localhost:5000/api/data?hoja=Gaveta_1')
-        .then(response => response.json())
-        .then(json => {
-            if (json.status === "success") {
-                const datos = json.data;
+    // 1. Pon el ID de tu documento y el GID de la hoja que quieres leer (ejemplo: Gaveta_1)
+    const DOC_ID = '1zMLnKjFwvzWSLRDX1N2dIETrY_RFLZhfTv0Z8LGznQ0';
+    const SHEET_GID = '0'; // Cámbialo por el GID real de tu hoja
+    
+    // Esta URL descarga el CSV directo de Google
+    const csvUrl = `https://docs.google.com/spreadsheets/d/${DOC_ID}/export?format=csv&gid=${SHEET_GID}`;
 
-                // ⚠️ MUY IMPORTANTE: Los nombres aquí deben ser EXACTAMENTE iguales
-                // a como se llaman los encabezados en tu Google Sheets (mayúsculas/espacios).
+    // 2. Usamos PapaParse (que ya tienes en tu HTML) para leerlo
+    Papa.parse(csvUrl, {
+        download: true,
+        header: true, // Le dice que la fila 1 son los títulos
+        skipEmptyLines: true,
+        complete: function(resultados) {
+            const filas = resultados.data; // Aquí están tus datos
 
-                // Trazo 1: Herramientas Encontradas (Color Verde)
-                const trace1 = {
-                    x: datos['Semana'], 
-                    y: datos['Encontradas'],
-                    name: 'Encontradas',
-                    type: 'bar', // Cambia a 'scatter' si prefieres líneas en vez de barras
-                    marker: { color: '#10B981' } // Verde moderno
-                };
+            // 3. Convertimos las filas en columnas para Plotly
+            // Asegúrate de que los nombres coincidan EXACTAMENTE con tu Excel
+            const ejeX_semanas = filas.map(fila => fila['Semana']);
+            const ejeY_encontradas = filas.map(fila => fila['Encontradas']);
+            const ejeY_no_encontradas = filas.map(fila => fila['No encontradas']);
 
-                // Trazo 2: Herramientas No Encontradas (Color Rojo)
-                const trace2 = {
-                    x: datos['Semana'],
-                    y: datos['No encontradas'],
-                    name: 'No Encontradas',
-                    type: 'bar',
-                    marker: { color: '#EF4444' } // Rojo moderno
-                };
+            // 4. Creamos los trazos para Plotly
+            const trace1 = {
+                x: ejeX_semanas, 
+                y: ejeY_encontradas,
+                name: 'Encontradas',
+                type: 'bar',
+                marker: { color: '#10B981' } // Verde
+            };
 
-                // Configuración visual de la gráfica
-                const layout = {
-                    title: 'Inventario Semanal',
-                    barmode: 'group', // 'group' pone las barras una al lado de la otra. Puedes usar 'stack' para apilarlas.
-                    responsive: true,
-                    paper_bgcolor: 'rgba(0,0,0,0)', // Fondo transparente para que combine con tu CSS
-                    plot_bgcolor: 'rgba(0,0,0,0)',
-                    font: {
-                        family: 'Inter, sans-serif' // Usa la misma fuente de tu página
-                    },
-                    margin: { t: 40, l: 40, r: 20, b: 40 } // Márgenes ajustados
-                };
+            const trace2 = {
+                x: ejeX_semanas,
+                y: ejeY_no_encontradas,
+                name: 'No Encontradas',
+                type: 'bar',
+                marker: { color: '#EF4444' } // Rojo
+            };
 
-                // Dibujar la gráfica en el div "grafica_cumplimiento"
-                Plotly.newPlot('grafica_cumplimiento', [trace1, trace2], layout);
-            } else {
-                console.error("Error desde Flask:", json.message);
-            }
-        })
-        .catch(error => console.error("Error de conexión:", error));
+            // 5. Diseño de la gráfica
+            const layout = {
+                title: 'Inventario Semanal',
+                barmode: 'group', // Barras juntas
+                responsive: true,
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                font: { family: 'Inter, sans-serif' },
+                margin: { t: 40, l: 40, r: 20, b: 40 }
+            };
+
+            // 6. ¡Dibujamos!
+            Plotly.newPlot('grafica_cumplimiento', [trace1, trace2], layout);
+        },
+        error: function(error) {
+            console.error("Error al leer Google Sheets:", error);
+        }
+    });
 }
 
-// Llamamos a la función cuando la página termine de cargar
+// Cargar cuando la página esté lista
 document.addEventListener("DOMContentLoaded", () => {
     cargarGraficaCumplimiento();
 });
