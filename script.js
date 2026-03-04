@@ -930,7 +930,7 @@ window.onclick = function(e) {
 // Función para cargar la gráfica
 function cargarGraficaCumplimiento() {
     // Aquí pones la URL de tu API en Python (Ajusta la IP/Puerto y el nombre de la hoja)
-    fetch('http://localhost:5000/api/data?hoja=principal')
+    fetch('http://localhost:5000/api/data?hoja=Gaveta_1')
         .then(response => response.json())
         .then(json => {
             if (json.status === "success") {
@@ -941,7 +941,7 @@ function cargarGraficaCumplimiento() {
 
                 // Trazo 1: Herramientas Encontradas (Color Verde)
                 const trace1 = {
-                    x: datos['Semanas'], 
+                    x: datos['Semana'], 
                     y: datos['Encontradas'],
                     name: 'Encontradas',
                     type: 'bar', // Cambia a 'scatter' si prefieres líneas en vez de barras
@@ -950,8 +950,8 @@ function cargarGraficaCumplimiento() {
 
                 // Trazo 2: Herramientas No Encontradas (Color Rojo)
                 const trace2 = {
-                    x: datos['Semanas'],
-                    y: datos['no encontradas'],
+                    x: datos['Semana'],
+                    y: datos['No encontradas'],
                     name: 'No Encontradas',
                     type: 'bar',
                     marker: { color: '#EF4444' } // Rojo moderno

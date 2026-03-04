@@ -12,12 +12,12 @@ DOC_ID = '1zMLnKjFwvzWSLRDX1N2dIETrY_RFLZhfTv0Z8LGznQ0'
 
 # AQUI PONES TUS HOJAS: El nombre que quieras darle y su GID (el número al final de la URL en Google Sheets)
 HOJAS = {
-    'Gaveta 1': '0',
-    'Gaveta 2': '597146696', # Ejemplo: la primera hoja suele tener gid=0
-    'Gaveta 3': '246003765', # Pon el GID de cualquier otra hoja que tengas
-    'Gaveta 4': '328528636', # Pon el GID de cualquier otra hoja que tengas
-    'Gaveta 5': '1384584582', # Pon el GID de cualquier otra hoja que tengas
-    'Gaveta 6': '1225160741' # Pon el GID de cualquier otra hoja que tengas
+    'Gaveta_1': '0',
+    'Gaveta_2': '597146696', # Ejemplo: la primera hoja suele tener gid=0
+    'Gaveta_3': '246003765', # Pon el GID de cualquier otra hoja que tengas
+    'Gaveta_4': '328528636', # Pon el GID de cualquier otra hoja que tengas
+    'Gaveta_5': '1384584582', # Pon el GID de cualquier otra hoja que tengas
+    'Gaveta_6': '1225160741' # Pon el GID de cualquier otra hoja que tengas
 }
 
 @app.route('/api/data')
