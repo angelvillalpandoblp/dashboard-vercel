@@ -971,15 +971,19 @@ function cargarGraficaCumplimiento() {
             const layout = {
                 title: 'Inventario Semanal',
                 barmode: 'group', // Barras juntas
-                responsive: true,
+                autosize: true,
                 paper_bgcolor: 'rgba(0,0,0,0)',
                 plot_bgcolor: 'rgba(0,0,0,0)',
                 font: { family: 'Inter, sans-serif' },
-                margin: { t: 40, l: 40, r: 20, b: 40 }
+                margin: { t: 40, l: 30, r: 20, b: 30 }
+            };
+            const config = {
+                responsive: true, // 👈 ESTA ES LA MAGIA para que se redimensione al cambiar la ventana
+                displayModeBar: false // (Opcional) Oculta la barra de herramientas de Plotly para que se vea más limpia como un Dashboard real
             };
 
             // 6. ¡Dibujamos!
-            Plotly.newPlot('grafica_cumplimiento', [trace1, trace2], layout);
+            Plotly.newPlot('grafica_cumplimiento', [trace1, trace2], layout, config);
         },
         error: function(error) {
             console.error("Error al leer Google Sheets:", error);
