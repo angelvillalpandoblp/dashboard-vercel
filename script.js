@@ -996,7 +996,6 @@ function cargarGraficaCumplimiento() {
                     x: 0.5
                 },
                 yaxis: {
-                    range: [0, valorMaximo * 1.2], // 👈 TRUCO: Aumenta el techo de la gráfica un 20% para que quepa el texto
                     fixedrange: true // Evita que se haga zoom por error en el celular
                 },
                 xaxis: { fixedrange: true }
@@ -1024,7 +1023,7 @@ function cargarGraficaCumplimiento() {
                     },
                     frame: {
                         duration: 1200,
-                        redraw: false
+                        redraw: true
                     }
                 });
             });
