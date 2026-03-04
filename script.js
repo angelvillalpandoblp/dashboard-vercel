@@ -985,11 +985,6 @@ function cargarGraficaCumplimiento() {
                 }
             };
 
-            legend: {
-
-
-
-            }
             const config = {
                 responsive: true, // 👈 ESTA ES LA MAGIA para que se redimensione al cambiar la ventana
                 displayModeBar: false // (Opcional) Oculta la barra de herramientas de Plotly para que se vea más limpia como un Dashboard real
@@ -997,6 +992,20 @@ function cargarGraficaCumplimiento() {
 
             // 6. ¡Dibujamos!
             Plotly.newPlot('grafica_cumplimiento', [trace1, trace2], layout, config);
+
+            Plotly.animate('grafica_cumplimiento',{
+                  data: [{
+                    y: valores
+                }]
+                }, {
+                transition: {
+                    duration: 1000,
+                    easing: 'cubic-in-out'
+                },
+                frame: {
+                    duration: 1000
+                }
+            });
         },
         error: function(error) {
             console.error("Error al leer Google Sheets:", error);
