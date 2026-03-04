@@ -41,7 +41,7 @@ function navigate(viewId, btn) {
         void targetView.offsetWidth; 
         targetView.classList.add('active');
     }
-    
+
     if (viewId === 'dashboard') {
         // Le damos un pequeñísimo respiro de 50 milisegundos para asegurar 
         // que la tarjeta ya es visible antes de que Plotly calcule su tamaño
@@ -999,7 +999,7 @@ function cargarGraficaCumplimiento() {
                 legend: {
                     orientation: 'h',
                     yanchor: 'bottom',
-                    y: 1.02, 
+                    y: 1.05, 
                     xanchor: 'center',
                     x: 0.5
                 },
