@@ -942,7 +942,7 @@ function cargarGraficaCumplimiento() {
         header: true, // Le dice que la fila 1 son los títulos
         skipEmptyLines: true,
         complete: function(resultados) {
-            const filas = resultados.data.slice(-8); // Aquí están tus datos
+            const filas = resultados.data.slice(17,25); // Aquí están tus datos
 
             // 3. Convertimos las filas en columnas para Plotly
             // Asegúrate de que los nombres coincidan EXACTAMENTE con tu Excel
