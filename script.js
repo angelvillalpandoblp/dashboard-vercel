@@ -942,69 +942,91 @@ function cargarGraficaCumplimiento() {
         header: true, // Le dice que la fila 1 son los títulos
         skipEmptyLines: true,
         complete: function(resultados) {
-            const filas = resultados.data.slice(17,25); // Aquí están tus datos
+            // Agarramos las últimas 8 semanas (o las que hayas configurado)
+            const filas = resultados.data.slice(17, 25); 
 
-            // 3. Convertimos las filas en columnas para Plotly
-            // Asegúrate de que los nombres coincidan EXACTAMENTE con tu Excel
+            // 1. Extraemos los datos. 
+            // IMPORTANTE: Usamos "Number()" para asegurar que Javascript entienda que son números matemáticos y no texto.
             const ejeX_semanas = filas.map(fila => fila['Semana']);
-            const ejeY_encontradas = filas.map(fila => fila['Encontradas']);
-            const ejeY_no_encontradas = filas.map(fila => fila['No encontradas']);
+            const ejeY_encontradas = filas.map(fila => Number(fila['Encontradas']) || 0);
+            const ejeY_no_encontradas = filas.map(fila => Number(fila['No encontradas']) || 0);
 
-            // 4. Creamos los trazos para Plotly
+            // 2. Creamos un arreglo de puros "Ceros" para el punto de inicio de la animación
+            const ceros = ejeX_semanas.map(() => 0); 
+
+            // 3. Calculamos el valor más alto para darle "aire" arriba a la gráfica y que los números no se corten
+            const valorMaximo = Math.max(...ejeY_encontradas, ...ejeY_no_encontradas);
+
+            // 4. Creamos los trazos INICIALES (Todo en 0)
             const trace1 = {
                 x: ejeX_semanas, 
-                y: ejeY_encontradas,
+                y: ceros,             // Inicia en 0
                 name: 'Encontradas',
                 type: 'bar',
-                marker: { color: '#10B981' } // Verde 
+                marker: { color: '#10B981' }, // Verde
+                text: ceros,          // Texto inicial en 0
+                textposition: 'outside', // Pone el número ARRIBA de la columna
+                textfont: { weight: 'bold' }
             };
 
             const trace2 = {
                 x: ejeX_semanas,
-                y: ejeY_no_encontradas,
+                y: ceros,             // Inicia en 0
                 name: 'No Encontradas',
                 type: 'bar',
-                marker: { color: '#EF4444' } // Rojo
+                marker: { color: '#EF4444' }, // Rojo
+                text: ceros,          // Texto inicial en 0
+                textposition: 'outside',
+                textfont: { weight: 'bold' }
             };
 
-            // 5. Diseño de la gráfica
+            // 5. El Diseño (Layout)
             const layout = {
-                barmode: 'group', // Barras juntas
+                barmode: 'group',
                 autosize: true,
                 paper_bgcolor: 'rgba(0,0,0,0)',
                 plot_bgcolor: 'rgba(0,0,0,0)',
                 font: { family: 'Inter, sans-serif' },
-                margin: { t: 10, l: 30, r: 20, b: 30 },
-                legend:{
+                margin: { t: 25, b: 30, l: 30, r: 10 }, // Aumenté un poquito el margen "t" (Top) para los números
+                legend: {
                     orientation: 'h',
                     yanchor: 'bottom',
-                    y: 1.02,
+                    y: 1.05, // Lo subimos un poco más para que no choque con los números
                     xanchor: 'center',
                     x: 0.5
-
-                }
+                },
+                yaxis: {
+                    range: [0, valorMaximo * 1.2], // 👈 TRUCO: Aumenta el techo de la gráfica un 20% para que quepa el texto
+                    fixedrange: true // Evita que se haga zoom por error en el celular
+                },
+                xaxis: { fixedrange: true }
             };
 
             const config = {
-                responsive: true, // 👈 ESTA ES LA MAGIA para que se redimensione al cambiar la ventana
-                displayModeBar: false // (Opcional) Oculta la barra de herramientas de Plotly para que se vea más limpia como un Dashboard real
+                responsive: true,
+                displayModeBar: false // Oculta la barra de herramientas molesta
             };
 
-            // 6. ¡Dibujamos!
-            Plotly.newPlot('grafica_cumplimiento', [trace1, trace2], layout, config);
-
-            Plotly.animate('grafica_cumplimiento',{
-                  data: [{
-                    y: valores
-                }]
+            // 6. ¡LA MAGIA DE LA ANIMACIÓN!
+            // Primero dibujamos la gráfica en 0...
+            Plotly.newPlot('grafica_cumplimiento', [trace1, trace2], layout, config).then(function() {
+                
+                // ... y milisegundos después, la animamos hacia sus valores reales:
+                Plotly.animate('grafica_cumplimiento', {
+                    data:[
+                        { y: ejeY_encontradas, text: ejeY_encontradas },       // Datos reales verdes
+                        { y: ejeY_no_encontradas, text: ejeY_no_encontradas }  // Datos reales rojos
+                    ]
                 }, {
-                transition: {
-                    duration: 1000,
-                    easing: 'cubic-in-out'
-                },
-                frame: {
-                    duration: 1000
-                }
+                    transition: {
+                        duration: 1200,          // Duración de la animación (1.2 segundos)
+                        easing: 'cubic-in-out'   // Tipo de movimiento (empieza lento, acelera y frena suave)
+                    },
+                    frame: {
+                        duration: 1200,
+                        redraw: false
+                    }
+                });
             });
         },
         error: function(error) {
