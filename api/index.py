@@ -10,24 +10,21 @@ CORS(app)
 
 DOC_ID = '1zMLnKjFwvzWSLRDX1N2dIETrY_RFLZhfTv0Z8LGznQ0'
 
-# AQUI PONES TUS HOJAS: El nombre que quieras darle y su GID (el número al final de la URL en Google Sheets)
 HOJAS = {
     'Gaveta_1': '0',
-    'Gaveta_2': '597146696', # Ejemplo: la primera hoja suele tener gid=0
-    'Gaveta_3': '246003765', # Pon el GID de cualquier otra hoja que tengas
-    'Gaveta_4': '328528636', # Pon el GID de cualquier otra hoja que tengas
-    'Gaveta_5': '1384584582', # Pon el GID de cualquier otra hoja que tengas
-    'Gaveta_6': '1225160741' # Pon el GID de cualquier otra hoja que tengas
+    'Gaveta_2': '597146696', 
+    'Gaveta_3': '246003765', 
+    'Gaveta_4': '328528636',
+    'Gaveta_5': '1384584582', 
+    'Gaveta_6': '1225160741' 
 }
 
 @app.route('/api/data')
 def api_data():
     try:
-        # Obtenemos el nombre de la hoja desde la URL (ej: /api/data?hoja=principal)
-        # Si no nos piden ninguna, usamos 'principal' por defecto
+
         nombre_hoja = request.args.get('hoja', 'principal')
         
-        # Buscamos el GID correspondiente. Si no existe, usamos el principal
         sheet_gid = HOJAS.get(nombre_hoja, HOJAS['principal'])
 
         csv_url = f'https://docs.google.com/spreadsheets/d/{DOC_ID}/export?format=csv&gid={sheet_gid}'
@@ -37,14 +34,8 @@ def api_data():
 
         df = pd.read_csv(io.StringIO(response.text))
         
-        # IMPORTANTE PARA GRÁFICAS: 
-        # Rellenamos los vacíos con 0 en lugar de '-' para que Plotly no falle al sumar o graficar
         df = df.fillna(0) 
 
-        # TRUCO DE ORO PARA PLOTLY:
-        # Convertimos el DataFrame a un diccionario de columnas.
-        # En vez de filas, nos dará: {"Mes":["Ene", "Feb"], "Ventas": [10, 20]}
-        # Que es exactamente lo que Plotly necesita en Javascript.
         datos_columnas = df.to_dict(orient='list')
 
         return jsonify({
