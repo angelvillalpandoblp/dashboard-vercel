@@ -934,68 +934,53 @@ window.onclick = function(e) {
     if(e.target == imageModal) closeImageModal();
 }
 
-// Función para cargar la gráfica
 function cargarGraficaCumplimiento() {
-    // 1. Pon el ID de tu documento y el GID de la hoja que quieres leer (ejemplo: Gaveta_1)
     const DOC_ID = '1zMLnKjFwvzWSLRDX1N2dIETrY_RFLZhfTv0Z8LGznQ0';
-    const SHEET_GID = '0'; // Cámbialo por el GID real de tu hoja
+    const SHEET_GID = '0';
     
-    // Esta URL descarga el CSV directo de Google
     const csvUrl = `https://docs.google.com/spreadsheets/d/${DOC_ID}/export?format=csv&gid=${SHEET_GID}`;
 
-    // 2. Usamos PapaParse (que ya tienes en tu HTML) para leerlo
     Papa.parse(csvUrl, {
         download: true,
-        header: true, // Le dice que la fila 1 son los títulos
+        header: true, 
         skipEmptyLines: true,
         complete: function(resultados) {
-            // Agarramos las últimas 8 semanas (o las que hayas configurado)
             const filas = resultados.data.slice(17, 25); 
-
-            // 1. Extraemos los datos. 
-            // IMPORTANTE: Usamos "Number()" para asegurar que Javascript entienda que son números matemáticos y no texto.
             const ejeX_semanas = filas.map(fila => fila['Semana']);
             const ejeY_encontradas = filas.map(fila => Number(fila['Encontradas']) || 0);
             const ejeY_no_encontradas = filas.map(fila => Number(fila['No encontradas']) || 0);
-
-            // 2. Creamos un arreglo de puros "Ceros" para el punto de inicio de la animación
             const ceros = ejeX_semanas.map(() => 0); 
             const textosVacios = ejeX_semanas.map(() => '');
-
-            // 3. Calculamos el valor más alto para darle "aire" arriba a la gráfica y que los números no se corten
             const valorMaximo = Math.max(...ejeY_encontradas, ...ejeY_no_encontradas);
-
-            // 4. Creamos los trazos INICIALES (Todo en 0)
             const trace1 = {
                 x: ejeX_semanas, 
-                y: ceros,             // Inicia en 0
+                y: ceros,            
                 name: 'Encontradas',
                 type: 'bar',
-                marker: { color: '#10B981' }, // Verde
-                text: textosVacios,          // Texto inicial en 0
-                textposition: 'outside', // Pone el número ARRIBA de la columna
+                marker: { color: '#10B981' }, 
+                text: textosVacios,          
+                textposition: 'outside', 
                 textfont: { weight: 'bold' }
             };
 
             const trace2 = {
                 x: ejeX_semanas,
-                y: ceros,             // Inicia en 0
+                y: ceros,             
                 name: 'No Encontradas',
                 type: 'bar',
-                marker: { color: '#EF4444' }, // Rojo
-                text: textosVacios,          // Texto inicial en 0
+                marker: { color: '#EF4444' }, 
+                text: textosVacios,          
                 textposition: 'outside',
                 textfont: { weight: 'bold' }
             };
 
-            // 5. El Diseño (Layout)
             const layout = {
                 barmode: 'group',
                 autosize: true,
                 paper_bgcolor: 'rgba(0,0,0,0)',
                 plot_bgcolor: 'rgba(0,0,0,0)',
                 font: { family: 'Inter, sans-serif' },
-                margin: { t: 30, b: 30, l: 30, r: 10 }, // Aumenté un poquito el margen "t" (Top) para los números
+                margin: { t: 30, b: 30, l: 30, r: 10 }, 
                 legend: {
                     orientation: 'h',
                     yanchor: 'bottom',
@@ -1004,30 +989,27 @@ function cargarGraficaCumplimiento() {
                     x: 0.5
                 },
                 yaxis: {
-                    fixedrange: true // Evita que se haga zoom por error en el celular
+                    fixedrange: true 
                 },
                 xaxis: { fixedrange: true }
             };
 
             const config = {
                 responsive: true,
-                displayModeBar: false // Oculta la barra de herramientas molesta
+                displayModeBar: false 
             };
 
-            // 6. ¡LA MAGIA DE LA ANIMACIÓN!
-            // Primero dibujamos la gráfica en 0...
             Plotly.newPlot('grafica_cumplimiento', [trace1, trace2], layout, config).then(function() {
                 
-                // ... y milisegundos después, la animamos hacia sus valores reales:
                 Plotly.animate('grafica_cumplimiento', {
                     data:[
-                        { y: ejeY_encontradas, text: ejeY_encontradas },       // Datos reales verdes
-                        { y: ejeY_no_encontradas, text: ejeY_no_encontradas }  // Datos reales rojos
+                        { y: ejeY_encontradas, text: ejeY_encontradas },       
+                        { y: ejeY_no_encontradas, text: ejeY_no_encontradas } 
                     ]
                 }, {
                     transition: {
-                        duration: 1200,          // Duración de la animación (1.2 segundos)
-                        easing: 'cubic-in-out'   // Tipo de movimiento (empieza lento, acelera y frena suave)
+                        duration: 1200,          
+                        easing: 'cubic-in-out'   
                     },
                     frame: {
                         duration: 1200,
@@ -1042,7 +1024,6 @@ function cargarGraficaCumplimiento() {
     });
 }
 
-// Cargar cuando la página esté lista
 document.addEventListener("DOMContentLoaded", () => {
     cargarGraficaCumplimiento();
 });
