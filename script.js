@@ -43,8 +43,6 @@ function navigate(viewId, btn) {
     }
 
     if (viewId === 'dashboard') {
-        // Le damos un pequeñísimo respiro de 50 milisegundos para asegurar 
-        // que la tarjeta ya es visible antes de que Plotly calcule su tamaño
         setTimeout(() => {
             cargarGraficaCumplimiento();
         }, 50);
