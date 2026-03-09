@@ -1091,7 +1091,7 @@ function ejecutarExplosion() {
             // =========================================================
             // PEGA AQUÍ LA URL DE LA "APLICACIÓN WEB" (API) DEL PASO 1
             // =========================================================
-            const urlAPI = "https://script.google.com/macros/s/AKfycbw_UWQEC_6vPAOkiIhMtXe5JQz1A2ynTRBleslMWgx_QQVszWdwktSVcQ0aRRgrlQ9m5w/exec";
+            const urlAPI = "https://script.google.com/macros/s/AKfycbygJrX_nuji6woUxJ5yLCN2IoWhqPv2zOjU2s8aYxwtAnFmGX3O82AbAOzuIuwsedZSzA/exec";
             
             // Construimos la URL empacando los datos en las variables: mes, semana y suma
             const urlConDatos = `${urlAPI}?mes=${encodeURIComponent(mes)}&semana=${encodeURIComponent(semana)}&suma=${encodeURIComponent(suma)}`;
