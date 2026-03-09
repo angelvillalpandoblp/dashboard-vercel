@@ -1028,39 +1028,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const listaDeHojas =[
             {
-                nombre: "Gaveta 1", // Solo para que sepas cuál es en los mensajes
-                urlCSV: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQdbtBQkvAQaXW1AzRyoz-fJ8N7CDS-6AWb3FpAH6AULmMRffTP1L5TKSc5FSQgjZVs-p_uTMNrRhqP/pub?gid=539658484&single=true&output=csv",
-                destinoGid: "0" // El GID de la hoja destino para esta gaveta
+                nombre: "Gaveta 1. Gabinete de herramientas",
+                urlCSV: "https://docs.google.com/spreadsheets/d/1VkuB6LUBkSQUj3V2RE8UCMnIjV4m7_8Dd9Vw3_YOBGw/export?format=csv&gid=539658484",
+                destinoGid: "0" 
             },
             {
-                nombre: "Gaveta 2",
-                urlCSV: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQdbtBQkvAQaXW1AzRyoz-fJ8N7CDS-6AWb3FpAH6AULmMRffTP1L5TKSc5FSQgjZVs-p_uTMNrRhqP/pub?gid=1545284142&single=true&output=csv",
+                nombre: "Gaveta 2. Tablero de herramientas",
+                urlCSV: "https://docs.google.com/spreadsheets/d/1VkuB6LUBkSQUj3V2RE8UCMnIjV4m7_8Dd9Vw3_YOBGw/export?format=csv&gid=1545284142",
                 destinoGid: "597146696"
             },
             {
-                nombre: "Gaveta 3",
-                urlCSV: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQdbtBQkvAQaXW1AzRyoz-fJ8N7CDS-6AWb3FpAH6AULmMRffTP1L5TKSc5FSQgjZVs-p_uTMNrRhqP/pub?gid=1158834403&single=true&output=csv",
+                nombre: "Gaveta 3. Mesa de trabajo",
+                urlCSV: "https://docs.google.com/spreadsheets/d/1VkuB6LUBkSQUj3V2RE8UCMnIjV4m7_8Dd9Vw3_YOBGw/export?format=csv&gid=1158834403",
                 destinoGid: "246003765"
             },
             {
-                nombre: "Gaveta 4",
-                urlCSV: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQdbtBQkvAQaXW1AzRyoz-fJ8N7CDS-6AWb3FpAH6AULmMRffTP1L5TKSc5FSQgjZVs-p_uTMNrRhqP/pub?gid=493211318&single=true&output=csv",
+                nombre: "Gaveta 4. Carro de herramientas",
+                urlCSV: "https://docs.google.com/spreadsheets/d/1VkuB6LUBkSQUj3V2RE8UCMnIjV4m7_8Dd9Vw3_YOBGw/export?format=csv&gid=493211318",
                 destinoGid: "328528636"
             },
             {
-                nombre: "Gaveta 5",
-                urlCSV: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQdbtBQkvAQaXW1AzRyoz-fJ8N7CDS-6AWb3FpAH6AULmMRffTP1L5TKSc5FSQgjZVs-p_uTMNrRhqP/pub?gid=2009031986&single=true&output=csv",
+                nombre: "Gaveta 5. Carro de Mtto. Preventivo",
+                urlCSV: "https://docs.google.com/spreadsheets/d/1VkuB6LUBkSQUj3V2RE8UCMnIjV4m7_8Dd9Vw3_YOBGw/export?format=csv&gid=2009031986",
                 destinoGid: "1384584582"
             },
             {
-                nombre: "Gaveta 6",
-                urlCSV: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQdbtBQkvAQaXW1AzRyoz-fJ8N7CDS-6AWb3FpAH6AULmMRffTP1L5TKSc5FSQgjZVs-p_uTMNrRhqP/pub?gid=2120761264&single=true&output=csv",
+                nombre: "Gaveta 6. Carro de Mtto. Correctivo",
+                urlCSV: "https://docs.google.com/spreadsheets/d/1VkuB6LUBkSQUj3V2RE8UCMnIjV4m7_8Dd9Vw3_YOBGw/export?format=csv&gid=2120761264",
                 destinoGid: "1225160741"
             },
-            
 
-
-            
         ];
 
 function ejecutarExplosion() {
