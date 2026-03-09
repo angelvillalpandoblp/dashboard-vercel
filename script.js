@@ -1074,7 +1074,8 @@ function ejecutarExplosion() {
                     // Cálculo de la semana del año
                     const inicioAño = new Date(hoy.getFullYear(), 0, 1);
                     const dias = Math.floor((hoy - inicioAño) / (24 * 60 * 60 * 1000));
-                    const semanaStr = "Semana " + Math.ceil((hoy.getDay() + 1 + dias) / 7) + 1;
+                    const numeroSemana = Math.ceil((hoy.getDay() + 1 + dias) / 7) + 1; // Aquí le sumamos 1
+                    const semanaStr = "Semana " + numeroSemana;
 
                     // 3. ENVIAR A LA HOJA DESTINO VIA GOOGLE FORM
                     enviarDatos(mesMayuscula, semanaStr, sumaTotal, btn, res);
@@ -1194,7 +1195,8 @@ function ejecutarExplosion() {
                     
                     const inicioAño = new Date(hoy.getFullYear(), 0, 1);
                     const dias = Math.floor((hoy - inicioAño) / (24 * 60 * 60 * 1000));
-                    const semanaStr = "Semana " + Math.ceil((hoy.getDay() + 1 + dias) / 7) + 1;
+                    const numeroSemana = Math.ceil((hoy.getDay() + 1 + dias) / 7) + 1; // Aquí le sumamos 1
+                    const semanaStr = "Semana " + numeroSemana;
 
                     // Llama a la función que conecta con tu Mini-API del archivo Destino
                     enviarDatos(mesMayuscula, semanaStr, sumaTotal, btn, res);
