@@ -1026,6 +1026,43 @@ document.addEventListener("DOMContentLoaded", () => {
     cargarGraficaCumplimiento();
 });
 
+        const listaDeHojas =[
+            {
+                nombre: "Gaveta 1", // Solo para que sepas cuál es en los mensajes
+                urlCSV: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pub?gid=0&single=true&output=csv",
+                destinoGid: "0" // El GID de la hoja destino para esta gaveta
+            },
+            {
+                nombre: "Gaveta 2",
+                urlCSV: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pub?gid=597146696&single=true&output=csv",
+                destinoGid: "597146696"
+            },
+            {
+                nombre: "Gaveta 3",
+                urlCSV: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pub?gid=246003765&single=true&output=csv",
+                destinoGid: "246003765"
+            },
+            {
+                nombre: "Gaveta 4",
+                urlCSV: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pub?gid=328528636&single=true&output=csv",
+                destinoGid: "328528636"
+            },
+            {
+                nombre: "Gaveta 5",
+                urlCSV: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pub?gid=1384584582&single=true&output=csv",
+                destinoGid: "1384584582"
+            },
+            {
+                nombre: "Gaveta 6",
+                urlCSV: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pub?gid=1225160741&single=true&output=csv",
+                destinoGid: "1225160741"
+            },
+            
+
+
+            
+        ];
+
 function ejecutarExplosion() {
             const btn = document.getElementById('btnExplotar');
             const res = document.getElementById('resultadoExplosion');
@@ -1036,92 +1073,78 @@ function ejecutarExplosion() {
             res.style.color = '#eab308'; // Amarillo
             res.innerText = 'Leyendo base de datos con PapaParse...';
 
-            // 1. PEGA AQUÍ EL ENLACE CSV DE TU HOJA DE ORIGEN
-            const urlCSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQdbtBQkvAQaXW1AzRyoz-fJ8N7CDS-6AWb3FpAH6AULmMRffTP1L5TKSc5FSQgjZVs-p_uTMNrRhqP/pub?gid=539658484&single=true&output=csv";
-                                
-Papa.parse(urlCSV, {
-                download: true,
-                complete: function(results) {
-                    const datos = results.data;
-                    let sumaTotalE = 0; // Iniciamos la cuenta matemática en 0
-                    let sumaTotalNE = 0;
+            const hoy = new Date();
+            const mes = hoy.toLocaleString('es-MX', { month: 'long' });
+            const mesMayuscula = mes.charAt(0).toUpperCase() + mes.slice(1);
+                    
+            const inicioAño = new Date(hoy.getFullYear(), 0, 1);
+            const dias = Math.floor((hoy - inicioAño) / (24 * 60 * 60 * 1000));
+                    
+             // Aquí ya tienes tu corrección del + 1 en la semana 😉
+            const numeroSemana = Math.ceil((hoy.getDay() + 1 + dias) / 7) + 1; 
+             const semanaStr = numeroSemana;
 
-                    // Preparamos las filas a revisar (PapaParse empieza a contar desde 0)
-                    // Fila 7 a 40 = índices 6 a 39
-                    // Fila 49 a 82 = índices 48 a 81
-                    const indicesASumar =[];
-                    for(let i = 6; i <= 39; i++) indicesASumar.push(i);
-                    for(let i = 48; i <= 81; i++) indicesASumar.push(i);
+            let procesos = [];
+      
+            listaDeHojas.forEach(hoja => {
+                let proceso = new Promise((resolve, reject) => {
+                    Papa.parse(hoja.urlCSV, {
+                        download: true,
+                        complete: function(results) {
+                            const datos = results.data;
+                            let sumaTotalE = 0; 
+                            let sumaTotalNE = 0;
 
-                    indicesASumar.forEach(i => {
-                        // Verificamos que la fila exista y que la Columna B (índice 1) tenga algo escrito
-                        if (datos[i] && datos[i][1] !== undefined && datos[i][1] !== "") {
-                            
-                            // 1. Tomamos el texto de la celda y le quitamos los espacios fantasma
-                            let textoCelda = datos[i][1].toString().trim();
-                            
-                            // 2. Lo convertimos obligatoriamente en un NÚMERO (parseFloat lee decimales y enteros)
-                            let valorNumero = parseFloat(textoCelda);
+                            const indicesASumar =[];
+                            for(let i = 6; i <= 39; i++) indicesASumar.push(i);
+                            for(let i = 48; i <= 81; i++) indicesASumar.push(i);
 
-                            // 3. Verificamos que no sea un texto (como "Hola") sino un número real
-                            if (!isNaN(valorNumero)) {
-                                // 4. AQUÍ ESTÁ LA MAGIA: Sumamos el valor matemático al total
-                                sumaTotalE = sumaTotalE + valorNumero;
-                            }
-                        }
-                            if (datos[i] && datos[i][4] !== undefined && datos[i][4] !== "") {
-                            
-                            // 1. Tomamos el texto de la celda y le quitamos los espacios fantasma
-                            let textoCelda = datos[i][4].toString().trim();
-                            
-                            // 2. Lo convertimos obligatoriamente en un NÚMERO (parseFloat lee decimales y enteros)
-                            let valorNumeroNE = parseFloat(textoCelda);
+                            indicesASumar.forEach(i => {
+                                // Sumar Columna B (índice 1)
+                                if (datos[i] && datos[i][1] !== undefined && datos[i][1] !== "") {
+                                    let valorNumero = parseFloat(datos[i][1].toString().trim());
+                                    if (!isNaN(valorNumero)) sumaTotalE += valorNumero;
+                                }
+                                // Sumar Columna E (índice 4)
+                                if (datos[i] && datos[i][4] !== undefined && datos[i][4] !== "") {
+                                    let valorNumeroNE = parseFloat(datos[i][4].toString().trim());
+                                    if (!isNaN(valorNumeroNE)) sumaTotalNE += valorNumeroNE;
+                                }
+                            });
 
-                            // 3. Verificamos que no sea un texto (como "Hola") sino un número real
-                            if (!isNaN(valorNumeroNE)) {
-                                // 4. AQUÍ ESTÁ LA MAGIA: Sumamos el valor matemático al total
-                                sumaTotalNE = sumaTotalNE + valorNumeroNE;
-                            }
+                            // Llamar a enviarDatos pasándole la info de ESTA hoja en específico
+                            enviarDatos(mesMayuscula, semanaStr, sumaTotalE, sumaTotalNE, hoja.destinoGid, hoja.nombre)
+                                .then(mensaje => resolve(mensaje))
+                                .catch(err => reject(err));
+                        },
+                        error: function(err) {
+                            reject(`Error al descargar CSV de ${hoja.nombre}`);
                         }
                     });
-
-                    res.innerText = `Suma calculada: ${sumaTotalE} y ${sumaTotalNE}. Enviando a destino...`;
-
-                    // ==========================================
-                    // EL RESTO DE TU CÓDIGO SE QUEDA IGUAL
-                    // ==========================================
-                    const hoy = new Date();
-                    const mes = hoy.toLocaleString('es-MX', { month: 'long' });
-                    const mesMayuscula = mes.charAt(0).toUpperCase() + mes.slice(1);
-                    
-                    const inicioAño = new Date(hoy.getFullYear(), 0, 1);
-                    const dias = Math.floor((hoy - inicioAño) / (24 * 60 * 60 * 1000));
-                    
-                    // Aquí ya tienes tu corrección del + 1 en la semana 😉
-                    const numeroSemana = Math.ceil((hoy.getDay() + 1 + dias) / 7) + 1; 
-                    const semanaStr = numeroSemana;
-
-                    // Enviamos los datos a la Mini-API
-                    enviarDatos(mesMayuscula, semanaStr, sumaTotalE, sumaTotalNE, btn, res);
-                },
-                error: function(err) {
-                    res.style.color = '#ef4444';
-                    res.innerText = 'Error al leer el CSV de origen. Verifica los permisos.';
-                    reiniciarBoton(btn);
-                }
+                });
+                
+                procesos.push(proceso);
             });
+
+            // Promise.all espera a que TODAS las hojas terminen de sumarse y enviarse
+            Promise.all(procesos)
+                .then(resultados => {
+                    res.style.color = '#22c55e'; // Verde
+                    res.innerText = `💥 ¡KABOOM MÚLTIPLE EXITOSO!\nSe procesaron ${resultados.length} hojas correctamente.`;
+                    reiniciarBoton(btn);
+                })
+                .catch(error => {
+                    res.style.color = '#ef4444'; // Rojo
+                    res.innerText = `Hubo un error en el proceso:\n${error}`;
+                    reiniciarBoton(btn);
+                });
         }
 
-        function enviarDatos(mes, semana, sumaTotalE, sumaTotalNE, btn, res) {
-            // =========================================================
-            // PEGA AQUÍ LA URL DE LA "APLICACIÓN WEB" (API) DEL PASO 1
-            // =========================================================
-            const urlAPI = "https://script.google.com/macros/s/AKfycby24ywtJXIK5Dg4SqJLLUjvrd1Um5BIRhrKTf_hhaJGXq6InWgp-vDuUjzxcOFkWVIBzw/exec";
-            
-            // Construimos la URL empacando los datos en las variables: mes, semana y suma
-            const urlConDatos = `${urlAPI}?mes=${encodeURIComponent(mes)}&semana=${encodeURIComponent(semana)}&sumaTotalE=${encodeURIComponent(sumaTotalE)}&sumaTotalNE=${encodeURIComponent(sumaTotalNE)}`;
 
-            // Hacemos la petición silenciosa desde el frontend
+        function enviarDatos(mes, semana, sumaTotalE, sumaTotalNE, destinoGid, nombreHoja) {
+            const urlAPI = "https://script.google.com/macros/s/AKfycby24ywtJXIK5Dg4SqJLLUjvrd1Um5BIRhrKTf_hhaJGXq6InWgp-vDuUjzxcOFkWVIBzw/exec";
+            const urlConDatos = `${urlAPI}?mes=${encodeURIComponent(mes)}&semana=${encodeURIComponent(semana)}&sumaTotalE=${encodeURIComponent(sumaTotalE)}&sumaTotalNE=${encodeURIComponent(sumaTotalNE)}&destinoGid=${encodeURIComponent(destinoGid)}`;
+
             fetch(urlConDatos, {
                 method: 'GET',
             })
