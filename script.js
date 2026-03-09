@@ -1152,40 +1152,58 @@ function ejecutarExplosion() {
             }
         }
 
-        function ejecutarExplosion() {
+       function ejecutarExplosion() {
             const btn = document.getElementById('btnExplotar');
             const res = document.getElementById('resultadoExplosion');
             
             btn.disabled = true;
             btn.style.transform = "scale(0.95)";
             btn.innerText = '💣 Explotando...';
-            res.style.color = '#eab308'; // Amarillo
-            res.innerText = 'Ejecutando proceso letal en Python. Por favor espera...';
+            res.style.color = '#eab308'; 
+            res.innerText = 'Leyendo base de datos con PapaParse...';
 
-            // Hacemos una petición POST al servidor local de Python
-            fetch('http://localhost:5000/api/explotar', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    res.style.color = '#22c55e'; // Verde
-                    res.innerText = data.message;
-                    btn.innerText = '🧨 VOLVER A EXPLOTAR 🧨';
-                } else {
-                    res.style.color = '#ef4444'; // Rojo
-                    res.innerText = 'Fallo en la explosión: ' + data.message;
-                    btn.innerText = '🧨 REINTENTAR 🧨';
+            // =========================================================
+            // AQUÍ PONES LA URL CON TU ID Y TU GID ESPECÍFICO
+            // =========================================================
+            const urlCSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQdbtBQkvAQaXW1AzRyoz-fJ8N7CDS-6AWb3FpAH6AULmMRffTP1L5TKSc5FSQgjZVs-p_uTMNrRhqP/pub?gid=539658484&single=true&output=csv";
+
+            Papa.parse(urlCSV, {
+                download: true,
+                complete: function(results) {
+                    const datos = results.data;
+                    let sumaTotal = 0;
+
+                    // ... (Aquí sigue el resto de tu código de sumas) ...
+                    const indicesASumar =[];
+                    for(let i = 6; i <= 39; i++) indicesASumar.push(i);
+                    for(let i = 48; i <= 81; i++) indicesASumar.push(i);
+
+                    indicesASumar.forEach(i => {
+                        if(datos[i] && datos[i][1]) {
+                            let valor = parseInt(datos[i][1].trim());
+                            if(!isNaN(valor)) {
+                                sumaTotal += valor;
+                            }
+                        }
+                    });
+
+                    res.innerText = `Suma calculada: ${sumaTotal}. Enviando a destino...`;
+
+                    const hoy = new Date();
+                    const mes = hoy.toLocaleString('es-MX', { month: 'long' });
+                    const mesMayuscula = mes.charAt(0).toUpperCase() + mes.slice(1);
+                    
+                    const inicioAño = new Date(hoy.getFullYear(), 0, 1);
+                    const dias = Math.floor((hoy - inicioAño) / (24 * 60 * 60 * 1000));
+                    const semanaStr = "Semana " + Math.ceil((hoy.getDay() + 1 + dias) / 7);
+
+                    // Llama a la función que conecta con tu Mini-API del archivo Destino
+                    enviarDatos(mesMayuscula, semanaStr, sumaTotal, btn, res);
+                },
+                error: function(err) {
+                    res.style.color = '#ef4444';
+                    res.innerText = 'Error al leer el CSV de origen. Verifica los permisos.';
+                    reiniciarBoton(btn);
                 }
-                btn.disabled = false;
-                btn.style.transform = "scale(1)";
-            })
-            .catch(error => {
-                res.style.color = '#ef4444'; // Rojo
-                res.innerText = 'Error de conexión. ¿Está corriendo el servidor Python?';
-                btn.innerText = '🧨 REINTENTAR 🧨';
-                btn.disabled = false;
-                btn.style.transform = "scale(1)";
             });
         }
