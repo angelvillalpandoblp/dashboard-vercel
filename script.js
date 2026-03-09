@@ -1099,7 +1099,6 @@ function ejecutarExplosion() {
             // Hacemos la petición silenciosa desde el frontend
             fetch(urlConDatos, {
                 method: 'GET',
-                mode: 'no-cors' // <-- CRUCIAL para evitar errores de seguridad desde Visual Studio a Google
             })
             .then(() => {
                 res.style.color = '#22c55e'; // Verde
