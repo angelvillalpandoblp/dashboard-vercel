@@ -1065,12 +1065,12 @@ Papa.parse(urlCSV, {
                             // 3. Verificamos que no sea un texto (como "Hola") sino un número real
                             if (!isNaN(valorNumero)) {
                                 // 4. AQUÍ ESTÁ LA MAGIA: Sumamos el valor matemático al total
-                                sumaTotal = sumaTotal + valorNumero; 
+                                sumaFinal = sumaTotal + valorNumero; 
                             }
                         }
                     });
 
-                    res.innerText = `Suma calculada: ${sumaTotal}. Enviando a destino...`;
+                    res.innerText = `Suma calculada: ${sumaFinal}. Enviando a destino...`;
 
                     // ==========================================
                     // EL RESTO DE TU CÓDIGO SE QUEDA IGUAL
@@ -1087,7 +1087,7 @@ Papa.parse(urlCSV, {
                     const semanaStr = "Semana " + numeroSemana;
 
                     // Enviamos los datos a la Mini-API
-                    enviarDatos(mesMayuscula, semanaStr, sumaTotal, btn, res);
+                    enviarDatos(mesMayuscula, semanaStr, sumaFinal, btn, res);
                 },
                 error: function(err) {
                     res.style.color = '#ef4444';
@@ -1161,59 +1161,4 @@ Papa.parse(urlCSV, {
             }
         }
 
-       function ejecutarExplosion() {
-            const btn = document.getElementById('btnExplotar');
-            const res = document.getElementById('resultadoExplosion');
-            
-            btn.disabled = true;
-            btn.style.transform = "scale(0.95)";
-            btn.innerText = '💣 Explotando...';
-            res.style.color = '#eab308'; 
-            res.innerText = 'Leyendo base de datos con PapaParse...';
-
-            // =========================================================
-            // AQUÍ PONES LA URL CON TU ID Y TU GID ESPECÍFICO
-            // =========================================================
-            const urlCSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQdbtBQkvAQaXW1AzRyoz-fJ8N7CDS-6AWb3FpAH6AULmMRffTP1L5TKSc5FSQgjZVs-p_uTMNrRhqP/pub?gid=539658484&single=true&output=csv";
-
-            Papa.parse(urlCSV, {
-                download: true,
-                complete: function(results) {
-                    const datos = results.data;
-                    let sumaTotal = 0;
-
-                    // ... (Aquí sigue el resto de tu código de sumas) ...
-                    const indicesASumar =[];
-                    for(let i = 6; i <= 39; i++) indicesASumar.push(i);
-                    for(let i = 48; i <= 81; i++) indicesASumar.push(i);
-
-                    indicesASumar.forEach(i => {
-                        if(datos[i] && datos[i][1]) {
-                            let valor = parseInt(datos[i][1].trim());
-                            if(!isNaN(valor)) {
-                                sumaTotal += valor;
-                            }
-                        }
-                    });
-
-                    res.innerText = `Suma calculada: ${sumaTotal}. Enviando a destino...`;
-
-                    const hoy = new Date();
-                    const mes = hoy.toLocaleString('es-MX', { month: 'long' });
-                    const mesMayuscula = mes.charAt(0).toUpperCase() + mes.slice(1);
-                    
-                    const inicioAño = new Date(hoy.getFullYear(), 0, 1);
-                    const dias = Math.floor((hoy - inicioAño) / (24 * 60 * 60 * 1000));
-                    const numeroSemana = Math.ceil((hoy.getDay() + 1 + dias) / 7) + 1; // Aquí le sumamos 1
-                    const semanaStr = "Semana " + numeroSemana;
-
-                    // Llama a la función que conecta con tu Mini-API del archivo Destino
-                    enviarDatos(mesMayuscula, semanaStr, sumaTotal, btn, res);
-                },
-                error: function(err) {
-                    res.style.color = '#ef4444';
-                    res.innerText = 'Error al leer el CSV de origen. Verifica los permisos.';
-                    reiniciarBoton(btn);
-                }
-            });
-        }
+       
