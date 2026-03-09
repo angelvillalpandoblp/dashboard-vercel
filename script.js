@@ -1119,7 +1119,7 @@ Papa.parse(urlCSV, {
             const urlAPI = "https://script.google.com/macros/s/AKfycby24ywtJXIK5Dg4SqJLLUjvrd1Um5BIRhrKTf_hhaJGXq6InWgp-vDuUjzxcOFkWVIBzw/exec";
             
             // Construimos la URL empacando los datos en las variables: mes, semana y suma
-            const urlConDatos = `${urlAPI}?mes=${encodeURIComponent(mes)}&semana=${encodeURIComponent(semana)}&sumaE=${encodeURIComponent(sumaTotalE)}&sumaNE=${encodeURIComponent(sumaTotalNE)}`;
+            const urlConDatos = `${urlAPI}?mes=${encodeURIComponent(mes)}&semana=${encodeURIComponent(semana)}&sumaTotalE=${encodeURIComponent(sumaTotalE)}&sumaTotalNE=${encodeURIComponent(sumaTotalNE)}`;
 
             // Hacemos la petición silenciosa desde el frontend
             fetch(urlConDatos, {
