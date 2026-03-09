@@ -1038,12 +1038,13 @@ function ejecutarExplosion() {
 
             // 1. PEGA AQUÍ EL ENLACE CSV DE TU HOJA DE ORIGEN
             const urlCSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQdbtBQkvAQaXW1AzRyoz-fJ8N7CDS-6AWb3FpAH6AULmMRffTP1L5TKSc5FSQgjZVs-p_uTMNrRhqP/pub?gid=539658484&single=true&output=csv";
-
+                                
 Papa.parse(urlCSV, {
                 download: true,
                 complete: function(results) {
                     const datos = results.data;
-                    let sumaTotal = 0; // Iniciamos la cuenta matemática en 0
+                    let sumaTotalE = 0; // Iniciamos la cuenta matemática en 0
+                    let sumaTotalNE = 0;
 
                     // Preparamos las filas a revisar (PapaParse empieza a contar desde 0)
                     // Fila 7 a 40 = índices 6 a 39
@@ -1065,12 +1066,26 @@ Papa.parse(urlCSV, {
                             // 3. Verificamos que no sea un texto (como "Hola") sino un número real
                             if (!isNaN(valorNumero)) {
                                 // 4. AQUÍ ESTÁ LA MAGIA: Sumamos el valor matemático al total
-                                sumaTotal = sumaTotal + valorNumero; 
+                                sumaTotalE = sumaTotalE + valorNumero;
+                            }
+                        }
+                            if (datos[i] && datos[i][4] !== undefined && datos[i][4] !== "") {
+                            
+                            // 1. Tomamos el texto de la celda y le quitamos los espacios fantasma
+                            let textoCelda = datos[i][4].toString().trim();
+                            
+                            // 2. Lo convertimos obligatoriamente en un NÚMERO (parseFloat lee decimales y enteros)
+                            let valorNumeroNE = parseFloat(textoCelda);
+
+                            // 3. Verificamos que no sea un texto (como "Hola") sino un número real
+                            if (!isNaN(valorNumeroNE)) {
+                                // 4. AQUÍ ESTÁ LA MAGIA: Sumamos el valor matemático al total
+                                sumaTotalNE = sumaTotalNE + valorNumeroNE;
                             }
                         }
                     });
 
-                    res.innerText = `Suma calculada: ${sumaTotal}. Enviando a destino...`;
+                    res.innerText = `Suma calculada: ${sumaTotalE} y ${sumaTotalNE}. Enviando a destino...`;
 
                     // ==========================================
                     // EL RESTO DE TU CÓDIGO SE QUEDA IGUAL
@@ -1084,10 +1099,10 @@ Papa.parse(urlCSV, {
                     
                     // Aquí ya tienes tu corrección del + 1 en la semana 😉
                     const numeroSemana = Math.ceil((hoy.getDay() + 1 + dias) / 7) + 1; 
-                    const semanaStr = "Semana " + numeroSemana;
+                    const semanaStr = numeroSemana;
 
                     // Enviamos los datos a la Mini-API
-                    enviarDatos(mesMayuscula, semanaStr, sumaTotal, btn, res);
+                    enviarDatos(mesMayuscula, semanaStr, sumaTotalE, btn, res);
                 },
                 error: function(err) {
                     res.style.color = '#ef4444';
