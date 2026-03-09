@@ -1056,7 +1056,7 @@ function ejecutarExplosion() {
 
                     indicesASumar.forEach(i => {
                         // Verifica que la fila exista y la celda B no esté vacía
-                        if(datos[i] && datos[i][1]) {
+                        if(datos[i] && datos[i][1] && datos[i][2]) {
                             let valor = parseInt(datos[i][1].trim());
                             if(!isNaN(valor)) {
                                 sumaTotal += valor;
