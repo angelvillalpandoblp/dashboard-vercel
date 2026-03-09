@@ -1037,7 +1037,7 @@ function ejecutarExplosion() {
             res.innerText = 'Leyendo base de datos con PapaParse...';
 
             // 1. PEGA AQUÍ EL ENLACE CSV DE TU HOJA DE ORIGEN
-            const urlCSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQdbtBQkvAQaXW1AzRyoz-fJ8N7CDS-6AWb3FpAH6AULmMRffTP1L5TKSc5FSQgjZVs-p_uTMNrRhqP/pub?output=csv";
+            const urlCSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQdbtBQkvAQaXW1AzRyoz-fJ8N7CDS-6AWb3FpAH6AULmMRffTP1L5TKSc5FSQgjZVs-p_uTMNrRhqP/pub?gid=539658484&single=true&output=csv";
 
 Papa.parse(urlCSV, {
                 download: true,
