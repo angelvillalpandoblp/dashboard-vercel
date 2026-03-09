@@ -1112,14 +1112,14 @@ Papa.parse(urlCSV, {
             });
         }
 
-        function enviarDatos(mes, semana, sumaE, sumaNE, btn, res) {
+        function enviarDatos(mes, semana, sumaTotalE, sumaTotalNE, btn, res) {
             // =========================================================
             // PEGA AQUÍ LA URL DE LA "APLICACIÓN WEB" (API) DEL PASO 1
             // =========================================================
             const urlAPI = "https://script.google.com/macros/s/AKfycbyr51KunrFlFBnJY_Pn-awN4-roGsyuXI3Zwhcce7wbt9Molp7PHqw3aQkQCraHtyXGeQ/exec";
             
             // Construimos la URL empacando los datos en las variables: mes, semana y suma
-            const urlConDatos = `${urlAPI}?mes=${encodeURIComponent(mes)}&semana=${encodeURIComponent(semana)}&sumaE=${encodeURIComponent(sumaE)}&sumaNE=${encodeURIComponent(sumaNE)}`;
+            const urlConDatos = `${urlAPI}?mes=${encodeURIComponent(mes)}&semana=${encodeURIComponent(semana)}&sumaE=${encodeURIComponent(sumaTotalE)}&sumaNE=${encodeURIComponent(sumaTotalNE)}`;
 
             // Hacemos la petición silenciosa desde el frontend
             fetch(urlConDatos, {
@@ -1127,7 +1127,7 @@ Papa.parse(urlCSV, {
             })
             .then(() => {
                 res.style.color = '#22c55e'; // Verde
-                res.innerText = `💥 ¡KABOOM! Guardado en destino -> Col A: ${mes} | Col B: ${semana} | Col C: ${sumaE} | Col D: ${sumaNE}.`;
+                res.innerText = `💥 ¡KABOOM! Guardado en destino -> Col A: ${mes} | Col B: ${semana} | Col C: ${sumaTotalE} | Col D: ${sumaTotalNE}.`;
                 reiniciarBoton(btn);
             })
             .catch(error => {
