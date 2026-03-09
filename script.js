@@ -1139,7 +1139,7 @@ function ejecutarExplosion() {
 
 
         function enviarDatos(mes, semana, sumaTotalE, sumaTotalNE, destinoGid, nombreHoja) {
-            const urlAPI = "https://script.google.com/macros/s/AKfycby24ywtJXIK5Dg4SqJLLUjvrd1Um5BIRhrKTf_hhaJGXq6InWgp-vDuUjzxcOFkWVIBzw/exec";
+            const urlAPI = "https://script.google.com/macros/s/AKfycby49NYlOVEtIRaAJSRwyTNX-qmkY4X51r___sixRclwrcWV9ZWVovjLIbJBw-yfeEdYzQ/exec";
             const urlConDatos = `${urlAPI}?mes=${encodeURIComponent(mes)}&semana=${encodeURIComponent(semana)}&sumaTotalE=${encodeURIComponent(sumaTotalE)}&sumaTotalNE=${encodeURIComponent(sumaTotalNE)}&destinoGid=${encodeURIComponent(destinoGid)}`;
 
             fetch(urlConDatos, {
@@ -1187,7 +1187,7 @@ function ejecutarExplosion() {
             const error = document.getElementById('loginError');
 
             // AQUÍ DEFINES TU USUARIO Y CONTRASEÑA
-            if (user === 'admin' && pass === 'explotar123') { 
+            if (user === 'admin' && pass === '123') { 
                 document.getElementById('loginContainer').style.display = 'none';
                 document.getElementById('explotarContainer').style.display = 'block';
             } else {
