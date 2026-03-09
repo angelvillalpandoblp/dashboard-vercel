@@ -1087,7 +1087,7 @@ Papa.parse(urlCSV, {
                     const semanaStr = "Semana " + numeroSemana;
 
                     // Enviamos los datos a la Mini-API
-                    enviarDatos(mesMayuscula, semanaStr, sumaFinal, btn, res);
+                    enviarDatos(mesMayuscula, semanaStr, sumaTotal, btn, res);
                 },
                 error: function(err) {
                     res.style.color = '#ef4444';
