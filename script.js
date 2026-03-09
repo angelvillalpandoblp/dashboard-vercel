@@ -1039,50 +1039,59 @@ function ejecutarExplosion() {
             // 1. PEGA AQUÍ EL ENLACE CSV DE TU HOJA DE ORIGEN
             const urlCSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQdbtBQkvAQaXW1AzRyoz-fJ8N7CDS-6AWb3FpAH6AULmMRffTP1L5TKSc5FSQgjZVs-p_uTMNrRhqP/pub?output=csv";
 
-            Papa.parse(urlCSV, {
+Papa.parse(urlCSV, {
                 download: true,
                 complete: function(results) {
                     const datos = results.data;
-                    let sumaTotal = 0;
+                    let sumaTotal = 0; // Iniciamos la cuenta matemática en 0
 
-                    // PapaParse lee los datos como un Array que empieza en 0.
-                    // Fila 7 = índice 6. Fila 40 = índice 39.
-                    // Fila 49 = índice 48. Fila 82 = índice 81.
-                    // Columna B = índice 1.
-                    
+                    // Preparamos las filas a revisar (PapaParse empieza a contar desde 0)
+                    // Fila 7 a 40 = índices 6 a 39
+                    // Fila 49 a 82 = índices 48 a 81
                     const indicesASumar =[];
                     for(let i = 6; i <= 39; i++) indicesASumar.push(i);
                     for(let i = 48; i <= 81; i++) indicesASumar.push(i);
 
                     indicesASumar.forEach(i => {
-                        // Verifica que la fila exista y la celda B no esté vacía
-                        if(datos[i] && datos[i][1] && datos[i][2]) {
-                            let valor = parseInt(datos[i][1].trim());
-                            if(!isNaN(valor)) {
-                                sumaTotal += valor;
+                        // Verificamos que la fila exista y que la Columna B (índice 1) tenga algo escrito
+                        if (datos[i] && datos[i][1] !== undefined && datos[i][1] !== "") {
+                            
+                            // 1. Tomamos el texto de la celda y le quitamos los espacios fantasma
+                            let textoCelda = datos[i][1].toString().trim();
+                            
+                            // 2. Lo convertimos obligatoriamente en un NÚMERO (parseFloat lee decimales y enteros)
+                            let valorNumero = parseFloat(textoCelda);
+
+                            // 3. Verificamos que no sea un texto (como "Hola") sino un número real
+                            if (!isNaN(valorNumero)) {
+                                // 4. AQUÍ ESTÁ LA MAGIA: Sumamos el valor matemático al total
+                                sumaTotal = sumaTotal + valorNumero; 
                             }
                         }
                     });
 
                     res.innerText = `Suma calculada: ${sumaTotal}. Enviando a destino...`;
 
-                    // 2. OBTENER FECHAS
+                    // ==========================================
+                    // EL RESTO DE TU CÓDIGO SE QUEDA IGUAL
+                    // ==========================================
                     const hoy = new Date();
                     const mes = hoy.toLocaleString('es-MX', { month: 'long' });
                     const mesMayuscula = mes.charAt(0).toUpperCase() + mes.slice(1);
                     
-                    // Cálculo de la semana del año
                     const inicioAño = new Date(hoy.getFullYear(), 0, 1);
                     const dias = Math.floor((hoy - inicioAño) / (24 * 60 * 60 * 1000));
-                    const numeroSemana = Math.ceil((hoy.getDay() + 1 + dias) / 7) + 1; // Aquí le sumamos 1
+                    
+                    // Aquí ya tienes tu corrección del + 1 en la semana 😉
+                    const numeroSemana = Math.ceil((hoy.getDay() + 1 + dias) / 7) + 1; 
                     const semanaStr = "Semana " + numeroSemana;
 
-                    // 3. ENVIAR A LA HOJA DESTINO VIA GOOGLE FORM
+                    // Enviamos los datos a la Mini-API
                     enviarDatos(mesMayuscula, semanaStr, sumaTotal, btn, res);
                 },
                 error: function(err) {
                     res.style.color = '#ef4444';
-                    res.innerText = 'Error al leer el CSV: ' + err;
+                    res.innerText = 'Error al leer el CSV de origen. Verifica los permisos.';
                     reiniciarBoton(btn);
                 }
             });
