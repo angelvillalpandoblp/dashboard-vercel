@@ -1074,7 +1074,7 @@ function ejecutarExplosion() {
                     // Cálculo de la semana del año
                     const inicioAño = new Date(hoy.getFullYear(), 0, 1);
                     const dias = Math.floor((hoy - inicioAño) / (24 * 60 * 60 * 1000));
-                    const semanaStr = "Semana " + Math.ceil((hoy.getDay() + 1 + dias) / 7);
+                    const semanaStr = "Semana " + Math.ceil((hoy.getDay() + 1 + dias) / 7) + 1;
 
                     // 3. ENVIAR A LA HOJA DESTINO VIA GOOGLE FORM
                     enviarDatos(mesMayuscula, semanaStr, sumaTotal, btn, res);
