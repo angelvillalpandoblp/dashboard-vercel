@@ -1065,12 +1065,12 @@ Papa.parse(urlCSV, {
                             // 3. Verificamos que no sea un texto (como "Hola") sino un número real
                             if (!isNaN(valorNumero)) {
                                 // 4. AQUÍ ESTÁ LA MAGIA: Sumamos el valor matemático al total
-                                sumaFinal = sumaTotal + valorNumero; 
+                                sumaTotal = sumaTotal + valorNumero; 
                             }
                         }
                     });
 
-                    res.innerText = `Suma calculada: ${sumaFinal}. Enviando a destino...`;
+                    res.innerText = `Suma calculada: ${sumaTotal}. Enviando a destino...`;
 
                     // ==========================================
                     // EL RESTO DE TU CÓDIGO SE QUEDA IGUAL
