@@ -1025,3 +1025,167 @@ function cargarGraficaCumplimiento() {
 document.addEventListener("DOMContentLoaded", () => {
     cargarGraficaCumplimiento();
 });
+
+function ejecutarExplosion() {
+            const btn = document.getElementById('btnExplotar');
+            const res = document.getElementById('resultadoExplosion');
+            
+            btn.disabled = true;
+            btn.style.transform = "scale(0.95)";
+            btn.innerText = '💣 Explotando...';
+            res.style.color = '#eab308'; // Amarillo
+            res.innerText = 'Leyendo base de datos con PapaParse...';
+
+            // 1. PEGA AQUÍ EL ENLACE CSV DE TU HOJA DE ORIGEN
+            const urlCSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQdbtBQkvAQaXW1AzRyoz-fJ8N7CDS-6AWb3FpAH6AULmMRffTP1L5TKSc5FSQgjZVs-p_uTMNrRhqP/pub?output=csv";
+
+            Papa.parse(urlCSV, {
+                download: true,
+                complete: function(results) {
+                    const datos = results.data;
+                    let sumaTotal = 0;
+
+                    // PapaParse lee los datos como un Array que empieza en 0.
+                    // Fila 7 = índice 6. Fila 40 = índice 39.
+                    // Fila 49 = índice 48. Fila 82 = índice 81.
+                    // Columna B = índice 1.
+                    
+                    const indicesASumar =[];
+                    for(let i = 6; i <= 39; i++) indicesASumar.push(i);
+                    for(let i = 48; i <= 81; i++) indicesASumar.push(i);
+
+                    indicesASumar.forEach(i => {
+                        // Verifica que la fila exista y la celda B no esté vacía
+                        if(datos[i] && datos[i][1]) {
+                            let valor = parseInt(datos[i][1].trim());
+                            if(!isNaN(valor)) {
+                                sumaTotal += valor;
+                            }
+                        }
+                    });
+
+                    res.innerText = `Suma calculada: ${sumaTotal}. Enviando a destino...`;
+
+                    // 2. OBTENER FECHAS
+                    const hoy = new Date();
+                    const mes = hoy.toLocaleString('es-MX', { month: 'long' });
+                    const mesMayuscula = mes.charAt(0).toUpperCase() + mes.slice(1);
+                    
+                    // Cálculo de la semana del año
+                    const inicioAño = new Date(hoy.getFullYear(), 0, 1);
+                    const dias = Math.floor((hoy - inicioAño) / (24 * 60 * 60 * 1000));
+                    const semanaStr = "Semana " + Math.ceil((hoy.getDay() + 1 + dias) / 7);
+
+                    // 3. ENVIAR A LA HOJA DESTINO VIA GOOGLE FORM
+                    enviarDatos(mesMayuscula, semanaStr, sumaTotal, btn, res);
+                },
+                error: function(err) {
+                    res.style.color = '#ef4444';
+                    res.innerText = 'Error al leer el CSV: ' + err;
+                    reiniciarBoton(btn);
+                }
+            });
+        }
+
+        function enviarDatos(mes, semana, suma, btn, res) {
+            // =========================================================
+            // PEGA AQUÍ LA URL DE LA "APLICACIÓN WEB" (API) DEL PASO 1
+            // =========================================================
+            const urlAPI = "https://script.google.com/macros/s/AKfycbw_UWQEC_6vPAOkiIhMtXe5JQz1A2ynTRBleslMWgx_QQVszWdwktSVcQ0aRRgrlQ9m5w/exec";
+            
+            // Construimos la URL empacando los datos en las variables: mes, semana y suma
+            const urlConDatos = `${urlAPI}?mes=${encodeURIComponent(mes)}&semana=${encodeURIComponent(semana)}&suma=${encodeURIComponent(suma)}`;
+
+            // Hacemos la petición silenciosa desde el frontend
+            fetch(urlConDatos, {
+                method: 'GET',
+                mode: 'no-cors' // <-- CRUCIAL para evitar errores de seguridad desde Visual Studio a Google
+            })
+            .then(() => {
+                res.style.color = '#22c55e'; // Verde
+                res.innerText = `💥 ¡KABOOM! Guardado en destino -> Col A: ${mes} | Col B: ${semana} | Col C: ${suma}.`;
+                reiniciarBoton(btn);
+            })
+            .catch(error => {
+                res.style.color = '#ef4444';
+                res.innerText = 'Fallo la conexión al archivo de destino.';
+                console.error(error);
+                reiniciarBoton(btn);
+            });
+        }
+
+        function reiniciarBoton(btn) {
+            btn.innerText = '🧨 VOLVER A EXPLOTAR 🧨';
+            btn.disabled = false;
+            btn.style.transform = "scale(1)";
+        }
+
+        function abrirModalAdmin() {
+            document.getElementById('adminModal').style.display = 'flex';
+            document.getElementById('loginContainer').style.display = 'block';
+            document.getElementById('explotarContainer').style.display = 'none';
+            document.getElementById('adminUser').value = '';
+            document.getElementById('adminPass').value = '';
+            document.getElementById('loginError').style.display = 'none';
+            document.getElementById('resultadoExplosion').innerText = '';
+            document.getElementById('btnExplotar').disabled = false;
+            document.getElementById('btnExplotar').innerText = '🧨 ¡EXPLOTAR! 🧨';
+            if(window.lucide) lucide.createIcons();
+        }
+
+        function cerrarModalAdmin() {
+            document.getElementById('adminModal').style.display = 'none';
+        }
+
+        function verificarAdmin() {
+            const user = document.getElementById('adminUser').value;
+            const pass = document.getElementById('adminPass').value;
+            const error = document.getElementById('loginError');
+
+            // AQUÍ DEFINES TU USUARIO Y CONTRASEÑA
+            if (user === 'admin' && pass === 'explotar123') { 
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('explotarContainer').style.display = 'block';
+            } else {
+                error.innerText = 'Intruso detectado 🚨 Acceso denegado.';
+                error.style.display = 'block';
+            }
+        }
+
+        function ejecutarExplosion() {
+            const btn = document.getElementById('btnExplotar');
+            const res = document.getElementById('resultadoExplosion');
+            
+            btn.disabled = true;
+            btn.style.transform = "scale(0.95)";
+            btn.innerText = '💣 Explotando...';
+            res.style.color = '#eab308'; // Amarillo
+            res.innerText = 'Ejecutando proceso letal en Python. Por favor espera...';
+
+            // Hacemos una petición POST al servidor local de Python
+            fetch('http://localhost:5000/api/explotar', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    res.style.color = '#22c55e'; // Verde
+                    res.innerText = data.message;
+                    btn.innerText = '🧨 VOLVER A EXPLOTAR 🧨';
+                } else {
+                    res.style.color = '#ef4444'; // Rojo
+                    res.innerText = 'Fallo en la explosión: ' + data.message;
+                    btn.innerText = '🧨 REINTENTAR 🧨';
+                }
+                btn.disabled = false;
+                btn.style.transform = "scale(1)";
+            })
+            .catch(error => {
+                res.style.color = '#ef4444'; // Rojo
+                res.innerText = 'Error de conexión. ¿Está corriendo el servidor Python?';
+                btn.innerText = '🧨 REINTENTAR 🧨';
+                btn.disabled = false;
+                btn.style.transform = "scale(1)";
+            });
+        }
