@@ -1048,7 +1048,7 @@ async function ejecutarExplosion() {
 
         function enviarDatosSecuencial(mes, semana, sumaTotalE, sumaTotalNE, destinoGid) {
             return new Promise((resolve, reject) => {
-                const urlAPI = "https://script.google.com/macros/s/AKfycbzmVGysaeFmeMJHaNsCFNshA2DSEHhXpj_Z4ebmEzvBQ0O-aBReA0k8HCeCZg09YPfQsg/exec";
+                const urlAPI = "https://script.google.com/macros/s/AKfycbwH3HC_jxqu7ml2TbZ7fnQc6G1w4KJZs_Je_wlOpk-CEvll3UXnl4oyyuksSG0JVs0t/exec";
                 const urlConDatos = `${urlAPI}?mes=${encodeURIComponent(mes)}&semana=${encodeURIComponent(semana)}&sumaTotalE=${encodeURIComponent(sumaTotalE)}&sumaTotalNE=${encodeURIComponent(sumaTotalNE)}&destinoGid=${encodeURIComponent(destinoGid)}`;
 
                 fetch(urlConDatos, {
