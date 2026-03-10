@@ -1140,7 +1140,7 @@ async function ejecutarExplosion() {
             });
         }
 
-        function enviarDatos(mes, semana, sumaTotalE, sumaTotalNE, destinoGid, nombreHoja) {
+        function enviarDatosSecuencial(mes, semana, sumaTotalE, sumaTotalNE, destinoGid) {
             return new Promise((resolve, reject) => {
                 const urlAPI = "https://script.google.com/macros/s/AKfycby49NYlOVEtIRaAJSRwyTNX-qmkY4X51r___sixRclwrcWV9ZWVovjLIbJBw-yfeEdYzQ/exec";
                 const urlConDatos = `${urlAPI}?mes=${encodeURIComponent(mes)}&semana=${encodeURIComponent(semana)}&sumaTotalE=${encodeURIComponent(sumaTotalE)}&sumaTotalNE=${encodeURIComponent(sumaTotalNE)}&destinoGid=${encodeURIComponent(destinoGid)}`;
@@ -1148,17 +1148,17 @@ async function ejecutarExplosion() {
                 fetch(urlConDatos, {
                     method: 'GET',
                 })
-                .then(() => {
-                    res.style.color = '#22c55e'; 
-                    res.innerText = `💥 ¡KABOOM! Guardado en destino -> Col A: ${mes} | Col B: ${semana} | Col C: ${sumaTotalE} | Col D: ${sumaTotalNE}.`;
-                    reiniciarBoton(btn);
-                })
-                .catch(error => {
-                    res.style.color = '#ef4444';
-                    res.innerText = 'Fallo la conexión al archivo de destino.';
-                    console.error(error);
-                    reiniciarBoton(btn);
-                });
+                .then(response => response.text())
+                .then(texto => {
+                    if (texto.includes("Error")) {
+                        reject(`Google rechazó el guardado: ${texto}`);
+                    } else {
+                        resolve(); 
+                    }
+                    })
+                    .catch(error => {
+                        reject("No se pudo conectar con el archivo de Destino.");
+                    });
             });
         }
 
