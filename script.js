@@ -1048,7 +1048,7 @@ async function ejecutarExplosion() {
 
         function enviarDatosSecuencial(mes, semana, sumaTotalE, sumaTotalNE, destinoGid) {
             return new Promise((resolve, reject) => {
-                const urlAPI = "https://script.google.com/macros/s/AKfycbxAIETED0nr36BZAR-HgdwyMkk7JevZBE7pFn38Dg1s4ivYbnpIGNkg5QgeX3Cn5lGsfA/exec";
+                const urlAPI = "https://script.google.com/macros/s/AKfycbzzOLD7l-35Sz81h6mEz0vY1fJM_4IXOvhrEH-gka0kZinqqFwszA1XeGFLglzyS-KLUQ/exec";
                 const urlConDatos = `${urlAPI}?mes=${encodeURIComponent(mes)}&semana=${encodeURIComponent(semana)}&sumaTotalE=${encodeURIComponent(sumaTotalE)}&sumaTotalNE=${encodeURIComponent(sumaTotalNE)}&destinoGid=${encodeURIComponent(destinoGid)}`;
 
                 fetch(urlConDatos, {
@@ -1059,7 +1059,8 @@ async function ejecutarExplosion() {
                     if (texto.includes("Error")) {
                         reject(`Google rechazó el guardado: ${texto}`);
                     } else {
-                        resolve(); 
+                        console.log(`Reporte de GID ${destinoGid} -> ${textoGoogle}`);
+                        resolve(textoGoogle);
                     }
                     })
                     .catch(error => {
