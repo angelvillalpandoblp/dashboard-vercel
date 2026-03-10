@@ -932,100 +932,6 @@ window.onclick = function(e) {
     if(e.target == imageModal) closeImageModal();
 }
 
-function cargarGraficaCumplimiento() {
-    const DOC_ID = '1zMLnKjFwvzWSLRDX1N2dIETrY_RFLZhfTv0Z8LGznQ0';
-    const SHEET_GID = '0';
-    
-    const csvUrl = `https://docs.google.com/spreadsheets/d/${DOC_ID}/export?format=csv&gid=${SHEET_GID}`;
-
-    Papa.parse(csvUrl, {
-        download: true,
-        header: true, 
-        skipEmptyLines: true,
-        complete: function(resultados) {
-            const filas = resultados.data.slice(17, 25); 
-            const ejeX_semanas = filas.map(fila => fila['Semana']);
-            const ejeY_encontradas = filas.map(fila => Number(fila['Encontradas']) || 0);
-            const ejeY_no_encontradas = filas.map(fila => Number(fila['No encontradas']) || 0);
-            const ceros = ejeX_semanas.map(() => 0); 
-            const textosVacios = ejeX_semanas.map(() => '');
-            const valorMaximo = Math.max(...ejeY_encontradas, ...ejeY_no_encontradas);
-            const trace1 = {
-                x: ejeX_semanas, 
-                y: ceros,            
-                name: 'Encontradas',
-                type: 'bar',
-                marker: { color: '#10B981' }, 
-                text: textosVacios,          
-                textposition: 'outside', 
-                textfont: { weight: 'bold' }
-            };
-
-            const trace2 = {
-                x: ejeX_semanas,
-                y: ceros,             
-                name: 'No Encontradas',
-                type: 'bar',
-                marker: { color: '#EF4444' }, 
-                text: textosVacios,          
-                textposition: 'outside',
-                textfont: { weight: 'bold' }
-            };
-
-            const layout = {
-                barmode: 'group',
-                autosize: true,
-                paper_bgcolor: 'rgba(0,0,0,0)',
-                plot_bgcolor: 'rgba(0,0,0,0)',
-                font: { family: 'Inter, sans-serif' },
-                margin: { t: 30, b: 30, l: 30, r: 10 }, 
-                legend: {
-                    orientation: 'h',
-                    yanchor: 'bottom',
-                    y: 1.05, 
-                    xanchor: 'center',
-                    x: 0.5
-                },
-                yaxis: {
-                    fixedrange: true 
-                },
-                xaxis: { fixedrange: true }
-            };
-
-            const config = {
-                responsive: true,
-                displayModeBar: false 
-            };
-
-            Plotly.newPlot('grafica_cumplimiento', [trace1, trace2], layout, config).then(function() {
-                
-                Plotly.animate('grafica_cumplimiento', {
-                    data:[
-                        { y: ejeY_encontradas, text: ejeY_encontradas },       
-                        { y: ejeY_no_encontradas, text: ejeY_no_encontradas } 
-                    ]
-                }, {
-                    transition: {
-                        duration: 1200,          
-                        easing: 'cubic-in-out'   
-                    },
-                    frame: {
-                        duration: 1200,
-                        redraw: false
-                    }
-                });
-            });
-        },
-        error: function(error) {
-            console.error("Error al leer Google Sheets:", error);
-        }
-    });
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    cargarGraficaCumplimiento();
-});
-
         const listaDeHojas =[
             {
                 nombre: "Gaveta 1. Gabinete de herramientas",
@@ -1066,7 +972,7 @@ async function ejecutarExplosion() {
             
             btn.disabled = true;
             btn.style.transform = "scale(0.95)";
-            btn.innerText = '💣 Explotando...';
+            btn.innerText = 'Cargando';
             res.style.color = '#eab308'; 
             res.innerText = 'Leyendo base de datos con PapaParse...';
 
@@ -1077,14 +983,14 @@ async function ejecutarExplosion() {
             const inicioAño = new Date(hoy.getFullYear(), 0, 1);
             const dias = Math.floor((hoy - inicioAño) / (24 * 60 * 60 * 1000));
                     
-            const numeroSemana = Math.ceil((hoy.getDay() + 1 + dias) / 7) + 1; 
+            const numeroSemana = Math.ceil((hoy.getDay() + 1 + dias) / 7); 
             const semanaStr = numeroSemana;
 
             try {
                 for (let i = 0; i < listaDeHojas.length; i++) {
                     let hoja = listaDeHojas[i];
                     
-                    btn.innerText = `💣 Explotando ${hoja.nombre}... (${i + 1}/${listaDeHojas.length})`;
+                    btn.innerText = `Cargando ${hoja.nombre}... (${i + 1}/${listaDeHojas.length})`;
                     res.style.color = '#eab308';
                     res.innerText = `Descargando y calculando datos de ${hoja.nombre}...`;
 
@@ -1114,13 +1020,13 @@ async function ejecutarExplosion() {
                 }
 
                 res.style.color = '#22c55e'; 
-                res.innerText = `💥 ¡KABOOM MÚLTIPLE EXITOSO! Se procesaron ${listaDeHojas.length} Gavetas.`;
+                res.innerText = `Cargado exitosamente Se procesaron ${listaDeHojas.length} Gavetas.`;
 
             } catch (error) {
                 res.style.color = '#ef4444';
                 res.innerText = `Error: ${error}`;
             } finally {
-                btn.innerText = '🧨 VOLVER A EXPLOTAR 🧨';
+                btn.innerText = 'Volver a cargar';
                 btn.disabled = false;
                 btn.style.transform = "scale(1)";
             }
@@ -1163,7 +1069,7 @@ async function ejecutarExplosion() {
         }
 
         function reiniciarBoton(btn) {
-            btn.innerText = '🧨 VOLVER A EXPLOTAR 🧨';
+            btn.innerText = 'Cargar nuevamente';
             btn.disabled = false;
             btn.style.transform = "scale(1)";
         }
@@ -1177,7 +1083,7 @@ async function ejecutarExplosion() {
             document.getElementById('loginError').style.display = 'none';
             document.getElementById('resultadoExplosion').innerText = '';
             document.getElementById('btnExplotar').disabled = false;
-            document.getElementById('btnExplotar').innerText = '🧨 ¡EXPLOTAR! 🧨';
+            document.getElementById('btnExplotar').innerText = 'Cargar datos';
             if(window.lucide) lucide.createIcons();
         }
 
@@ -1194,7 +1100,7 @@ async function ejecutarExplosion() {
                 document.getElementById('loginContainer').style.display = 'none';
                 document.getElementById('explotarContainer').style.display = 'block';
             } else {
-                error.innerText = 'Intruso detectado 🚨 Acceso denegado.';
+                error.innerText = 'Usuario o contraseña incorrecto';
                 error.style.display = 'block';
             }
         }
