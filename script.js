@@ -1055,9 +1055,9 @@ async function ejecutarExplosion() {
                     method: 'GET',
                 })
                 .then(response => response.text())
-                .then(texto => {
-                    if (texto.includes("Error")) {
-                        reject(`Google rechazó el guardado: ${texto}`);
+                .then(textoGoogle => {
+                    if (textoGoogle.includes("Error")) {
+                        reject(`Google rechazó el guardado: ${textoGoogle}`);
                     } else {
                         console.log(`Reporte de GID ${destinoGid} -> ${textoGoogle}`);
                         resolve(textoGoogle);
