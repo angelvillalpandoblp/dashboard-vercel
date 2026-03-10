@@ -1060,14 +1060,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         ];
 
-function ejecutarExplosion() {
+async function ejecutarExplosion() {
             const btn = document.getElementById('btnExplotar');
             const res = document.getElementById('resultadoExplosion');
             
             btn.disabled = true;
             btn.style.transform = "scale(0.95)";
             btn.innerText = '💣 Explotando...';
-            res.style.color = '#eab308'; // Amarillo
+            res.style.color = '#eab308'; 
             res.innerText = 'Leyendo base de datos con PapaParse...';
 
             const hoy = new Date();
@@ -1077,84 +1077,88 @@ function ejecutarExplosion() {
             const inicioAño = new Date(hoy.getFullYear(), 0, 1);
             const dias = Math.floor((hoy - inicioAño) / (24 * 60 * 60 * 1000));
                     
-             // Aquí ya tienes tu corrección del + 1 en la semana 😉
             const numeroSemana = Math.ceil((hoy.getDay() + 1 + dias) / 7) + 1; 
-             const semanaStr = numeroSemana;
+            const semanaStr = numeroSemana;
 
-            let procesos = [];
-      
-            listaDeHojas.forEach(hoja => {
-                let proceso = new Promise((resolve, reject) => {
-                    Papa.parse(hoja.urlCSV, {
-                        download: true,
-                        complete: function(results) {
-                            const datos = results.data;
-                            let sumaTotalE = 0; 
-                            let sumaTotalNE = 0;
+            try {
+                for (let i = 0; i < listaDeHojas.length; i++) {
+                    let hoja = listaDeHojas[i];
+                    
+                    btn.innerText = `💣 Explotando ${hoja.nombre}... (${i + 1}/${listaDeHojas.length})`;
+                    res.style.color = '#eab308';
+                    res.innerText = `Descargando y calculando datos de ${hoja.nombre}...`;
 
-                            const indicesASumar =[];
-                            for(let i = 6; i <= 39; i++) indicesASumar.push(i);
-                            for(let i = 48; i <= 81; i++) indicesASumar.push(i);
+                    let datos = await leerCSVSecuencial(hoja.urlCSV);
+                    
+                    let sumaTotalE = 0;
+                    let sumaTotalNE = 0;
 
-                            indicesASumar.forEach(i => {
-                                // Sumar Columna B (índice 1)
-                                if (datos[i] && datos[i][1] !== undefined && datos[i][1] !== "") {
-                                    let valorNumero = parseFloat(datos[i][1].toString().trim());
-                                    if (!isNaN(valorNumero)) sumaTotalE += valorNumero;
-                                }
-                                // Sumar Columna E (índice 4)
-                                if (datos[i] && datos[i][4] !== undefined && datos[i][4] !== "") {
-                                    let valorNumeroNE = parseFloat(datos[i][4].toString().trim());
-                                    if (!isNaN(valorNumeroNE)) sumaTotalNE += valorNumeroNE;
-                                }
-                            });
+                    const indicesASumar =[];
+                    for(let j = 6; j <= 39; j++) indicesASumar.push(j);
+                    for(let j = 48; j <= 81; j++) indicesASumar.push(j);
 
-                            // Llamar a enviarDatos pasándole la info de ESTA hoja en específico
-                            enviarDatos(mesMayuscula, semanaStr, sumaTotalE, sumaTotalNE, hoja.destinoGid, hoja.nombre)
-                                .then(mensaje => resolve(mensaje))
-                                .catch(err => reject(err));
-                        },
-                        error: function(err) {
-                            reject(`Error al descargar CSV de ${hoja.nombre}`);
+                    indicesASumar.forEach(idx => {
+                        if (datos[idx] && datos[idx][1] !== undefined && datos[idx][1] !== "") {
+                            let valorNumero = parseFloat(datos[idx][1].toString().trim());
+                            if (!isNaN(valorNumero)) sumaTotalE += valorNumero;
+                        }
+                        if (datos[idx] && datos[idx][4] !== undefined && datos[idx][4] !== "") {
+                            let valorNumeroNE = parseFloat(datos[idx][4].toString().trim());
+                            if (!isNaN(valorNumeroNE)) sumaTotalNE += valorNumeroNE;
                         }
                     });
-                });
-                
-                procesos.push(proceso);
-            });
 
-            // Promise.all espera a que TODAS las hojas terminen de sumarse y enviarse
-            Promise.all(procesos)
-                .then(resultados => {
-                    res.style.color = '#22c55e'; // Verde
-                    res.innerText = `💥 ¡KABOOM MÚLTIPLE EXITOSO!\nSe procesaron ${resultados.length} hojas correctamente.`;
+                    res.innerText = `Enviando sumas de ${hoja.nombre} a destino...`;
+
+                    await enviarDatosSecuencial(mesMayuscula, semanaStr, sumaTotalE, sumaTotalNE, hoja.destinoGid);
+                }
+
+                res.style.color = '#22c55e'; 
+                res.innerText = `💥 ¡KABOOM MÚLTIPLE EXITOSO! Se procesaron ${listaDeHojas.length} Gavetas.`;
+
+            } catch (error) {
+                res.style.color = '#ef4444';
+                res.innerText = `Error: ${error}`;
+            } finally {
+                btn.innerText = '🧨 VOLVER A EXPLOTAR 🧨';
+                btn.disabled = false;
+                btn.style.transform = "scale(1)";
+            }
+        }
+
+        function leerCSVSecuencial(url) {
+            return new Promise((resolve, reject) => {
+                Papa.parse(url, {
+                    download: true,
+                    complete: function(results) {
+                        resolve(results.data);
+                    },
+                    error: function(err) {
+                        reject("Fallo al leer el CSV de origen.");
+                    }
+                });
+            });
+        }
+
+        function enviarDatos(mes, semana, sumaTotalE, sumaTotalNE, destinoGid, nombreHoja) {
+            return new Promise((resolve, reject) => {
+                const urlAPI = "https://script.google.com/macros/s/AKfycby49NYlOVEtIRaAJSRwyTNX-qmkY4X51r___sixRclwrcWV9ZWVovjLIbJBw-yfeEdYzQ/exec";
+                const urlConDatos = `${urlAPI}?mes=${encodeURIComponent(mes)}&semana=${encodeURIComponent(semana)}&sumaTotalE=${encodeURIComponent(sumaTotalE)}&sumaTotalNE=${encodeURIComponent(sumaTotalNE)}&destinoGid=${encodeURIComponent(destinoGid)}`;
+
+                fetch(urlConDatos, {
+                    method: 'GET',
+                })
+                .then(() => {
+                    res.style.color = '#22c55e'; 
+                    res.innerText = `💥 ¡KABOOM! Guardado en destino -> Col A: ${mes} | Col B: ${semana} | Col C: ${sumaTotalE} | Col D: ${sumaTotalNE}.`;
                     reiniciarBoton(btn);
                 })
                 .catch(error => {
-                    res.style.color = '#ef4444'; // Rojo
-                    res.innerText = `Hubo un error en el proceso:\n${error}`;
+                    res.style.color = '#ef4444';
+                    res.innerText = 'Fallo la conexión al archivo de destino.';
+                    console.error(error);
                     reiniciarBoton(btn);
                 });
-        }
-
-
-        function enviarDatos(mes, semana, sumaTotalE, sumaTotalNE, destinoGid, nombreHoja) {
-            const urlAPI = "https://script.google.com/macros/s/AKfycby49NYlOVEtIRaAJSRwyTNX-qmkY4X51r___sixRclwrcWV9ZWVovjLIbJBw-yfeEdYzQ/exec";
-            const urlConDatos = `${urlAPI}?mes=${encodeURIComponent(mes)}&semana=${encodeURIComponent(semana)}&sumaTotalE=${encodeURIComponent(sumaTotalE)}&sumaTotalNE=${encodeURIComponent(sumaTotalNE)}&destinoGid=${encodeURIComponent(destinoGid)}`;
-
-            fetch(urlConDatos, {
-                method: 'GET',
-            })
-            .then(() => {
-                res.style.color = '#22c55e'; // Verde
-                res.innerText = `💥 ¡KABOOM! Guardado en destino -> Col A: ${mes} | Col B: ${semana} | Col C: ${sumaTotalE} | Col D: ${sumaTotalNE}.`;
-                reiniciarBoton(btn);
-            })
-            .catch(error => {
-                res.style.color = '#ef4444';
-                res.innerText = 'Fallo la conexión al archivo de destino.';
-                console.error(error);
-                reiniciarBoton(btn);
             });
         }
 
@@ -1186,7 +1190,6 @@ function ejecutarExplosion() {
             const pass = document.getElementById('adminPass').value;
             const error = document.getElementById('loginError');
 
-            // AQUÍ DEFINES TU USUARIO Y CONTRASEÑA
             if (user === 'admin' && pass === '123') { 
                 document.getElementById('loginContainer').style.display = 'none';
                 document.getElementById('explotarContainer').style.display = 'block';
