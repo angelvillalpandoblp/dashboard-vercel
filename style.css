@@ -208,7 +208,7 @@ iframe {
     .main-header p {
         font-size: 0.75rem !important;
     }
-    
+
     .sidebar {
         width: 280px !important;
         left: -280px !important;
@@ -296,7 +296,13 @@ iframe {
     #refaccionImg {
         max-height: 350px;
     }
+
+    .header-title-group {
+    font-size: 1.1rem !important;
+    }
+
 }
+
 
 @media (max-width: 480px) {
     .main-header h1 {
