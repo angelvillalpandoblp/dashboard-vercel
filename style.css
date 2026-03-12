@@ -193,10 +193,22 @@ iframe {
     }
 
     .main-content {
-        padding: 80px 15px 20px 15px !important;
-        margin-left: 0 !important;
-        width: 100% !important;
+        padding: 90px 15px 20px 15px !important;
+        position: relative;
     }
+
+    .main-header {
+        top: 25px;
+        right: 15px; /* Lo pegamos un poco más a la orilla en celular */
+    }
+        .main-header h1 {
+        font-size: 1.1rem !important; /* Letra más chica para que no choque con el botón de menú */
+    }
+
+    .main-header p {
+        font-size: 0.75rem !important;
+    }
+    
     .sidebar {
         width: 280px !important;
         left: -280px !important;
