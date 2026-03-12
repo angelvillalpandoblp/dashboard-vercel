@@ -173,8 +173,18 @@ iframe {
 
     .grid-container {
         grid-template-columns: 1fr !important;
-        gap: 12px;
+        gap: 16px; /* Un poco más de espacio entre tarjetas para que se vea limpio */
         padding: 0;
+        width: 100%;
+        max-width: 100vw; /* Evita que la pantalla se haga hacia los lados */
+        box-sizing: border-box;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        box-sizing: border-box;
     }
 
     .card-header {
@@ -189,23 +199,24 @@ iframe {
     }
 
     .card-body {
-        min-height: auto !important; 
-        height: auto !important;
-        aspect-ratio: 4 / 3; 
+        position: relative;
+        min-height: 280px !important; /* Google Charts necesita una altura obligatoria */
+        height: 280px !important;     /* Forzamos a que mida 280px de alto en celular */
         width: 100%;
-        padding: 8px !important;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        padding: 0 !important;        /* Quitamos el padding que aplastaba el iframe */
+        display: block;               /* Quitamos el flex que deformaba la tarjeta */
         overflow: hidden;
     }
 
     .card-body iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100% !important;
         height: 100% !important;
         border: none;
-        display: block;
     }
+
     .search-box {
         width: 100% !important;
         max-width: none;
@@ -244,8 +255,15 @@ iframe {
         font-size: 1.4rem;
     }
     
+    /* Le damos un poco más de aire a la gráfica en pantallas muy chicas */
     .card-body {
-        min-height: 250px;
+        min-height: 260px !important;
+        height: 260px !important;
+    }
+    
+    /* Que el buscador de incidencias ocupe toda la pantalla */
+    .search-box {
+        width: 100%;
     }
 }
 
