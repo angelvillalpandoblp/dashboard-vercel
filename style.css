@@ -177,6 +177,13 @@ iframe {
 
 @media (max-width: 768px) {
 
+    .grafica-pc, .grafica-movil {
+    width: 100%;
+    height: 100%;
+    border: none;
+    /* Sin position absolute, ni top, ni left */
+    }
+
     .grafica-pc {
         display: none !important;  /* Ocultamos la gráfica grande */
     }
@@ -184,7 +191,7 @@ iframe {
     .grafica-movil {
         display: block !important; /* Mostramos la gráfica pequeña */
     }
-    
+
     .main-content {
         padding: 80px 15px 20px 15px !important;
         margin-left: 0 !important;
@@ -235,12 +242,12 @@ iframe {
         padding: 0 !important;        /* Quitamos el padding que aplastaba el iframe */
         display: block;               /* Quitamos el flex que deformaba la tarjeta */
         overflow: hidden;
+        display: flex;
+        justify-content: center; /* Centra de izquierda a derecha (Horizontal) */
+        align-items: center;
     }
 
     .card-body iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
         width: 100% !important;
         height: 100% !important;
         border: none;
