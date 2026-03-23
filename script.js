@@ -117,7 +117,7 @@ function openGavetaTable(gid, title) {
     if (!modal) return;
 
     modal.style.display = 'flex';
-    modalTitle.textContent = title + " . Semana 11";
+    modalTitle.textContent = title + " . Semana 13";
     header.innerHTML = "";
     body.innerHTML = "<tr><td colspan='10' style='text-align:center; padding:40px;'>Cargando...</td></tr>";
 
