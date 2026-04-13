@@ -1174,7 +1174,7 @@ function obtenerDrivePreviewUrl(url) {
 // Llenar el primer Select (Máquinas)
 function cargarFiltroMaquinas() {
     const filtroMaquina = document.getElementById('filtroMaquina');
-    filtroMaquina.innerHTML = '<option value="">Todas las Máquinas</option>';
+    filtroMaquina.innerHTML = '<option value="">Máquinas</option>';
     
     // Extraer llaves del árbol (Nombres de máquinas)
     const maquinas = Object.keys(arbolInstrucciones);
@@ -1187,7 +1187,7 @@ function cargarFiltroMaquinas() {
 // Llenar el segundo Select (Áreas) dependiendo de la máquina elegida
 function cargarFiltroAreas(maquinaSeleccionada) {
     const filtroArea = document.getElementById('filtroArea');
-    filtroArea.innerHTML = '<option value="">Todas las Áreas</option>';
+    filtroArea.innerHTML = '<option value="">Área</option>';
     
     let areas = new Set();
 
