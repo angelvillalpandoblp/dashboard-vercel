@@ -1114,8 +1114,8 @@ async function ejecutarExplosion() {
 const arbolInstrucciones = {
     "Laser": {
         "Software":[
-            { nombre: "Ajuste Offset garras", link: "https://drive.google.com/file/d/1ozNCu5hq3QYhnsGbeYlPZ92NJRzF2jSr/view" },
-            { nombre: "Reset contadores ventiladores drive", link: "https://drive.google.com/file/d/174iW-EaSV6OhtpVpVQQle0uolUMaUCGd/view" },
+            { nombre: "Ajuste Offset garras", link: "https://drive.google.com/file/d/1ozNCu5hq3QYhnsGbeYlPZ92NJRzF2jSr/view"},
+            { nombre: "Reset contadores ventiladores drive", link: "https://drive.google.com/file/d/174iW-EaSV6OhtpVpVQQle0uolUMaUCGd/view"},
             { nombre: "Regulación garras automatico", link: "https://drive.google.com/file/d/1FN92Z1M6xhWm35TwevOB19xrYuClFul7/view"},
             { nombre: "Calibración completa u ortogonal", link: "https://drive.google.com/file/d/1CpJ9GNadE8wDHNPbuiaMppqXaFiWuvsM/view"},
             { nombre: "Carga de parámetros drive", link: "https://drive.google.com/file/d/1pflYFcVhgk7xfu9rys6ZHeqSSoNh5Uja/view"},
@@ -1153,7 +1153,7 @@ const arbolInstrucciones = {
             { nombre: "Cambio de servomotor laser", link : "https://drive.google.com/file/d/1byAhreG3evHO_vrZkAonrEHxLS3l4DE3/view"},
             { nombre: "Ajuste de luneta", link : "https://drive.google.com/file/d/1510jA0OrIOcVUcRQL_5cZrlaI2EJ3otr/view"},
             { nombre: "Rellenado de aceite unidad hidraulica", link : "https://drive.google.com/file/d/1coaangZKvZqsDMVyG7nnDT-xRbrMLrGF/view"},
-            { nomnre: "Cambio de banda", link : "https://drive.google.com/file/d/1Xi4gLX9fYBuVCkatQ5x1PO40hJrJXCEK/view"}
+            { nombre: "Cambio de banda", link : "https://drive.google.com/file/d/1Xi4gLX9fYBuVCkatQ5x1PO40hJrJXCEK/view"}
         ],
         "Extractor de polvos":[
             { nombre: "Cambio de filtros de aire", link : "https://drive.google.com/file/d/1AjmLKgxJ7bCBGj8ohNJRzrhSNGYOprpP/view"}
@@ -1192,17 +1192,17 @@ const arbolInstrucciones = {
     "Router": {
         "General":[
             { nombre: "Calibración de ejes Router", link: "https://drive.google.com/file/d/15JV8CrNaqs4wdhUFmnnomZO7S6-8kyrz/view}"},
-        ],
+        ]
     },
     "Varias": {
         "General":[
             { nombre: "Armado de cable RJ-45", link: "https://drive.google.com/file/d/1--F_8VhWjMAk7EyV9Yczq3aE-4i8M_Ft/view"}
-        ],
+        ]
     },
     "Robot": {
         "General":[
             { nombre: "Masterización de robot", link: "https://drive.google.com/file/d/1EJaYDjSRciW6ZAnCpnbUffAuQXFZUl4D/view"}
-        ],
+        ]
     },
     "Dobladora": {
         "General":[
@@ -1214,12 +1214,12 @@ const arbolInstrucciones = {
             { nombre: "Cambio de servomotor dobladora", link : "https://drive.google.com/file/d/1u8K9gYAmfStlpNCdUGZwghoys3Z97iNA/view"},
             { nombre: "Referencia INDEX ETURN 52", link : "https://drive.google.com/file/d/1m_Sl09MW83m6wGHN_lRZ48JCj9pk-R6I/view"},
             { nombre: "Referencia INDEX 80 y 120", link : "https://drive.google.com/file/d/14l1mV8nzDutZm2RoCfd7z0D6_uHysMu1/view"}
-        ],
+        ]
     },
     "Compresores": {
         "General":[
             { nombre: "Recuperación de aceite", link: "https://drive.google.com/file/d/1B1Ofk7Modym4vz8OXTusWDuHeSjZXgZW/view"}
-        ],
+        ]
     },
     "Chiller": {
         "General":[
@@ -1229,7 +1229,7 @@ const arbolInstrucciones = {
             { nombre: "Cambio o rellenado agua chiller", link : "https://drive.google.com/file/d/1fENjqsnCf3RieLHFAVVKpQ7nk7Rp37Ux/view"},
             { nombre: "Cambio de filtro", link : "https://drive.google.com/file/d/1nuwsySDBBq1IMqVRBY3z7J72RD-n0SBh/view"},
             { nombre: "Cambio de chiller", link : "https://drive.google.com/file/d/13sZkrmhKByOX09Lso9aAxe0WVoX_bCVH/view"}
-        ],
+        ]
     },
     "BEWO": {
         "Mesa de medidas":[
@@ -1246,8 +1246,6 @@ const arbolInstrucciones = {
             { nombre: "Cargar respaldo de drive de eleador", link : "https://drive.google.com/file/d/1qOI5dNQ9RYbz22ERYADwZ5VjYvFmeH3y/view"}
         ]
     },
-
-
 };
 
 // Variable para almacenar la lista plana
