@@ -1107,41 +1107,62 @@ async function ejecutarExplosion() {
         }
 
 // --- CARGA DINÁMICA DE INSTRUCCIONES DESDE GOOGLE DRIVE (APPS SCRIPT) ---
+// ==========================================
+// BASE DE DATOS LOCAL DE INSTRUCCIONES
+// Estructura: Máquina -> Área -> Lista de PDFs
+// ==========================================
+const arbolInstrucciones = {
+    "Laser": {
+        "Software":[
+            { nombre: "Ajuste Offset garras", link: "https://drive.google.com/file/d/1ozNCu5hq3QYhnsGbeYlPZ92NJRzF2jSr/view" },
+            { nombre: "Ajuste de Husillo", link: "https://drive.google.com/file/d/TU_ID_AQUI/view" }
+        ],
+        "Eléctrica":[
+            { nombre: "Calibración de Sensores", link: "https://drive.google.com/file/d/TU_ID_AQUI/view" }
+        ]
+    },
+    "Compresor Central": {
+        "Neumática":[
+            { nombre: "Limpieza de Filtros", link: "https://drive.google.com/file/d/TU_ID_AQUI/view" },
+            { nombre: "Revisión de Válvulas", link: "https://drive.google.com/file/d/TU_ID_AQUI/view" }
+        ],
+        "Mantenimiento General":[
+            { nombre: "Cambio de Aceite", link: "https://drive.google.com/file/d/TU_ID_AQUI/view" }
+        ]
+    }
+};
 
-// Pega aquí la URL que te dio Google Apps Script (la que termina en /exec)
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzn_Aww64fVlry0RKz8SKTnyG20hP5dv0Lf2KOaQ6wH8XbqAD9w-_wyWTeCvtYlDPR5/exec";
-
-let baseInstrucciones =[]; // Se llenará dinámicamente
+// Variable para almacenar la lista plana
+let baseInstrucciones =[];
 
 document.addEventListener("DOMContentLoaded", () => {
-    cargarDatosDrive();
+    // 1. Convertir el "árbol" a una lista que la tabla entienda
+    procesarArbolInstrucciones();
+    // 2. Llenar la lista de máquinas en el select
+    cargarFiltroMaquinas();
+    // 3. Pintar todos los datos por primera vez
+    renderizarInstrucciones(baseInstrucciones);
 });
 
-// Obtener datos desde el Apps Script
-async function cargarDatosDrive() {
-    const tbody = document.getElementById('instrucciones-body');
-    tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding: 30px; color:#3b82f6;">
-        <i data-lucide="loader-2" class="spin" style="width:24px; height:24px; margin-bottom:10px;"></i>
-        <br>Leyendo carpetas de Google Drive...
-    </td></tr>`;
-    
-    if(window.lucide) lucide.createIcons();
-
-    try {
-        const respuesta = await fetch(APPS_SCRIPT_URL);
-        baseInstrucciones = await respuesta.json();
-        
-        cargarFiltrosInstrucciones();
-        renderizarInstrucciones(baseInstrucciones);
-    } catch (error) {
-        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding: 20px; color:#ef4444;">
-            Error al conectar con Google Drive. Verifica tu Apps Script.
-        </td></tr>`;
-        console.error("Error cargando Drive:", error);
+// Aplanar el árbol de carpetas
+function procesarArbolInstrucciones() {
+    baseInstrucciones =[];
+    for (const maquina in arbolInstrucciones) {
+        for (const area in arbolInstrucciones[maquina]) {
+            const archivos = arbolInstrucciones[maquina][area];
+            archivos.forEach(archivo => {
+                baseInstrucciones.push({
+                    maquina: maquina,
+                    area: area,
+                    nombre: archivo.nombre,
+                    driveLink: archivo.link
+                });
+            });
+        }
     }
 }
 
-// Extraer el ID de Google Drive para crear el link de previsualización incrustada
+// Convertir links de vista al modo "Preview" incrustado de Drive
 function obtenerDrivePreviewUrl(url) {
     const match = url.match(/\/d\/(.+?)\//);
     if (match && match[1]) {
@@ -1150,28 +1171,55 @@ function obtenerDrivePreviewUrl(url) {
     return url;
 }
 
-// Llenar los desplegables según las carpetas detectadas
-function cargarFiltrosInstrucciones() {
-    const maquinas = [...new Set(baseInstrucciones.map(i => i.maquina))];
-    const areas = [...new Set(baseInstrucciones.map(i => i.area))];
-    
+// Llenar el primer Select (Máquinas)
+function cargarFiltroMaquinas() {
     const filtroMaquina = document.getElementById('filtroMaquina');
-    const filtroArea = document.getElementById('filtroArea');
-    
-    // Limpiar para no duplicar si se recarga
     filtroMaquina.innerHTML = '<option value="">Todas las Máquinas</option>';
-    filtroArea.innerHTML = '<option value="">Todas las Áreas</option>';
-
+    
+    // Extraer llaves del árbol (Nombres de máquinas)
+    const maquinas = Object.keys(arbolInstrucciones);
     maquinas.forEach(m => filtroMaquina.innerHTML += `<option value="${m}">${m}</option>`);
-    areas.forEach(a => filtroArea.innerHTML += `<option value="${a}">${a}</option>`);
+    
+    // Por defecto, cargar todas las áreas posibles también
+    cargarFiltroAreas(""); 
 }
 
+// Llenar el segundo Select (Áreas) dependiendo de la máquina elegida
+function cargarFiltroAreas(maquinaSeleccionada) {
+    const filtroArea = document.getElementById('filtroArea');
+    filtroArea.innerHTML = '<option value="">Todas las Áreas</option>';
+    
+    let areas = new Set();
+
+    if (maquinaSeleccionada === "") {
+        // Si no hay máquina, mostrar áreas de todas
+        for (const maquina in arbolInstrucciones) {
+            Object.keys(arbolInstrucciones[maquina]).forEach(a => areas.add(a));
+        }
+    } else {
+        // Mostrar solo áreas de la máquina seleccionada
+        if (arbolInstrucciones[maquinaSeleccionada]) {
+            Object.keys(arbolInstrucciones[maquinaSeleccionada]).forEach(a => areas.add(a));
+        }
+    }
+    
+    [...areas].forEach(a => filtroArea.innerHTML += `<option value="${a}">${a}</option>`);
+}
+
+// Evento cuando se cambia la Máquina (Actualiza el select de Áreas y filtra la tabla)
+function actualizarFiltros() {
+    const maquinaSeleccionada = document.getElementById('filtroMaquina').value;
+    cargarFiltroAreas(maquinaSeleccionada);
+    filtrarInstrucciones();
+}
+
+// Renderizar la tabla HTML
 function renderizarInstrucciones(datos) {
     const tbody = document.getElementById('instrucciones-body');
     tbody.innerHTML = '';
     
     if (datos.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding: 20px; color:#64748b;">No se encontraron archivos en Drive</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding: 20px; color:#64748b;">No se encontraron documentos</td></tr>`;
         return;
     }
 
@@ -1189,7 +1237,7 @@ function renderizarInstrucciones(datos) {
             <td><span style="background:#f8fafc; padding:4px 8px; border-radius:4px; font-size:0.85rem; border:1px solid #e2e8f0;">${item.area}</span></td>
             <td style="text-align: center;">
                 <button class="btn-preview" onclick="abrirPdfModal('${item.nombre}', '${item.maquina} - ${item.area}', '${previewUrl}', '${item.driveLink}')">
-                    <i data-lucide="eye" style="width:16px; height:16px;"></i> Ver PDF
+                    <i data-lucide="eye" style="width:16px; height:16px;"></i> Ver
                 </button>
             </td>
         `;
@@ -1199,6 +1247,7 @@ function renderizarInstrucciones(datos) {
     if(window.lucide) lucide.createIcons();
 }
 
+// Filtrar según los select y buscador textual
 function filtrarInstrucciones() {
     const busqueda = document.getElementById('instruccionesSearch').value.toLowerCase();
     const maquinaSeleccionada = document.getElementById('filtroMaquina').value;
@@ -1215,6 +1264,7 @@ function filtrarInstrucciones() {
     renderizarInstrucciones(filtrados);
 }
 
+// Control del Visor Modal de PDF
 function abrirPdfModal(titulo, subtitulo, previewUrl, driveLink) {
     document.getElementById('pdfModalTitle').innerText = titulo;
     document.getElementById('pdfModalSubtitle').innerText = subtitulo;
@@ -1227,4 +1277,3 @@ function cerrarPdfModal() {
     document.getElementById('pdfModal').style.display = 'none';
     document.getElementById('pdfIframe').src = '';
 }
-       
