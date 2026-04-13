@@ -838,3 +838,103 @@ td {
 .btn-preview:hover {
     background: #dbebff;
 }
+
+/* ==========================================
+   ADAPTACIÓN MÓVIL PARA INSTRUCCIONES
+   ========================================== */
+@media (max-width: 768px) {
+    /* Hacer que los filtros y el buscador ocupen el 100% del ancho */
+    #view-instrucciones .header-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+    }
+    
+    #view-instrucciones .custom-select, 
+    #view-instrucciones .search-wrapper-pro {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    #view-instrucciones .search-wrapper-pro input {
+        width: 100%;
+    }
+
+    /* Ocultar la cabecera original de la tabla */
+    #instruccionesTable thead {
+        display: none;
+    }
+
+    /* Convertir la tabla en un listado vertical */
+    #instruccionesTable, 
+    #instruccionesTable tbody, 
+    #instruccionesTable tr, 
+    #instruccionesTable td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Estilo de Tarjeta para cada fila */
+    #instruccionesTable tr {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        margin-bottom: 15px;
+        padding: 15px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    /* Acomodo interior de cada dato dentro de la tarjeta */
+    #instruccionesTable td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #f1f5f9;
+        text-align: right;
+    }
+
+    /* El último elemento no lleva borde abajo */
+    #instruccionesTable td:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-top: 10px;
+        justify-content: center; /* Centrar el botón */
+    }
+
+    /* Inyectar las etiquetas de texto usando el atributo data-label del JS */
+    #instruccionesTable td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #94a3b8;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        margin-right: 15px;
+    }
+
+    /* Hacer el botón de Ver Manual grande para tocarlo fácil con el dedo */
+    .btn-preview {
+        width: 100%;
+        justify-content: center;
+        padding: 12px;
+        font-size: 1rem;
+        border-radius: 8px;
+    }
+
+    /* Ajustes para el Modal del PDF en Celular */
+    #pdfModal .modal-window {
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 0 !important;
+        padding: 15px !important;
+    }
+    
+    #pdfModalTitle {
+        font-size: 1.1rem !important;
+    }
+    
+    #btnOpenDrive span {
+        display: none; /* Oculta el texto "Abrir" y solo deja el icono para ahorrar espacio en celular */
+    }
+}

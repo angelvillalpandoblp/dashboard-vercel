@@ -1214,12 +1214,13 @@ function actualizarFiltros() {
 }
 
 // Renderizar la tabla HTML
+// Renderizar la tabla HTML con adaptación móvil (data-label)
 function renderizarInstrucciones(datos) {
     const tbody = document.getElementById('instrucciones-body');
     tbody.innerHTML = '';
     
     if (datos.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding: 20px; color:#64748b;">No se encontraron documentos</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding: 30px; color:#64748b; font-weight:500;">No se encontraron documentos</td></tr>`;
         return;
     }
 
@@ -1227,17 +1228,21 @@ function renderizarInstrucciones(datos) {
         const previewUrl = obtenerDrivePreviewUrl(item.driveLink);
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td>
-                <div style="display:flex; align-items:center; gap:10px; font-weight:500;">
-                    <i data-lucide="file-text" style="color:#ef4444; width:18px; height:18px;"></i> 
+            <td data-label="Documento">
+                <div style="display:flex; align-items:center; gap:10px; font-weight:600; color:#1e293b;">
+                    <i data-lucide="file-text" style="color:#ef4444; width:20px; height:20px; flex-shrink:0;"></i> 
                     ${item.nombre}
                 </div>
             </td>
-            <td><span style="background:#f1f5f9; padding:4px 8px; border-radius:4px; font-size:0.85rem;">${item.maquina}</span></td>
-            <td><span style="background:#f8fafc; padding:4px 8px; border-radius:4px; font-size:0.85rem; border:1px solid #e2e8f0;">${item.area}</span></td>
-            <td style="text-align: center;">
+            <td data-label="Máquina">
+                <span style="background:#f1f5f9; color:#475569; padding:4px 10px; border-radius:6px; font-size:0.85rem; font-weight:500;">${item.maquina}</span>
+            </td>
+            <td data-label="Área">
+                <span style="background:#f8fafc; color:#64748b; padding:4px 10px; border-radius:6px; font-size:0.85rem; border:1px solid #e2e8f0;">${item.area}</span>
+            </td>
+            <td data-label="Acción" style="text-align: center;">
                 <button class="btn-preview" onclick="abrirPdfModal('${item.nombre}', '${item.maquina} - ${item.area}', '${previewUrl}', '${item.driveLink}')">
-                    <i data-lucide="eye" style="width:16px; height:16px;"></i> Ver
+                    <i data-lucide="eye" style="width:18px; height:18px;"></i> Ver Manual
                 </button>
             </td>
         `;
