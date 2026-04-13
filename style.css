@@ -940,32 +940,70 @@ td {
 }
 
 /* ==========================================
-   ALINEACIÓN HORIZONTAL DE FILTROS
+   ALINEACIÓN PERFECTA DE LA BARRA DE BÚSQUEDA
    ========================================== */
+
+/* Asegurar que el contenedor principal alinee todo en el centro vertical */
 .header-actions-inline {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: center; /* Esto es clave para alinear verticalmente */
     gap: 15px;
-    flex-wrap: nowrap; /* Fuerza a que no salten de línea */
+    flex-wrap: nowrap; 
     flex-grow: 1;
     justify-content: flex-end;
 }
 
-/* Los selects tomarán un tamaño igual */
+/* Los menús desplegables (Selects) */
 .header-actions-inline .custom-select {
     flex: 1;
     min-width: 130px;
     max-width: 200px;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    height: 42px; /* Misma altura para los 3 elementos */
 }
 
-/* El buscador tomará un poco más de espacio si lo hay */
+/* La barra de búsqueda (Contenedor) */
 .header-actions-inline .search-wrapper-pro {
+    display: flex; /* Esto evita que el icono empuje la barra hacia abajo */
+    align-items: center;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 0 15px; /* Solo padding lateral */
     flex: 1.5;
     min-width: 200px;
+    height: 42px; /* Misma altura para los 3 elementos */
+    box-sizing: border-box;
     margin: 0;
+    transition: all 0.3s ease;
 }
 
+.header-actions-inline .search-wrapper-pro:focus-within {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* El Icono dentro de la barra */
+.header-actions-inline .search-wrapper-pro i {
+    color: #94a3b8;
+    display: flex; /* Centra el icono perfectamente sin márgenes fantasma */
+    align-items: center;
+    margin-right: 8px;
+    width: 18px;
+    height: 18px;
+}
+
+/* El input de texto dentro de la barra */
 .header-actions-inline .search-wrapper-pro input {
+    flex: 1;
     width: 100%;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 0.9rem;
+    color: #475569;
+    font-family: inherit;
+    padding: 0; /* Quitamos el padding porque el contenedor ya le da la altura */
 }
