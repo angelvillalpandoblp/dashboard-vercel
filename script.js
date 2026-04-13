@@ -1115,7 +1115,7 @@ const arbolInstrucciones = {
     "Laser": {
         "Software":[
             { nombre: "Ajuste Offset garras", link: "https://drive.google.com/file/d/1ozNCu5hq3QYhnsGbeYlPZ92NJRzF2jSr/view" },
-            { nombre: "Ajuste de Husillo", link: "https://drive.google.com/file/d/TU_ID_AQUI/view" }
+            { nombre: "Reset contadores ventiladores drive", link: "https://drive.google.com/file/d/174iW-EaSV6OhtpVpVQQle0uolUMaUCGd/view" }
         ],
         "Eléctrica":[
             { nombre: "Calibración de Sensores", link: "https://drive.google.com/file/d/TU_ID_AQUI/view" }
