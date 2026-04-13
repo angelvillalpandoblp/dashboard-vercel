@@ -938,3 +938,34 @@ td {
         display: none; /* Oculta el texto "Abrir" y solo deja el icono para ahorrar espacio en celular */
     }
 }
+
+/* ==========================================
+   ALINEACIÓN HORIZONTAL DE FILTROS
+   ========================================== */
+.header-actions-inline {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: nowrap; /* Fuerza a que no salten de línea */
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+/* Los selects tomarán un tamaño igual */
+.header-actions-inline .custom-select {
+    flex: 1;
+    min-width: 130px;
+    max-width: 200px;
+}
+
+/* El buscador tomará un poco más de espacio si lo hay */
+.header-actions-inline .search-wrapper-pro {
+    flex: 1.5;
+    min-width: 200px;
+    margin: 0;
+}
+
+.header-actions-inline .search-wrapper-pro input {
+    width: 100%;
+}
