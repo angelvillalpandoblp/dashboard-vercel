@@ -1116,7 +1116,19 @@ const arbolInstrucciones = {
         "Software":[
             { nombre: "Ajuste Offset garras", link: "https://drive.google.com/file/d/1ozNCu5hq3QYhnsGbeYlPZ92NJRzF2jSr/view" },
             { nombre: "Reset contadores ventiladores drive", link: "https://drive.google.com/file/d/174iW-EaSV6OhtpVpVQQle0uolUMaUCGd/view" },
-            { nombre: "Regulación garras automatico", link: "https://drive.google.com/file/d/1FN92Z1M6xhWm35TwevOB19xrYuClFul7/view"}
+            { nombre: "Regulación garras automatico", link: "https://drive.google.com/file/d/1FN92Z1M6xhWm35TwevOB19xrYuClFul7/view"},
+            { nombre: "Calibración completa u ortogonal", link: "https://drive.google.com/file/d/1CpJ9GNadE8wDHNPbuiaMppqXaFiWuvsM/view"},
+            { nombre: "Carga de parámetros drive", link: "https://drive.google.com/file/d/1pflYFcVhgk7xfu9rys6ZHeqSSoNh5Uja/view"},
+            { nombre: "Reset NCK", link: "https://drive.google.com/file/d/165WsKGdQk4i4X0dhbDaPak_G8UdW-pLs/view"},
+            { nombre: "Referencia de ejes automático", link: "https://drive.google.com/file/d/1q14-rDPpjIuYM2V2H7dmBTJAjbiIOfnF/view"},
+            { nombre: "Movimiento de ejes en modo JOG", link: "https://drive.google.com/file/d/1wHSuHDL4IBVPeZkQtlv0h8j0dlgJk894/view"},
+            { nombre: "Lasers apagado", link: "https://drive.google.com/file/d/1UCS0_6nc7poM9RBzf8uh8HjLSpvWK68u/view"},
+            { nombre: "Lasers encendido", link: "https://drive.google.com/file/d/1MojITLBhJS_NjdgicQdNwvEerWI6j40b/view"},
+            { nombre: "Forzado referenciado de ejes", link: "https://drive.google.com/file/d/1m5qZZiEkchkEkFsvS4Rqp7KcUq_qJuCB/view"},
+            { nombre: "Cargar respaldo a máquina", link: "https://drive.google.com/file/d/1fL-_1kCEJuUSXjyRnElN4maoX7SkKBRr/view"},
+            { nombre: "Creación de respaldo", link: "https://drive.google.com/file/d/18gGt7PPZxKJ0seciAEF3jAKJoi5F3Tml/view"},
+            { nombre: "Reset contadores ventiladores LT7 y LT8", link: "https://drive.google.com/file/d/1Za5UsfLTCZ4Jf6MOGiKLq-NmRiepVJHf/view"},
+            { nombre: "Cambio de bobinas CAMOZZI", link: "https://drive.google.com/file/d/19ZjbKsByUB0sZ8X9hssWskW6RfcgaU-P/view"}
         ],
         "Eléctrica":[
             { nombre: "Calibración de Sensores", link: "https://drive.google.com/file/d/TU_ID_AQUI/view" }
