@@ -1130,19 +1130,124 @@ const arbolInstrucciones = {
             { nombre: "Reset contadores ventiladores LT7 y LT8", link: "https://drive.google.com/file/d/1Za5UsfLTCZ4Jf6MOGiKLq-NmRiepVJHf/view"},
             { nombre: "Cambio de bobinas CAMOZZI", link: "https://drive.google.com/file/d/19ZjbKsByUB0sZ8X9hssWskW6RfcgaU-P/view"}
         ],
-        "Eléctrica":[
-            { nombre: "Calibración de Sensores", link: "https://drive.google.com/file/d/TU_ID_AQUI/view" }
+        "Mandril":[
+            { nombre: "Cambio de rodamiento Eje A", link: "https://drive.google.com/file/d/1VeYWH6eGhtKt4tGWEO0UovQKsw9LHBzY/view" }
+        ],
+        "Linea de tubo":[
+            { nombre: "Centrado barra", link : "https://drive.google.com/file/d/17tI1CM-NMiRHJv3APcMcW2wx6bvxy-7j/view"},
+            { nombre: "Coaxalidad", link : "https://drive.google.com/file/d/10ZX5D1wusf4AHPM0Houd5dYydiS8tmW9/view"},
+            { nombre: "Ajuste carrera pinzas de extraccion", link : "https://drive.google.com/file/d/1yYQxzLtHu95zx7HlrqPfSuabog3ga4Ma/view"},
+            { nombre: "Calibracion clutch medidor empujador", link : "https://drive.google.com/file/d/1jruaMj_rjTy7Y0Nmi7JVnGKjuVe6S1DA/view"},
+            { nombre: "Ajuste sensor analog pinzas carga", link : "https://drive.google.com/file/d/1EppPUqiER8wfNAPHfFgPjH8mGwtODrEy/view"},
+            { nombre: "Cambio de rodamiento eje X", link : "https://drive.google.com/file/d/10oRFXBuG4hKQjkJ2YHKuR2BEoi1mtFAu/view"},
+            { nombre: "Alineación de cimitarras", link : "https://drive.google.com/file/d/1RBR7KigX90JoUqLAviviDrj69JXvLU-4/view?usp=drive_link"},
+            { nombre: "Alineación de soporte", link: "https://drive.google.com/file/d/1FzeeV-QdNfleJRMZGAQA13CJiCRgcsF4/view?usp=drive_link"},
+            { nombre: "Activación bloque de válvulas CAMOZZI", link : "https://drive.google.com/file/d/1w_UVqb0kOj12vhPKb57nJsl3PE8tVLPW/view"},
+            { nombre: "Ajuste de medida de eje x", link : "https://drive.google.com/file/d/1KGfrwPvvAPFoIJKYcJ3KVIT8unzSn13y/view"},
+            { nombre: "Ajuste de medida de empujador LT FIBER", link : "https://drive.google.com/file/d/17w1BNtTGUNQY0h42IR2fwMkgtUHYzYdY/view"}
+        ],
+        "General":[
+            { nombre: "Cambio drive siemens", link : "https://drive.google.com/file/d/1dF9pxqf1vm2-4psecgTjQIdqdF4AtWIH/view"},
+            { nombre: "Cambio cable Drive click", link : "https://drive.google.com/file/d/1kZGcMnc_stlHLFtUirY8eu3YLEcJQj3P/view"},
+            { nombre: "Cambio unidad hidráulica", link : "https://drive.google.com/file/d/10sLn_R1t_6GZ0js6pklLChB-O6OBelWg/view"},
+            { nombre: "Cambio de servomotor laser", link : "https://drive.google.com/file/d/1byAhreG3evHO_vrZkAonrEHxLS3l4DE3/view"},
+            { nombre: "Ajuste de luneta", link : "https://drive.google.com/file/d/1510jA0OrIOcVUcRQL_5cZrlaI2EJ3otr/view"},
+            { nombre: "Rellenado de aceite unidad hidraulica", link : "https://drive.google.com/file/d/1coaangZKvZqsDMVyG7nnDT-xRbrMLrGF/view"},
+            { nomnre: "Cambio de banda", link : "https://drive.google.com/file/d/1Xi4gLX9fYBuVCkatQ5x1PO40hJrJXCEK/view"}
+        ],
+        "Extractor de polvos":[
+            { nombre: "Cambio de filtros de aire", link : "https://drive.google.com/file/d/1AjmLKgxJ7bCBGj8ohNJRzrhSNGYOprpP/view"}
+        ],
+        "Centrador fijo":[
+            { nombre: "Cambio de rodamiento eje Y", link : "https://drive.google.com/file/d/1qmn-TV2OkdcQENvKwcyiKJKcmBF66yxc/view"},
+            { nombre: "Cambio de rodamiento eje X1", link : "https://drive.google.com/file/d/1_jRfmqVf7S3-pi55TWSq85tvf-u39Pye/view"},
+            { nombre: "Cambio de sensor fotoeléctrico", link : "https://drive.google.com/file/d/128SYzTO7V23JX-reTdcrVu_M_iqAnSTD/view?usp=drive_link"},
+            { nombre: "Ajuste de garras manual", link : "https://drive.google.com/file/d/1Yc75Pz0pCK4CVuYdnXQpkiXyKhq02qoc/view"}
+        ],
+        "Cargador":[
+            { nombre: "Alineación dientes de selección", link : "https://drive.google.com/file/d/1bBM0l_AnRHtaKw6IF8v6HHLeIPrm3dcL/view"}
+        ],
+        "Cabezal":[
+            { nombre: "Ajuste del eje B LT7 LT8", link : "https://drive.google.com/file/d/1bBM0l_AnRHtaKw6IF8v6HHLeIPrm3dcL/view"},
+            { nombre: "Ajuste del eje Z LT7 LT8", link : "https://drive.google.com/file/d/1gzub3JS8Fr1FJU4TO2abeyaEt-52LNj4/view"},
+            { nombre: "Ajuste del eje Z LT FIBER", link : "https://drive.google.com/file/d/1_Qzk0r7YG9pCRDOW_QTYZ90a4upvgc20/view"},
+            { nombre: "Cambio de espejo", link : "https://drive.google.com/file/d/1lwB7gOTzLKu_PrpHGSq0XttHVk9sr0Wb/view"},
+            { nombre: "Cambio o limpieza lentes protectores", link : "https://drive.google.com/file/d/1wz3hRbPw0Ws__lI7pp7KACftd-Z5KTCg/view"},
+            { nombre: "Cambio de cap", link : "https://drive.google.com/file/d/1anSpL9dlfyssIdZ8L3_vfu359UpCXoLL/view"},
+            { nombre: "Cambio de fibra sensor soldadura", link : "https://drive.google.com/file/d/1O8C1oGGn87K27AoRZfmP3IRzjqrOReHU/view"},
+            { nombre: "Ajuste del eje B LT7 LT8", link : "https://drive.google.com/file/d/1-ka2KI0K4iZaoNm7TUJQsQCeJqsyrpDq/view"},
+            { nombre: "Ajuste del eje Z LT7 LT8", link : "https://drive.google.com/file/d/15WWPXxeBQBgOcMSNTM_2L2fh595JmiVR/view"},
+            { nombre: "Ajuste del eje Z LT FIBER", link : "https://drive.google.com/file/d/1tBH7npgikX09Wx_DeGx3h_jwOugQGJoo/view"},
+            { nombre: "Centrado laser", link : "https://drive.google.com/file/d/1N8i15Pw0EjhsacKdLFGli0RF58o7oXYe/view"},
+            { nombre: "Cambio de rodamiento eje Z", link : "https://drive.google.com/file/d/1WHPFWntP_URq-ckOvFd9AMRfolql_1GN/view"},
+            { nombre: "Cambio de cable capacitivo", link : "https://drive.google.com/file/d/18C_q7gqivbAM4bFe1Udh22ZKd3yzRuaw/view"},
+            { nombre: "Cambio o limpieza de vitrino", link : "https://drive.google.com/file/d/1k20eOhPPqQMM99khlzxQcJUZBhtyuWu3/view"},
+            { nombre: "Alineación centrador X1", link : "https://drive.google.com/file/d/1E8NzkAtHW6SEB9GT06cKZoKq-lVEtGev/view"},
+            { nombre: "Cambio de banda de polea de atornillador", link : "https://drive.google.com/file/d/1PAprI0A2blN69UIDTlvvqxWrpLup4ETN/view"},
+            { nombre: "Ajuste de base de imán eje B", link : "https://drive.google.com/file/d/1fi2lt5Jc7mr0VR0nhQUJhiRxKbt4prHn/view"},
+            { nombre: "Chequeo de centrado de inyector LT7 LT8", link : "https://drive.google.com/file/d/1vngNM1fYClo3F54vUmeS3JlexUR8FHNg/view"},
+            { nombre: "Chequeo de centrado de inyector LT FIBER", link : "https://drive.google.com/file/d/1XM8u2dE3bYfwINRijQaPWpPhnrXSqoG0/view"},
+        ]   
+    },
+    "Router": {
+        "General":[
+            { nombre: "Calibración de ejes Router", link: "https://drive.google.com/file/d/15JV8CrNaqs4wdhUFmnnomZO7S6-8kyrz/view}"},
+        ],
+    },
+    "Varias": {
+        "General":[
+            { nombre: "Armado de cable RJ-45", link: "https://drive.google.com/file/d/1--F_8VhWjMAk7EyV9Yczq3aE-4i8M_Ft/view"}
+        ],
+    },
+    "Robot": {
+        "General":[
+            { nombre: "Masterización de robot", link: "https://drive.google.com/file/d/1EJaYDjSRciW6ZAnCpnbUffAuQXFZUl4D/view"}
+        ],
+    },
+    "Dobladora": {
+        "General":[
+            { nombre: "Cambio de guías w3 w4", link: "https://drive.google.com/file/d/1fYjPk9ZH3ghr6kI8g145HsLXB-zbI2yt/view"},
+            { nombre: "Cambio de rodamiento eje Q", link : "https://drive.google.com/file/d/1xd5YmrIe5iZSdqT91RR9m9QIIGADhoV1/view"},
+            { nombre: "Cambio de rodamiento eje U2", link : "https://drive.google.com/file/d/1WD4X35y4KvEi630yydfoo9v7OBT6VrrW/view"},
+            { nombre: "Cambio de rodamiento eje V1", link : "https://drive.google.com/file/d/1RykVDrL71ELfWJTf4l2Y8xvEX0OCKivp/view"},
+            { nombre: "Cambio de rodamiento eje X1", link : "https://drive.google.com/file/d/1DGhW75aRbfw0QZZDGdVIUAqHiip_1uNL/view"},
+            { nombre: "Cambio de servomotor dobladora", link : "https://drive.google.com/file/d/1u8K9gYAmfStlpNCdUGZwghoys3Z97iNA/view"},
+            { nombre: "Referencia INDEX ETURN 52", link : "https://drive.google.com/file/d/1m_Sl09MW83m6wGHN_lRZ48JCj9pk-R6I/view"},
+            { nombre: "Referencia INDEX 80 y 120", link : "https://drive.google.com/file/d/14l1mV8nzDutZm2RoCfd7z0D6_uHysMu1/view"}
+        ],
+    },
+    "Compresores": {
+        "General":[
+            { nombre: "Recuperación de aceite", link: "https://drive.google.com/file/d/1B1Ofk7Modym4vz8OXTusWDuHeSjZXgZW/view"}
+        ],
+    },
+    "Chiller": {
+        "General":[
+            { nombre: "Programación de control de temperatura IR 33", link : "https://drive.google.com/file/d/1BxFJGvAiaAH4ekAlIkyKYFVZu7h9otB4/view"},
+            { nombre: "Carga refrigerante", link : "https://drive.google.com/file/d/1ylRi8FxzN2miFlp83_y-TNeY2GrmJ9Ak/view"},
+            { nombre: "Ajuste de temperatura Chiller", link : "https://drive.google.com/file/d/1Mxf6NmfR4i3wFKEo60whriBfpOqjEvLW/view"},
+            { nombre: "Cambio o rellenado agua chiller", link : "https://drive.google.com/file/d/1fENjqsnCf3RieLHFAVVKpQ7nk7Rp37Ux/view"},
+            { nombre: "Cambio de filtro", link : "https://drive.google.com/file/d/1nuwsySDBBq1IMqVRBY3z7J72RD-n0SBh/view"},
+            { nombre: "Cambio de chiller", link : "https://drive.google.com/file/d/13sZkrmhKByOX09Lso9aAxe0WVoX_bCVH/view"}
+        ],
+    },
+    "BEWO": {
+        "Mesa de medidas":[
+            { nombre: "Referencia cabezal de corte", link : "https://drive.google.com/file/d/1amX-tmbpvZeaGSzMCovGcLLkcBjGB3eF/view"},
+            { nombre: "Referencia encoder mesa de medida", link : "https://drive.google.com/file/d/1SnGrp5zUhWvD9H-D2EAeXfAL2aQ5zXAN/view"},
+            { nombre: "Cambio de aceite cabezal de corte", link : "https://drive.google.com/file/d/1k8cUqokVVOQiBlMnkfmZN96aCGE_lYJx/view"},
+        ],
+        "Lavadora":[
+            { nombre: "Purga de bomba", link : "https://drive.google.com/file/d/1bGcPC6nh_A2rsYV6AoGUL6maiZ-ZnxOC/view"}
+        ],
+        "Cepilladora":[
+            { nombre: "Cambio de cepillos", link : "https://drive.google.com/file/d/1OuhkFpmlAEDIykZ-7ptdYZ1aOzHBSLoc/view"},
+            { nombre: "Crear respaldo de drive de elevador", link : "https://drive.google.com/file/d/1_8JrEhKjxdZRlgfvMhQ16COsYhg2O58D/view"},
+            { nombre: "Cargar respaldo de drive de eleador", link : "https://drive.google.com/file/d/1qOI5dNQ9RYbz22ERYADwZ5VjYvFmeH3y/view"}
         ]
     },
-    "Compresor Central": {
-        "Neumática":[
-            { nombre: "Limpieza de Filtros", link: "https://drive.google.com/file/d/TU_ID_AQUI/view" },
-            { nombre: "Revisión de Válvulas", link: "https://drive.google.com/file/d/TU_ID_AQUI/view" }
-        ],
-        "Mantenimiento General":[
-            { nombre: "Cambio de Aceite", link: "https://drive.google.com/file/d/TU_ID_AQUI/view" }
-        ]
-    }
+
+
 };
 
 // Variable para almacenar la lista plana
