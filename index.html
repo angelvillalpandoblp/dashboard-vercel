@@ -33,9 +33,9 @@
                 <i data-lucide="alert-circle"></i>
                 <span class="nav-text">Incidencias</span>
             </button>
-            <button class="menu-item" onclick="navigate('gavetas', this); toggleSidebar()">
+            <button class="menu-item" onclick="navigate('Instrucciones', this); toggleSidebar()">
                 <i data-lucide="layout-grid"></i>
-                <span class="nav-text">Gavetas</span>
+                <span class="nav-text">Instrucciones</span>
             </button>
             <button class="menu-item" onclick="navigate('refacciones', this); toggleSidebar()">
                 <i data-lucide="hammer"></i>
@@ -99,60 +99,52 @@
             </div>
         </section>
 
-        <section id="view-gavetas" class="view-section">
-            <div class="grid-container gavetas-layout">
-                <div class="card chart-card mini" onclick="openGavetaTable('1301409209', 'Herramienta Faltante G1')">
-                    <div class="card-header"><h4>Gaveta 1. Gabinete de herramientas</h4>
-                    </div><div class="card-body">
-                        <div class="click-overlay"></div>
-                        
-                        <iframe class ="grafica-pc" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=794614800&format=interactive"></iframe>
-                        <iframe class ="grafica-movil" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=632085566&format=interactive"></iframe>
-                        
+    <section id="view-instrucciones" class="view-section">
+        <div class="card table-card-pro">
+            <div class="card-header-pro">
+                <div class="header-title-group">
+                    <div class="header-icon-bg" style="background: #e0e7ff; color: #4f46e5;">
+                        <i data-lucide="book-open"></i>
+                    </div>
+                    <div>
+                        <h3>Instrucciones de Trabajo</h3>
+                        <p>Manuales y procedimientos por máquina y área</p>
                     </div>
                 </div>
-                <div class="card chart-card mini" onclick="openGavetaTable('1346656233', 'Herramienta Faltante G2')">
-                    <div class="card-header"><h4>Gaveta 2. Tablero de herramientas</h4>
-                    </div><div class="card-body">
-                        <div class="click-overlay"></div>
-                        <iframe class ="grafica-pc" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=884831473&amp;format=interactive"></iframe>
-                        <iframe class ="grafica-movil" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=577557253&format=interactive"></iframe>
-                    </div>
-                </div>
-                <div class="card chart-card mini" onclick="openGavetaTable('347609962', 'Herramienta Faltante G3')">
-                    <div class="card-header"><h4>Gaveta 3. Mesa de trabajo</h4>
-                    </div><div class="card-body">
-                        <div class="click-overlay"></div>
-                        <iframe class = "grafica-pc" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1301161531&amp;format=interactive"></iframe>
-                        <iframe class ="grafica-movil" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1360393361&format=interactive"></iframe>
-                    </div>
-                </div>
-                <div class="card chart-card mini" onclick="openGavetaTable('683199897', 'Herramienta Faltante G4')">
-                    <div class="card-header"><h4>Gaveta 4. Carro de Mtto. Preventivo 1</h4>
-                    </div><div class="card-body">
-                        <div class="click-overlay"></div>
-                        <iframe class = "grafica-pc" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=2135726923&amp;format=interactive"></iframe>
-                        <iframe class ="grafica-movil" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=446447897&format=interactive""></iframe>
-                    </div>
-                </div>
-                <div class="card chart-card mini" onclick="openGavetaTable('755623654', 'Herramienta Faltante G5')">
-                    <div class="card-header"><h4>Gaveta 5. Carro de Mtto. Preventivo 2</h4>
-                    </div><div class="card-body">
-                        <div class="click-overlay"></div>
-                        <iframe class = "grafica-pc" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1129848979&amp;format=interactive"></iframe>
-                        <iframe class = "grafica-movil" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=953293252&format=interactive"></iframe>
-                    </div>
-                </div>
-                <div class="card chart-card mini" onclick="openGavetaTable('2067041911', 'Herramienta Faltante G6')">
-                    <div class="card-header"><h4>Gaveta 6. Carro de Mtto. Correctivo</h4>
-                    </div><div class="card-body">
-                        <div class="click-overlay"></div>
-                        <iframe class ="grafica-pc" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=715537081&amp;format=interactive"></iframe>
-                        <iframe class ="grafica-movil" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRz-twPqsu_lE71K_KoXNLBTcz_rWkE98b2vGk1qC3o2MOr77CsJfYy3Zyem6koX-y3tZkShjayMvpq/pubchart?oid=1200085163&format=interactive"></iframe>
+                
+                <div class="header-actions" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <select id="machineSelect" onchange="onMachineChange()" class="custom-select">
+                        <option value="Todas">Todas las Máquinas</option>
+                    </select>
+                    <select id="areaSelect" onchange="filterData()" class="custom-select">
+                        <option value="Todas">Todas las Áreas</option>
+                    </select>
+                    <div class="search-wrapper-pro">
+                        <i data-lucide="search"></i>
+                        <input type="text" id="searchInput" placeholder="Buscar instrucción..." onkeyup="filterData()">
                     </div>
                 </div>
             </div>
-        </section>
+
+            <!-- Contenedor de Resultados (Tarjetas en lugar de tabla) -->
+            <div id="loader" style="padding: 40px; text-align: center; color: #64748b;">
+                <i data-lucide="loader-2" class="spin-icon" style="margin: 0 auto 10px auto;"></i>
+                <p>Cargando instrucciones...</p>
+            </div>
+            
+            <div id="resultsArea" class="instrucciones-grid"></div>
+            
+            <div id="noResults" style="display:none; padding: 40px; text-align: center; color: #64748b;">
+                <i data-lucide="search-x" style="width: 40px; height: 40px; margin: 0 auto 10px auto; opacity: 0.5;"></i>
+                <p>No se encontraron coincidencias</p>
+            </div>
+        </div>
+
+        <!-- Botón Flotante para Mejoras -->
+        <button class="fab-suggestion" onclick="abrirModalMejora()" title="Sugerir Mejora">
+            <i data-lucide="lightbulb"></i>
+        </button>
+    </section>
 
         <section id="view-refacciones" class="view-section">
             <div class="card table-card-pro">
@@ -248,5 +240,77 @@
             </div>
         </div>
     </div>
+    <!-- Modal: Previsualización de Instrucciones -->
+    <div id="previewModal" class="modal-overlay" style="display:none;">
+        <div class="modal-window" style="background:#fff; border-radius:15px; width:95%; height:90%; max-width:1100px; display:flex; flex-direction:column; position:relative;">
+            <div style="display:flex; justify-content:space-between; align-items:center; padding: 15px 20px; border-bottom: 1px solid #e2e8f0;">
+                <h3 id="modalTitleLabel" style="margin:0; font-size:1.2rem; color:#1e293b; width:80%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Vista Previa</h3>
+                <div style="display:flex; gap: 10px;">
+                    <a id="floatingExternalBtn" href="#" target="_blank" class="btn-primary-custom" style="text-decoration:none;">
+                        <i data-lucide="external-link"></i> Abrir completo
+                    </a>
+                    <button onclick="cerrarModal('previewModal')" class="close-modal-btn"><i data-lucide="x"></i></button>
+                </div>
+            </div>
+            <div style="flex-grow:1; background:#f1f5f9; position: relative;">
+                <iframe id="previewFrame" src="" style="width:100%; height:100%; border:none;"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Sugerir Mejora -->
+    <div id="suggestionModal" class="modal-overlay" style="display:none;">
+        <div class="modal-window" style="background:#fff; padding:25px; border-radius:15px; width:90%; max-width:500px; position:relative;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+                <h3 style="margin:0; color:#ca8a04; display:flex; align-items:center; gap:10px;">
+                    <i data-lucide="lightbulb"></i> Nueva Mejora
+                </h3>
+                <button onclick="cerrarModal('suggestionModal')" class="close-modal-btn"><i data-lucide="x"></i></button>
+            </div>
+            
+            <form id="suggestionForm" onsubmit="sendSuggestionData(event)">
+                <div style="margin-bottom: 15px;">
+                    <label style="display:block; margin-bottom:5px; font-weight:600; font-size:0.9rem;">Trabajador</label>
+                    <select id="workerName" class="custom-select" style="width:100%;" required>
+                        <option value="" selected disabled>Selecciona tu nombre...</option>
+                    </select>
+                </div>
+
+                <div style="margin-bottom: 15px; position:relative;">
+                    <label style="display:block; margin-bottom:5px; font-weight:600; font-size:0.9rem;">Documento a mejorar</label>
+                    <div class="search-wrapper-pro" style="width:100%; box-sizing:border-box;">
+                        <i data-lucide="search"></i>
+                        <input type="text" id="suggestionFileSearch" placeholder="Escribe para buscar..." autocomplete="off" onkeyup="searchSuggestionFiles()">
+                    </div>
+                    <div id="suggestionFileList" class="suggestion-dropdown"></div>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display:block; margin-bottom:5px; font-weight:600; font-size:0.9rem;">Descripción de la mejora</label>
+                    <textarea id="suggestionText" rows="4" style="width:100%; padding:10px; border-radius:8px; border:1px solid #cbd5e1; box-sizing:border-box; outline:none; font-family:inherit;" placeholder="Describe qué se debe mejorar..." required></textarea>
+                </div>
+                
+                <button type="submit" id="btnSendSuggestion" class="btn-primary-custom" style="width:100%; justify-content:center; padding:12px;">
+                    Enviar Recomendación <i data-lucide="send"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Panel Admin Mejoras -->
+    <div id="adminViewModal" class="modal-overlay" style="display:none;">
+        <div class="modal-window" style="background:#f8fafc; padding:25px; border-radius:15px; width:90%; max-width:800px; max-height:80vh; display:flex; flex-direction:column; position:relative;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+                <h3 style="margin:0; color:#1e293b; display:flex; align-items:center; gap:10px;">
+                    <i data-lucide="list-checks"></i> Mejoras Recibidas
+                </h3>
+                <button onclick="cerrarModal('adminViewModal')" class="close-modal-btn"><i data-lucide="x"></i></button>
+            </div>
+            <div id="suggestionsList" style="overflow-y:auto; flex-grow:1; display:flex; flex-direction:column; gap:10px;">
+                <div style="text-align:center; padding:20px; color:#64748b;">Cargando...</div>
+            </div>
+        </div>
+    </div>
+    
 </body> 
 </html>

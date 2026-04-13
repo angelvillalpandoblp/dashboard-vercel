@@ -1106,4 +1106,110 @@ async function ejecutarExplosion() {
             }
         }
 
+        // --- BASE DE DATOS SIMULADA DE INSTRUCCIONES ---
+// Reemplaza 'driveLink' con los enlaces reales a los archivos de tu Google Drive
+const baseInstrucciones =[
+    { nombre: "Cambio de Rodamientos", maquina: "Torno CNC", area: "Mecánica", driveLink: "https://drive.google.com/file/d/ID_DEL_DOCUMENTO_AQUI/view?usp=sharing" },
+    { nombre: "Limpieza de Filtros", maquina: "Compresor", area: "Neumática", driveLink: "https://drive.google.com/file/d/ID_DEL_DOCUMENTO_AQUI/view" },
+    { nombre: "Calibración de Sensores", maquina: "Torno CNC", area: "Eléctrica", driveLink: "https://drive.google.com/file/d/ID_DEL_DOCUMENTO_AQUI/view" },
+    { nombre: "Alineación de Cuchillas", maquina: "Cortadora Laser", area: "Corte", driveLink: "https://drive.google.com/file/d/ID_DEL_DOCUMENTO_AQUI/view" }
+    
+];
+
+// Iniciar instrucciones al cargar
+document.addEventListener("DOMContentLoaded", () => {
+    cargarFiltrosInstrucciones();
+    renderizarInstrucciones(baseInstrucciones);
+});
+
+// Extraer el ID de Google Drive para crear el link de previsualización incrustada
+function obtenerDrivePreviewUrl(url) {
+    const match = url.match(/\/d\/(.+?)\//);
+    if (match && match[1]) {
+        return `https://drive.google.com/file/d/${match[1]}/preview`;
+    }
+    return url; // Si falla, devuelve la original
+}
+
+// Poblar los `<select>` para filtrar por máquina y área dinámicamente
+function cargarFiltrosInstrucciones() {
+    const maquinas =[...new Set(baseInstrucciones.map(i => i.maquina))];
+    const areas =[...new Set(baseInstrucciones.map(i => i.area))];
+    
+    const filtroMaquina = document.getElementById('filtroMaquina');
+    const filtroArea = document.getElementById('filtroArea');
+    
+    maquinas.forEach(m => filtroMaquina.innerHTML += `<option value="${m}">${m}</option>`);
+    areas.forEach(a => filtroArea.innerHTML += `<option value="${a}">${a}</option>`);
+}
+
+// Pintar la tabla
+function renderizarInstrucciones(datos) {
+    const tbody = document.getElementById('instrucciones-body');
+    tbody.innerHTML = '';
+    
+    if (datos.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding: 20px; color:#64748b;">No se encontraron instrucciones</td></tr>`;
+        return;
+    }
+
+    datos.forEach((item, index) => {
+        const previewUrl = obtenerDrivePreviewUrl(item.driveLink);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>
+                <div style="display:flex; align-items:center; gap:10px; font-weight:500;">
+                    <i data-lucide="file-text" style="color:#ef4444; width:18px; height:18px;"></i> 
+                    ${item.nombre}
+                </div>
+            </td>
+            <td><span style="background:#f1f5f9; padding:4px 8px; border-radius:4px; font-size:0.85rem;">${item.maquina}</span></td>
+            <td><span style="background:#f8fafc; padding:4px 8px; border-radius:4px; font-size:0.85rem; border:1px solid #e2e8f0;">${item.area}</span></td>
+            <td style="text-align: center;">
+                <button class="btn-preview" onclick="abrirPdfModal('${item.nombre}', '${item.maquina} - ${item.area}', '${previewUrl}', '${item.driveLink}')">
+                    <i data-lucide="eye" style="width:16px; height:16px;"></i> Ver PDF
+                </button>
+            </td>
+        `;
+        tbody.appendChild(tr);
+    });
+    
+    // Renderizar iconos nuevos
+    if(window.lucide) {
+        lucide.createIcons();
+    }
+}
+
+// Lógica para filtrar al buscar o cambiar los select
+function filtrarInstrucciones() {
+    const busqueda = document.getElementById('instruccionesSearch').value.toLowerCase();
+    const maquinaSeleccionada = document.getElementById('filtroMaquina').value;
+    const areaSeleccionada = document.getElementById('filtroArea').value;
+
+    const filtrados = baseInstrucciones.filter(item => {
+        const coincideBusqueda = item.nombre.toLowerCase().includes(busqueda);
+        const coincideMaquina = maquinaSeleccionada === "" || item.maquina === maquinaSeleccionada;
+        const coincideArea = areaSeleccionada === "" || item.area === areaSeleccionada;
+        
+        return coincideBusqueda && coincideMaquina && coincideArea;
+    });
+
+    renderizarInstrucciones(filtrados);
+}
+
+// Control del Modal de PDF
+function abrirPdfModal(titulo, subtitulo, previewUrl, driveLink) {
+    document.getElementById('pdfModalTitle').innerText = titulo;
+    document.getElementById('pdfModalSubtitle').innerText = subtitulo;
+    document.getElementById('pdfIframe').src = previewUrl; // iframe renderiza /preview
+    document.getElementById('btnOpenDrive').href = driveLink; // boton usa link normal
+    
+    document.getElementById('pdfModal').style.display = 'flex';
+}
+
+function cerrarPdfModal() {
+    document.getElementById('pdfModal').style.display = 'none';
+    document.getElementById('pdfIframe').src = ''; // Limpiar iframe por rendimiento
+}
+
        
