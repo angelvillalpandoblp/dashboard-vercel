@@ -885,20 +885,50 @@ td {
         box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
 
-    /* Acomodo interior de cada dato dentro de la tarjeta */
+/* Acomodo interior de cada dato dentro de la tarjeta */
     #instruccionesTable td {
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        padding: 10px 0;
+        align-items: flex-start; /* Permite que el texto largo no se centre raro */
+        padding: 12px 0;
         border-bottom: 1px solid #f1f5f9;
         text-align: right;
+        gap: 15px; /* Espacio de respiro entre la etiqueta y el texto */
     }
+
+    /* ====== NUEVO: TRATO ESPECIAL PARA NOMBRES LARGOS ====== */
+    /* 1. Al nombre del documento le damos formato de Título principal */
+    #instruccionesTable td:first-child {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #f1f5f9; /* Línea un poco más gruesa */
+    }
+
+    /* 2. Ocultamos la etiqueta "DOCUMENTO" para ganar espacio */
+    #instruccionesTable td:first-child::before {
+        display: none;
+    }
+
+    /* 3. Acomodamos el texto y el icono para que fluyan hacia abajo en renglones */
+    #instruccionesTable td:first-child > div {
+        align-items: flex-start !important; /* Si baja renglón, el icono se queda arriba */
+        font-size: 1.05rem;
+        line-height: 1.4;
+        word-break: break-word; /* Si hay una palabra larguísima, la rompe sin dañar la tarjeta */
+    }
+
+    /* 4. Bajamos un milímetro el icono para que se centre con la primera línea de texto */
+    #instruccionesTable td:first-child > div > i {
+        margin-top: 2px;
+    }
+    /* ======================================================= */
 
     #instruccionesTable td:last-child {
         border-bottom: none;
         padding-bottom: 0;
-        margin-top: 10px;
+        margin-top: 15px;
         justify-content: center;
     }
 
@@ -910,6 +940,8 @@ td {
         font-size: 0.8rem;
         text-transform: uppercase;
         margin-right: 15px;
+        flex-shrink: 0; /* Evita que la etiqueta se apachurre */
+        margin-top: 3px;
     }
 
     /* Botón gigante para el dedo */
