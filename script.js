@@ -1168,7 +1168,7 @@ const arbolInstrucciones = {
             { nombre: "Alineación dientes de selección", link : "https://drive.google.com/file/d/1bBM0l_AnRHtaKw6IF8v6HHLeIPrm3dcL/view"}
         ],
         "Cabezal":[
-            { nombre: "Ajuste del eje B LT7 LT8", link : "https://drive.google.com/file/d/1bBM0l_AnRHtaKw6IF8v6HHLeIPrm3dcL/view"},
+            { nombre: "Alineación dientes de selección", link : "https://drive.google.com/file/d/1bBM0l_AnRHtaKw6IF8v6HHLeIPrm3dcL/view"},
             { nombre: "Ajuste del eje Z LT7 LT8", link : "https://drive.google.com/file/d/1gzub3JS8Fr1FJU4TO2abeyaEt-52LNj4/view"},
             { nombre: "Ajuste del eje Z LT FIBER", link : "https://drive.google.com/file/d/1_Qzk0r7YG9pCRDOW_QTYZ90a4upvgc20/view"},
             { nombre: "Cambio de espejo", link : "https://drive.google.com/file/d/1lwB7gOTzLKu_PrpHGSq0XttHVk9sr0Wb/view"},
