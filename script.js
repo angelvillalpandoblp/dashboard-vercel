@@ -1303,23 +1303,29 @@ function cargarFiltroMaquinas() {
 // Llenar el segundo Select (Áreas) dependiendo de la máquina elegida
 function cargarFiltroAreas(maquinaSeleccionada) {
     const filtroArea = document.getElementById('filtroArea');
-    filtroArea.innerHTML = '<option value="">Área</option>';
+    
+    // Primero, limpiamos el select
+    filtroArea.innerHTML = '';
     
     let areas = new Set();
 
     if (maquinaSeleccionada === "") {
-        // Si no hay máquina, mostrar áreas de todas
-        for (const maquina in arbolInstrucciones) {
-            Object.keys(arbolInstrucciones[maquina]).forEach(a => areas.add(a));
-        }
+        // 1. Si no hay máquina, deshabilitar el select y poner mensaje de aviso
+        filtroArea.innerHTML = '<option value="">Selecciona una máquina primero</option>';
+        filtroArea.disabled = true;
     } else {
-        // Mostrar solo áreas de la máquina seleccionada
+        // 2. Si hay máquina, habilitar el select y poner la opción por defecto
+        filtroArea.disabled = false;
+        filtroArea.innerHTML = '<option value="">Todas las Áreas</option>';
+        
+        // 3. Mostrar solo áreas de la máquina seleccionada
         if (arbolInstrucciones[maquinaSeleccionada]) {
             Object.keys(arbolInstrucciones[maquinaSeleccionada]).forEach(a => areas.add(a));
         }
+        
+        // 4. Agregar las áreas extraídas al HTML
+        [...areas].forEach(a => filtroArea.innerHTML += `<option value="${a}">${a}</option>`);
     }
-    
-    [...areas].forEach(a => filtroArea.innerHTML += `<option value="${a}">${a}</option>`);
 }
 
 // Evento cuando se cambia la Máquina (Actualiza el select de Áreas y filtra la tabla)
