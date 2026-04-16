@@ -1404,3 +1404,49 @@ function cerrarPdfModal() {
     document.getElementById('pdfModal').style.display = 'none';
     document.getElementById('pdfIframe').src = '';
 }
+
+// Función para alternar el modo oscuro
+function toggleTheme() {
+    const body = document.body;
+    const themeIcon = document.getElementById('theme-icon');
+    const themeText = document.getElementById('theme-text'); // Nuevo: Selecciona el texto
+    
+    // Alterna la clase en el body
+    body.classList.toggle('dark-mode');
+    
+    if (body.classList.contains('dark-mode')) {
+        themeIcon.setAttribute('data-lucide', 'sun'); // Icono de sol
+        if (themeText) themeText.innerText = 'Modo Claro'; // Cambia el texto
+        localStorage.setItem('theme', 'dark');
+    } else {
+        themeIcon.setAttribute('data-lucide', 'moon'); // Icono de luna
+        if (themeText) themeText.innerText = 'Modo Oscuro'; // Cambia el texto
+        localStorage.setItem('theme', 'light');
+    }
+    
+    // Re-renderizar iconos de Lucide
+    if(window.lucide) {
+        lucide.createIcons();
+    }
+}
+
+// Al cargar la página, revisa la preferencia guardada
+document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme');
+    const themeIcon = document.getElementById('theme-icon');
+    const themeText = document.getElementById('theme-text');
+    
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        if(themeIcon) themeIcon.setAttribute('data-lucide', 'sun');
+        if(themeText) themeText.innerText = 'Modo Claro';
+    } else {
+        if(themeIcon) themeIcon.setAttribute('data-lucide', 'moon');
+        if(themeText) themeText.innerText = 'Modo Oscuro';
+    }
+    
+    // Iniciar iconos (solo asegúrate de que esto se llame una vez en todo tu código)
+    if(window.lucide) {
+        lucide.createIcons();
+    }
+});

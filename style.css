@@ -1034,3 +1034,8 @@ td {
     font-family: inherit;
     padding: 0; /* Quitamos el padding porque el contenedor ya le da la altura */
 }
+
+/* Color del separador en modo oscuro */
+body.dark-mode hr {
+    border-top: 1px solid #334155 !important;
+}
