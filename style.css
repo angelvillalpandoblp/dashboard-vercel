@@ -1039,3 +1039,108 @@ td {
 body.dark-mode hr {
     border-top: 1px solid #334155 !important;
 }
+
+/* --- ESTILOS DEL BOTÓN DE TEMA --- */
+.btn-theme {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+.btn-theme:hover {
+    background: #e2e8f0;
+    color: #3b82f6;
+}
+
+/* --- MODO OSCURO (DARK MODE) --- */
+body.dark-mode {
+    background-color: #0f172a;
+    color: #f8fafc;
+}
+
+/* Header y Sidebar en oscuro */
+body.dark-mode .main-header {
+    background-color: #0f172a;
+    color: #f8fafc;
+}
+body.dark-mode .sidebar {
+    background-color: #1e293b;
+    border-right: 1px solid #334155;
+}
+
+/* Tarjetas y Contenedores */
+body.dark-mode .card,
+body.dark-mode .table-card,
+body.dark-mode .table-card-pro {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+/* Tablas */
+body.dark-mode table th {
+    background-color: #334155;
+    color: #cbd5e1;
+    border-bottom: 1px solid #475569;
+}
+body.dark-mode table td {
+    border-bottom: 1px solid #334155;
+    color: #f8fafc;
+}
+
+/* Inputs, Selects y Buscadores */
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode .search-box,
+body.dark-mode .search-wrapper-pro {
+    background-color: #0f172a;
+    color: #f8fafc;
+    border-color: #334155;
+}
+body.dark-mode input::placeholder {
+    color: #64748b;
+}
+
+/* Modales */
+body.dark-mode .modal-window,
+body.dark-mode .modal-content {
+    background-color: #1e293b !important;
+    color: #f8fafc !important;
+    border: 1px solid #334155;
+}
+
+/* Textos secundarios */
+body.dark-mode h1, 
+body.dark-mode h2, 
+body.dark-mode h3 {
+    color: #ffffff;
+}
+body.dark-mode p {
+    color: #94a3b8;
+}
+
+/* Botón de tema cuando está en oscuro */
+body.dark-mode .btn-theme {
+    background: #334155;
+    border-color: #475569;
+    color: #fbbf24; /* Color amarillo para el sol */
+}
+body.dark-mode .btn-theme:hover {
+    background: #475569;
+}
+
+/* Menú Sidebar en oscuro */
+body.dark-mode .menu-item {
+    color: #cbd5e1;
+}
+body.dark-mode .menu-item:hover, 
+body.dark-mode .menu-item.active {
+    background-color: #334155;
+    color: #60a5fa;
+}
