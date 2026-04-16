@@ -41,6 +41,14 @@
                 <i data-lucide="hammer"></i>
                 <span class="nav-text">Refacciones</span>
             </button>
+                        <!-- LÍNEA SEPARADORA (Opcional, para separar las vistas de los ajustes) -->
+            <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 10px 15px;">
+
+            <!-- NUEVO BOTÓN DE MODO OSCURO EN LA BARRA -->
+            <button class="menu-item" onclick="toggleTheme()" id="btnThemeMenu">
+                <i data-lucide="moon" id="theme-icon"></i>
+                <span class="nav-text" id="theme-text">Modo Oscuro</span>
+            </button>
         </nav>
 
         <div class="sidebar-footer" onclick="abrirModalAdmin()" style="cursor: pointer; transition: background 0.3s;" onmouseover="this.style.backgroundColor='rgba(0,0,0,0.05)'" onmouseout="this.style.backgroundColor='transparent'">
