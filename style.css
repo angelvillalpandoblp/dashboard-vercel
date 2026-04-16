@@ -1209,3 +1209,75 @@ body.dark-mode .btn-preview {
 body.dark-mode .btn-preview:hover {
     background-color: #172554 !important; /* Azul más intenso al pasar el mouse */
 }
+
+/* =========================================================
+   ENCABEZADOS, FILTROS Y BUSCADORES EN MODO OSCURO
+   ========================================================= */
+
+/* 1. Fondo de la barra superior donde van los títulos y buscadores */
+body.dark-mode .table-controls,
+body.dark-mode .card-header-pro,
+body.dark-mode .card-header {
+    background-color: #1e293b !important;
+    border-bottom: 1px solid #334155 !important;
+}
+
+/* 2. Colores de los textos (Títulos y subtítulos) */
+body.dark-mode .table-controls h3,
+body.dark-mode .card-header-pro h3,
+body.dark-mode .card-header h3 {
+    color: #f8fafc !important; /* Blanco puro para el título */
+}
+
+body.dark-mode .table-controls p,
+body.dark-mode .card-header-pro p {
+    color: #94a3b8 !important; /* Gris claro para el subtítulo */
+}
+
+/* 3. El cuadro del ícono de la izquierda (Sobrescribe el color azul/morado clarito) */
+body.dark-mode .header-icon-bg {
+    background-color: #0f172a !important; 
+    color: #60a5fa !important; 
+}
+
+/* 4. Estilos de los filtros Select y las cajas de búsqueda */
+body.dark-mode .custom-select,
+body.dark-mode .search-box,
+body.dark-mode .search-wrapper-pro {
+    background-color: #0f172a !important; /* Fondo interior oscuro */
+    border: 1px solid #334155 !important; /* Borde oscuro */
+    color: #f8fafc !important; /* Texto blanco */
+}
+
+/* 5. Inputs (cajas de texto) y sus textos invisibles por dentro */
+body.dark-mode .search-box input,
+body.dark-mode .search-wrapper-pro input {
+    background-color: transparent !important;
+    color: #f8fafc !important;
+}
+
+/* 6. Color del texto fantasma (Placeholder) "Buscar instrucción..." */
+body.dark-mode .search-box input::placeholder,
+body.dark-mode .search-wrapper-pro input::placeholder {
+    color: #64748b !important;
+}
+
+/* 7. Icono de la lupita de búsqueda */
+body.dark-mode .search-box i,
+body.dark-mode .search-wrapper-pro i {
+    color: #94a3b8 !important;
+}
+
+/* 8. Color al hacer clic en los filtros o buscadores (Focus) */
+body.dark-mode .custom-select:focus,
+body.dark-mode .search-box:focus-within,
+body.dark-mode .search-wrapper-pro:focus-within {
+    border-color: #60a5fa !important;
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1) !important;
+}
+
+/* 9. Asegurar que las opciones desplegables del select tengan fondo oscuro */
+body.dark-mode .custom-select option {
+    background-color: #1e293b !important;
+    color: #f8fafc !important;
+}
