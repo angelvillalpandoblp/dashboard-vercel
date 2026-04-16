@@ -1144,3 +1144,20 @@ body.dark-mode .menu-item.active {
     background-color: #334155;
     color: #60a5fa;
 }
+
+/* --- TEXTO E ICONOS DEL MENÚ EN MODO OSCURO --- */
+
+/* Color por defecto del texto y el icono (Gris claro) */
+body.dark-mode .menu-item,
+body.dark-mode .menu-item .nav-text {
+    color: #cbd5e1 !important; 
+}
+
+/* Color al pasar el mouse (Hover) y del botón activo (Azul claro) */
+body.dark-mode .menu-item:hover, 
+body.dark-mode .menu-item.active,
+body.dark-mode .menu-item:hover .nav-text,
+body.dark-mode .menu-item.active .nav-text {
+    background-color: #334155 !important;
+    color: #60a5fa !important; 
+}
