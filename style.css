@@ -1161,3 +1161,51 @@ body.dark-mode .menu-item.active .nav-text {
     background-color: #334155 !important;
     color: #60a5fa !important; 
 }
+
+/* =========================================================
+   ESTILOS DE TABLAS EN MODO OSCURO (Fuerza alta)
+   ========================================================= */
+
+/* Color del texto en todas las celdas y divs dentro de tablas */
+body.dark-mode table td,
+body.dark-mode table td div,
+body.dark-mode .table-container,
+body.dark-mode .table-scroll-area {
+    color: #f8fafc !important; /* Letras casi blancas */
+    border-bottom-color: #334155 !important; /* Líneas divisorias oscuras */
+}
+
+/* Encabezados de las tablas (th) */
+body.dark-mode table th {
+    background-color: #0f172a !important; /* Fondo del encabezado oscuro */
+    color: #94a3b8 !important; /* Letras grises/azules claras */
+    border-bottom: 2px solid #334155 !important;
+}
+
+/* 
+  Pastillas/Badges dentro de las celdas (ej: las áreas y máquinas)
+  Esto anula los fondos blancos/grises claros que tienen en línea
+*/
+body.dark-mode table td span {
+    background-color: #334155 !important; /* Fondo gris oscuro */
+    color: #cbd5e1 !important; /* Texto claro */
+    border: 1px solid #475569 !important; /* Borde sutil oscuro */
+}
+
+/* Estado de carga ("Sincronizando...", "Cargando instrucciones...") */
+body.dark-mode .loading-state,
+body.dark-mode td[colspan] {
+    color: #94a3b8 !important;
+    background-color: transparent !important;
+}
+
+/* Botones específicos dentro de las tablas (como el de "Ver PDF") */
+body.dark-mode .btn-preview {
+    background-color: #1e3a8a !important; /* Azul marino oscuro */
+    color: #bfdbfe !important; /* Letras azul clarito */
+    border: 1px solid #1e40af !important;
+}
+
+body.dark-mode .btn-preview:hover {
+    background-color: #172554 !important; /* Azul más intenso al pasar el mouse */
+}
