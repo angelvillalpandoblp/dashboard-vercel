@@ -1326,3 +1326,37 @@ body.dark-mode td {
         color: #94a3b8 !important;
     }
 }
+
+/* =========================================================
+   FORZAR COLOR EN TÍTULOS DE MODALES (INSTRUCCIONES/PDF)
+   ========================================================= */
+
+/* Títulos principales de las ventanas emergentes */
+body.dark-mode #pdfModalTitle,
+body.dark-mode #imageModalTitle,
+body.dark-mode #modalTitle {
+    color: #f8fafc !important; /* Blanco brillante */
+}
+
+/* Subtítulos (como "Torno CNC - Mecánica") */
+body.dark-mode #pdfModalSubtitle,
+body.dark-mode #modalSubtitle {
+    color: #94a3b8 !important; /* Gris clarito */
+}
+
+/* Forzar que la línea divisoria debajo del título también se vuelva oscura */
+body.dark-mode .modal-window > div:first-child {
+    border-bottom: 1px solid #334155 !important;
+}
+
+/* Si tienes algún botón de "X" (cerrar) con fondo rojo clarito, lo oscurecemos */
+body.dark-mode .modal-window button.close-modal,
+body.dark-mode button[onclick="cerrarPdfModal()"] {
+    background-color: #7f1d1d !important; /* Rojo oscuro */
+    color: #fca5a5 !important; /* Tacha roja clara */
+}
+
+body.dark-mode .modal-window button.close-modal:hover,
+body.dark-mode button[onclick="cerrarPdfModal()"]:hover {
+    background-color: #991b1b !important;
+}
