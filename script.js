@@ -1153,7 +1153,8 @@ const arbolInstrucciones = {
             { nombre: "Cambio de servomotor laser", link : "https://drive.google.com/file/d/1byAhreG3evHO_vrZkAonrEHxLS3l4DE3/view"},
             { nombre: "Ajuste de luneta", link : "https://drive.google.com/file/d/1510jA0OrIOcVUcRQL_5cZrlaI2EJ3otr/view"},
             { nombre: "Rellenado de aceite unidad hidraulica", link : "https://drive.google.com/file/d/1coaangZKvZqsDMVyG7nnDT-xRbrMLrGF/view"},
-            { nombre: "Cambio de banda", link : "https://drive.google.com/file/d/1Xi4gLX9fYBuVCkatQ5x1PO40hJrJXCEK/view"}
+            { nombre: "Cambio de banda", link : "https://drive.google.com/file/d/1Xi4gLX9fYBuVCkatQ5x1PO40hJrJXCEK/view"},
+            { nombre: "Rellenado de aceite de unidad de lubricación", link : "https://drive.google.com/file/d/1EFkzqj1Ls3Qf-ZXUoeOFfmo-VxkS90id/view?usp=drive_link"}
         ],
         "Extractor de polvos":[
             { nombre: "Cambio de filtros de aire", link : "https://drive.google.com/file/d/1AjmLKgxJ7bCBGj8ohNJRzrhSNGYOprpP/view"}
