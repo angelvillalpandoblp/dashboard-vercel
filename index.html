@@ -43,17 +43,19 @@
             </button>
                         <!-- LÍNEA SEPARADORA (Opcional, para separar las vistas de los ajustes) -->
             <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 10px 15px;">
-
-            <!-- NUEVO BOTÓN DE MODO OSCURO EN LA BARRA -->
-            <button class="menu-item" onclick="toggleTheme()" id="btnThemeMenu">
-                <i data-lucide="moon" id="theme-icon"></i>
-                <span class="nav-text" id="theme-text">Modo Oscuro</span>
-            </button>
         </nav>
 
-        <div class="sidebar-footer" onclick="abrirModalAdmin()" style="cursor: pointer; transition: background 0.3s;" onmouseover="this.style.backgroundColor='rgba(0,0,0,0.05)'" onmouseout="this.style.backgroundColor='transparent'">
-            <i data-lucide="shield-alert" style="width: 18px; height: 18px; color: #ef4444; margin-right: 10px;"></i>
-            <span class="nav-text" style="color: #64748B; font-weight: 600;">Panel Admin</span>
+    <!-- NUEVO PIE DE BARRA (FOOTER) SIMÉTRICO -->
+        <div class="sidebar-footer">
+            <!-- Botón de Modo Oscuro (Solo icono) -->
+            <button onclick="toggleTheme()" class="footer-icon-btn" title="Alternar Modo Oscuro">
+                <i data-lucide="moon" id="theme-icon"></i>
+            </button>
+            
+            <!-- Botón de Admin (Solo icono) -->
+            <button onclick="abrirModalAdmin()" class="footer-icon-btn admin-btn" title="Panel de Administrador">
+                <i data-lucide="shield-alert"></i>
+            </button>
         </div>
     </aside>
 
