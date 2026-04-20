@@ -1360,3 +1360,13 @@ body.dark-mode .modal-window button.close-modal:hover,
 body.dark-mode button[onclick="cerrarPdfModal()"]:hover {
     background-color: #991b1b !important;
 }
+
+/* Efecto hover para el botón de descarga */
+#btnDownloadPdf:hover {
+    background-color: #059669 !important; /* Verde un poco más oscuro */
+}
+
+/* Efecto hover para el botón de Drive */
+#btnOpenDrive:hover {
+    background-color: #1d4ed8 !important; /* Azul más oscuro */
+}

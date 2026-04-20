@@ -1396,6 +1396,9 @@ function abrirPdfModal(titulo, subtitulo, previewUrl, driveLink) {
     document.getElementById('pdfModalSubtitle').innerText = subtitulo;
     document.getElementById('pdfIframe').src = previewUrl;
     document.getElementById('btnOpenDrive').href = driveLink;
+    // Generar la URL de descarga y asignarla al nuevo botón
+    const downloadUrl = obtenerDriveDownloadUrl(driveLink);
+    document.getElementById('btnDownloadPdf').href = downloadUrl;
     document.getElementById('pdfModal').style.display = 'flex';
 }
 
@@ -1449,3 +1452,13 @@ document.addEventListener('DOMContentLoaded', () => {
         lucide.createIcons();
     }
 });
+
+// Función para convertir la URL normal de Drive en una URL de Descarga Directa
+function obtenerDriveDownloadUrl(url) {
+    // Busca el ID del archivo que está entre "/d/" y el siguiente "/"
+    const match = url.match(/\/d\/(.+?)\//);
+    if (match && match[1]) {
+        return `https://drive.google.com/uc?export=download&id=${match[1]}`;
+    }
+    return url; // Si no encuentra el formato, devuelve el link original
+}
