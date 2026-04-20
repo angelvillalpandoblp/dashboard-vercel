@@ -1408,57 +1408,47 @@ function cerrarPdfModal() {
 }
 
 // Función para alternar el modo oscuro
+// Función para alternar el modo oscuro (Solo Iconos)
 function toggleTheme() {
     const body = document.body;
     const themeIcon = document.getElementById('theme-icon');
-    const themeText = document.getElementById('theme-text'); // Nuevo: Selecciona el texto
     
-    // Alterna la clase en el body
     body.classList.toggle('dark-mode');
     
     if (body.classList.contains('dark-mode')) {
-        themeIcon.setAttribute('data-lucide', 'sun'); // Icono de sol
-        if (themeText) themeText.innerText = 'Modo Claro'; // Cambia el texto
+        themeIcon.setAttribute('data-lucide', 'sun'); 
         localStorage.setItem('theme', 'dark');
     } else {
-        themeIcon.setAttribute('data-lucide', 'moon'); // Icono de luna
-        if (themeText) themeText.innerText = 'Modo Oscuro'; // Cambia el texto
+        themeIcon.setAttribute('data-lucide', 'moon'); 
         localStorage.setItem('theme', 'light');
     }
     
-    // Re-renderizar iconos de Lucide
     if(window.lucide) {
         lucide.createIcons();
     }
 }
 
-// Al cargar la página, revisa la preferencia guardada
+// Al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('theme');
     const themeIcon = document.getElementById('theme-icon');
-    const themeText = document.getElementById('theme-text');
     
     if (savedTheme === 'dark') {
         document.body.classList.add('dark-mode');
         if(themeIcon) themeIcon.setAttribute('data-lucide', 'sun');
-        if(themeText) themeText.innerText = 'Modo Claro';
     } else {
         if(themeIcon) themeIcon.setAttribute('data-lucide', 'moon');
-        if(themeText) themeText.innerText = 'Modo Oscuro';
     }
     
-    // Iniciar iconos (solo asegúrate de que esto se llame una vez en todo tu código)
     if(window.lucide) {
         lucide.createIcons();
     }
 });
 
-// Función para convertir la URL normal de Drive en una URL de Descarga Directa
 function obtenerDriveDownloadUrl(url) {
-    // Busca el ID del archivo que está entre "/d/" y el siguiente "/"
     const match = url.match(/\/d\/(.+?)\//);
     if (match && match[1]) {
         return `https://drive.google.com/uc?export=download&id=${match[1]}`;
     }
-    return url; // Si no encuentra el formato, devuelve el link original
+    return url;
 }

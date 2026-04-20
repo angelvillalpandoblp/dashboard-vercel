@@ -1370,3 +1370,69 @@ body.dark-mode button[onclick="cerrarPdfModal()"]:hover {
 #btnOpenDrive:hover {
     background-color: #1d4ed8 !important; /* Azul más oscuro */
 }
+
+/* =========================================================
+   FOOTER DE LA BARRA LATERAL (BOTONES SIMÉTRICOS)
+   ========================================================= */
+
+/* Contenedor del pie de la barra */
+.sidebar-footer {
+    display: flex;
+    justify-content: space-evenly; /* Separa los iconos simétricamente */
+    align-items: center;
+    padding: 20px 0;
+    border-top: 1px solid #e2e8f0;
+    margin-top: auto; /* Empuja los botones siempre hasta abajo */
+}
+
+/* Estilo de los botones sin texto */
+.footer-icon-btn {
+    background: transparent;
+    border: none;
+    color: #64748B;
+    cursor: pointer;
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+/* Tamaño de los iconos dentro del botón */
+.footer-icon-btn i {
+    width: 22px;
+    height: 22px;
+}
+
+/* Efecto Hover (Modo Claro) */
+.footer-icon-btn:hover {
+    background: #F8FAFC;
+    color: #3b82f6; /* Azul al pasar el mouse */
+}
+
+/* Hover específico para el botón de Admin (Rojo) */
+.footer-icon-btn.admin-btn:hover {
+    background: #FEE2E2;
+    color: #ef4444; 
+}
+
+/* --- ADAPTACIÓN AL MODO OSCURO --- */
+body.dark-mode .sidebar-footer {
+    border-top: 1px solid #334155 !important;
+}
+
+body.dark-mode .footer-icon-btn {
+    color: #cbd5e1 !important;
+}
+
+body.dark-mode .footer-icon-btn:hover {
+    background: #334155 !important;
+    color: #60a5fa !important;
+}
+
+body.dark-mode .footer-icon-btn.admin-btn:hover {
+    background: #7f1d1d !important;
+    color: #fca5a5 !important;
+}
