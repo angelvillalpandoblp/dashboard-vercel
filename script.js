@@ -1106,8 +1106,6 @@ async function ejecutarExplosion() {
             }
         }
 
-// --- CARGA DINÁMICA DE INSTRUCCIONES DESDE GOOGLE DRIVE (APPS SCRIPT) ---
-// ==========================================
 // BASE DE DATOS LOCAL DE INSTRUCCIONES
 // Estructura: Máquina -> Área -> Lista de PDFs
 // ==========================================
@@ -1155,7 +1153,7 @@ const arbolInstrucciones = {
             { nombre: "Rellenado de aceite unidad hidraulica", link : "https://drive.google.com/file/d/1coaangZKvZqsDMVyG7nnDT-xRbrMLrGF/view"},
             { nombre: "Cambio de banda", link : "https://drive.google.com/file/d/1Xi4gLX9fYBuVCkatQ5x1PO40hJrJXCEK/view"},
             { nombre: "Rellenado de aceite de unidad de lubricación", link : "https://drive.google.com/file/d/1EFkzqj1Ls3Qf-ZXUoeOFfmo-VxkS90id/view?usp=drive_link"}
-        ],
+        ],  
         "Extractor de polvos":[
             { nombre: "Cambio de filtros de aire", link : "https://drive.google.com/file/d/1AjmLKgxJ7bCBGj8ohNJRzrhSNGYOprpP/view"}
         ],
