@@ -1151,8 +1151,8 @@ const arbolInstrucciones = {
             { nombre: "Cambio de servomotor laser", link : "https://drive.google.com/file/d/1byAhreG3evHO_vrZkAonrEHxLS3l4DE3/view"},
             { nombre: "Ajuste de luneta", link : "https://drive.google.com/file/d/1510jA0OrIOcVUcRQL_5cZrlaI2EJ3otr/view"},
             { nombre: "Rellenado de aceite unidad hidraulica", link : "https://drive.google.com/file/d/1coaangZKvZqsDMVyG7nnDT-xRbrMLrGF/view"},
-            { nombre: "Cambio de banda", link : "https://drive.google.com/file/d/1Xi4gLX9fYBuVCkatQ5x1PO40hJrJXCEK/view"},
-            { nombre: "Rellenado de aceite de unidad de lubricación", link : "https://drive.google.com/file/d/1EFkzqj1Ls3Qf-ZXUoeOFfmo-VxkS90id/view?usp=drive_link"}
+            { nombre: "Cambio de banda de descarga", link : "https://drive.google.com/file/d/1Xi4gLX9fYBuVCkatQ5x1PO40hJrJXCEK/view"},
+            { nombre: "Rellenado de aceite de unidad de lubricación", link : "https://drive.google.com/file/d/12Ut1yzFoMjJvF5oflWD6gkHS7iWyDAiL/view"}
         ],  
         "Extractor de polvos":[
             { nombre: "Cambio de filtros de aire", link : "https://drive.google.com/file/d/1AjmLKgxJ7bCBGj8ohNJRzrhSNGYOprpP/view"}
@@ -1162,11 +1162,11 @@ const arbolInstrucciones = {
             { nombre: "Cambio de rodamiento eje X1", link : "https://drive.google.com/file/d/1_jRfmqVf7S3-pi55TWSq85tvf-u39Pye/view"},
             { nombre: "Cambio de sensor fotoeléctrico", link : "https://drive.google.com/file/d/128SYzTO7V23JX-reTdcrVu_M_iqAnSTD/view?usp=drive_link"},
             { nombre: "Ajuste de garras manual", link : "https://drive.google.com/file/d/1Yc75Pz0pCK4CVuYdnXQpkiXyKhq02qoc/view"},
-            { nombre : "Prueba de regulación de garras manual", link : "https://drive.google.com/file/d/1ZaPWrWWkZfw9fs2N74wCTDqhU_59ZUVi/view"}
+            { nombre: "Prueba de regulación de garras manual", link : "https://drive.google.com/file/d/1F8amoXSpsZxtXDXDAw0o3PQUzUYYSqS0/view"}
         ],
         "Cargador":[
             { nombre: "Alineación dientes de selección", link : "https://drive.google.com/file/d/1bBM0l_AnRHtaKw6IF8v6HHLeIPrm3dcL/view"},
-            { nombre: "Cambio de cadenas de cargador", link : "https://drive.google.com/file/d/1R4bA374lcAX0yRFZrlt0NzVNQ6sJM4JY/view"},
+            { nombre: "Cambio de cadenas de cargador", link : "https://drive.google.com/file/d/1GmHLO4eGKu4kUvau1i3t5aE4aoNy-IEW/view"},
         ],
         "Cabezal":[
             { nombre: "Alineación dientes de selección", link : "https://drive.google.com/file/d/1bBM0l_AnRHtaKw6IF8v6HHLeIPrm3dcL/view"},
@@ -1188,7 +1188,7 @@ const arbolInstrucciones = {
             { nombre: "Ajuste de base de imán   ", link : "https://drive.google.com/file/d/1fi2lt5Jc7mr0VR0nhQUJhiRxKbt4prHn/view"},
             { nombre: "Chequeo de centrado de inyector LT7 LT8", link : "https://drive.google.com/file/d/1vngNM1fYClo3F54vUmeS3JlexUR8FHNg/view"},
             { nombre: "Chequeo de centrado de inyector LT FIBER", link : "https://drive.google.com/file/d/1XM8u2dE3bYfwINRijQaPWpPhnrXSqoG0/view"},
-            { nombre: "Ajuste de ancho y ángulo de cordón de soldadura", link : "https://drive.google.com/file/d/1DZl_TBT_qot9qNZkJPAjJUNJnSd-WcXU/view"}
+            { nombre: "Ajuste de ancho y ángulo de cordón de soldadura", link : "https://drive.google.com/file/d/18Tc4zvnQwuksPPpfsy3Vs2Ihi-Gy_RKf/view"}
         ]   
     },
     "Router": {
@@ -1250,7 +1250,7 @@ const arbolInstrucciones = {
     },
     "Marcadora": {
         "General":[
-            { nombre: "cambio de rodamiento linel de marcadora", link : "https://drive.google.com/file/d/1m66tkgbaEDJvq2FB9FJNIMGrVL3Bu8tr/view?usp=drive_link"}
+            { nombre: "Cambio de rodamiento linel de marcadora", link : "https://drive.google.com/file/d/1FMA0ZcoY2jTG0uZ8seBxXrDLjsZeXyyC/view"}
         ]
     }
 };
