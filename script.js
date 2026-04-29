@@ -1016,7 +1016,7 @@ async function ejecutarExplosion() {
 
                     res.innerText = `Enviando sumas de ${hoja.nombre} a destino...`;
 
-                    await enviarDatosSecuencial(mesMayuscula, semanaStr, sumaTotalE, sumaTotalNE, hoja.destinoGid);
+                    await enviarDatosSecuencial(mesMayuscula,   Str, sumaTotalE, sumaTotalNE, hoja.destinoGid);
                 }
 
                 res.style.color = '#22c55e'; 
@@ -1161,10 +1161,12 @@ const arbolInstrucciones = {
             { nombre: "Cambio de rodamiento eje Y", link : "https://drive.google.com/file/d/1qmn-TV2OkdcQENvKwcyiKJKcmBF66yxc/view"},
             { nombre: "Cambio de rodamiento eje X1", link : "https://drive.google.com/file/d/1_jRfmqVf7S3-pi55TWSq85tvf-u39Pye/view"},
             { nombre: "Cambio de sensor fotoeléctrico", link : "https://drive.google.com/file/d/128SYzTO7V23JX-reTdcrVu_M_iqAnSTD/view?usp=drive_link"},
-            { nombre: "Ajuste de garras manual", link : "https://drive.google.com/file/d/1Yc75Pz0pCK4CVuYdnXQpkiXyKhq02qoc/view"}
+            { nombre: "Ajuste de garras manual", link : "https://drive.google.com/file/d/1Yc75Pz0pCK4CVuYdnXQpkiXyKhq02qoc/view"},
+            { nombre : "Prueba de regulación de garras manual", link : "https://drive.google.com/file/d/1ZaPWrWWkZfw9fs2N74wCTDqhU_59ZUVi/view"}
         ],
         "Cargador":[
-            { nombre: "Alineación dientes de selección", link : "https://drive.google.com/file/d/1bBM0l_AnRHtaKw6IF8v6HHLeIPrm3dcL/view"}
+            { nombre: "Alineación dientes de selección", link : "https://drive.google.com/file/d/1bBM0l_AnRHtaKw6IF8v6HHLeIPrm3dcL/view"},
+            { nombre: "Cambio de cadenas de cargador", link : "https://drive.google.com/file/d/1R4bA374lcAX0yRFZrlt0NzVNQ6sJM4JY/view"},
         ],
         "Cabezal":[
             { nombre: "Alineación dientes de selección", link : "https://drive.google.com/file/d/1bBM0l_AnRHtaKw6IF8v6HHLeIPrm3dcL/view"},
@@ -1183,9 +1185,10 @@ const arbolInstrucciones = {
             { nombre: "Cambio o limpieza de vitrino", link : "https://drive.google.com/file/d/1k20eOhPPqQMM99khlzxQcJUZBhtyuWu3/view"},
             { nombre: "Alineación centrador X1", link : "https://drive.google.com/file/d/1E8NzkAtHW6SEB9GT06cKZoKq-lVEtGev/view"},
             { nombre: "Cambio de banda de polea de atornillador", link : "https://drive.google.com/file/d/1PAprI0A2blN69UIDTlvvqxWrpLup4ETN/view"},
-            { nombre: "Ajuste de base de imán eje B", link : "https://drive.google.com/file/d/1fi2lt5Jc7mr0VR0nhQUJhiRxKbt4prHn/view"},
+            { nombre: "Ajuste de base de imán   ", link : "https://drive.google.com/file/d/1fi2lt5Jc7mr0VR0nhQUJhiRxKbt4prHn/view"},
             { nombre: "Chequeo de centrado de inyector LT7 LT8", link : "https://drive.google.com/file/d/1vngNM1fYClo3F54vUmeS3JlexUR8FHNg/view"},
             { nombre: "Chequeo de centrado de inyector LT FIBER", link : "https://drive.google.com/file/d/1XM8u2dE3bYfwINRijQaPWpPhnrXSqoG0/view"},
+            { nombre: "Ajuste de ancho y ángulo de cordón de soldadura", link : "https://drive.google.com/file/d/1DZl_TBT_qot9qNZkJPAjJUNJnSd-WcXU/view"}
         ]   
     },
     "Router": {
@@ -1245,6 +1248,11 @@ const arbolInstrucciones = {
             { nombre: "Cargar respaldo de drive de eleador", link : "https://drive.google.com/file/d/1qOI5dNQ9RYbz22ERYADwZ5VjYvFmeH3y/view"}
         ]
     },
+    "Marcadora": {
+        "General":[
+            { nombre: "cambio de rodamiento linel de marcadora", link : "https://drive.google.com/file/d/1m66tkgbaEDJvq2FB9FJNIMGrVL3Bu8tr/view?usp=drive_link"}
+        ]
+    }
 };
 
 // Variable para almacenar la lista plana
