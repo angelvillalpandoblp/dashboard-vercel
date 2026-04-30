@@ -1198,7 +1198,8 @@ const arbolInstrucciones = {
     },
     "Varias": {
         "General":[
-            { nombre: "Armado de cable RJ-45", link: "https://drive.google.com/file/d/1--F_8VhWjMAk7EyV9Yczq3aE-4i8M_Ft/view"}
+            { nombre: "Armado de cable RJ-45", link: "https://drive.google.com/file/d/1--F_8VhWjMAk7EyV9Yczq3aE-4i8M_Ft/view"},
+            { nombre: "Uso de medidor de tensión sónico", link: "https://drive.google.com/file/d/19kb2DLdrxxB2PuIFtkUW0IF8kwRAnN7X/view"}
         ]
     },
     "Robot": {
