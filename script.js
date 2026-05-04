@@ -1167,6 +1167,7 @@ const arbolInstrucciones = {
         "Cargador":[
             { nombre: "Alineación dientes de selección", link : "https://drive.google.com/file/d/1bBM0l_AnRHtaKw6IF8v6HHLeIPrm3dcL/view"},
             { nombre: "Cambio de cadenas de cargador", link : "https://drive.google.com/file/d/1GmHLO4eGKu4kUvau1i3t5aE4aoNy-IEW/view"},
+            { nombre: "Ajuste de medida de cimitarras LT FIBER", link : "https://drive.google.com/file/d/1-jojQlAvWk8zdUlmvkpzUqLSad9yfSoG/view"}
         ],
         "Cabezal":[
             { nombre: "Alineación dientes de selección", link : "https://drive.google.com/file/d/1bBM0l_AnRHtaKw6IF8v6HHLeIPrm3dcL/view"},
