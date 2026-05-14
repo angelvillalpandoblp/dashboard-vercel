@@ -1162,7 +1162,8 @@ const arbolInstrucciones = {
             { nombre: "Cambio de rodamiento eje X1", link : "https://drive.google.com/file/d/1_jRfmqVf7S3-pi55TWSq85tvf-u39Pye/view"},
             { nombre: "Cambio de sensor fotoeléctrico", link : "https://drive.google.com/file/d/128SYzTO7V23JX-reTdcrVu_M_iqAnSTD/view?usp=drive_link"},
             { nombre: "Ajuste de garras manual", link : "https://drive.google.com/file/d/1Yc75Pz0pCK4CVuYdnXQpkiXyKhq02qoc/view"},
-            { nombre: "Prueba de regulación de garras manual", link : "https://drive.google.com/file/d/1F8amoXSpsZxtXDXDAw0o3PQUzUYYSqS0/view"}
+            { nombre: "Prueba de regulación de garras manual", link : "https://drive.google.com/file/d/1F8amoXSpsZxtXDXDAw0o3PQUzUYYSqS0/view"},
+            { nombre: "Ajuste de apertura y cierre de garras", link : "https://drive.google.com/file/d/197E5gyMtqHJmcCrbfmyTvyRbgTq5Quld/view"}
         ],
         "Cargador":[
             { nombre: "Alineación dientes de selección", link : "https://drive.google.com/file/d/1bBM0l_AnRHtaKw6IF8v6HHLeIPrm3dcL/view"},
@@ -1191,7 +1192,7 @@ const arbolInstrucciones = {
             { nombre: "Chequeo de centrado de inyector LT FIBER", link : "https://drive.google.com/file/d/1XM8u2dE3bYfwINRijQaPWpPhnrXSqoG0/view"},
             { nombre: "Ajuste de ancho y ángulo de cordón de soldadura", link : "https://drive.google.com/file/d/18Tc4zvnQwuksPPpfsy3Vs2Ihi-Gy_RKf/view"}
         ]   
-    },
+    }, 
     "Router": {
         "General":[
             { nombre: "Calibración de ejes Router", link: "https://drive.google.com/file/d/15JV8CrNaqs4wdhUFmnnomZO7S6-8kyrz/view}"},
